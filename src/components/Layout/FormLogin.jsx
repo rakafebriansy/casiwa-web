@@ -1,6 +1,6 @@
 import Signature from "../Fragments/Signature";
 import TextBox from "../Fragments/TextBox";
-import CheckBox from "../Elements/CheckBox";
+import InputCheckBox from "../Elements/InputCheckBox";
 import LongRoundedButton from "../Elements/LongRoundedButton";
 import AuthAnchor from "../Elements/AuthAnchor";
 
@@ -17,7 +17,7 @@ const FormLogin = () => {
                 <TextBox name="email">Email</TextBox>
                 <TextBox name="password">Kata Sandi</TextBox>
                 <div className="flex gap-4 items-center">
-                    <CheckBox name="rememberme" id="checkbox-rememberme"/>
+                    <InputCheckBox name="rememberme" id="checkbox-rememberme"/>
                     <label htmlFor="checkbox-rememberme" className="cursor-pointer select-none">Ingat Saya</label>
                 </div>
                 <LongRoundedButton>MASUK</LongRoundedButton>

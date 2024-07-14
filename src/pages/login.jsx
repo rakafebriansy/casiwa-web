@@ -10,7 +10,7 @@ const LoginPage = () => {
         <>
             <img src={authBackground} alt="" className="hidden absolute h-screen w-screen z-[-1] lg:block"/>
             {getScreenSize().width >= 640 && (<Navbar anchors={getAnchorList()} />)}
-            <div className="flex justify-around items-center min-h-screen">
+            <div className="flex justify-around mt-[5rem] md:mt-0 lg:items-center min-h-screen">
                 <FormLogin/>
                 <div className="hidden lg:flex justify-center flex-col items-center">
                     <Logo/>
