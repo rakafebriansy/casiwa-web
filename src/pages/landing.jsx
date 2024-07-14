@@ -1,13 +1,9 @@
 import Navbar from "../components/Layout/Navbar"
-
-const anchorList = [
-    {name: 'Beranda', path: '/beranda'},
-    {name: 'Catatan', path: '/catatan'},
-];
+import { getAnchorList } from "../functions/static";
 
 const LandingPage = () => {
     return (
-        <Navbar anchors={anchorList}/>
+        <Navbar anchors={getAnchorList()}/>
     );
 }
 

@@ -18,3 +18,7 @@
   font-family: 'montserratSemiBold';
   src: url('./assets/fonts/Montserrat-SemiBold.ttf');
 }
+
+#checkbox-1:checked ~ .check-1 {
+  display: block;
+}

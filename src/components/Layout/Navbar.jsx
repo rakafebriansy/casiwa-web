@@ -1,5 +1,6 @@
-import Signature from "../Elements/Signature";
+import Signature from "../Fragments/Signature";
 import SquareButton from "../Elements/SquareButton";
+
 
 const Navbar = (props) => {
     const {anchors} = props;
@@ -15,8 +16,8 @@ const Navbar = (props) => {
                     })}
                 </ul>
                 <div className="flex justify-between gap-2 md:gap-8">
-                    <SquareButton colorCode="bg-[#25426C]">Masuk</SquareButton>
-                    <SquareButton colorCode="bg-[#7A8FC8]">Daftar</SquareButton>
+                    <SquareButton colorCode="bg-primary">Masuk</SquareButton>
+                    <SquareButton colorCode="bg-secondary">Daftar</SquareButton>
                 </div>
             </div>
         </nav>
