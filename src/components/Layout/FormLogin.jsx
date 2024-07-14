@@ -11,9 +11,9 @@ const FormLogin = () => {
             <div className="flex flex-col items-center justify-between gap-2 md:items-start">
                 <Signature isAuth={true} classname="lg:hidden"/>
                 <h1 className="font-montserratBold text-secondary text-3xl mt-4">MASUK</h1>
-                <p className="text-center">Selamat datang, silahkan masuk</p>
+                <p className="text-center">Selamat datang, silahkan masuk!</p>
             </div>
-            <div className="w-full flex flex-col items-start gap-3 my-10">
+            <div className="w-full flex flex-col items-start gap-3 my-6">
                 <TextBox name="email">Email</TextBox>
                 <TextBox name="password">Kata Sandi</TextBox>
                 <div className="flex gap-4 items-center">
@@ -23,7 +23,7 @@ const FormLogin = () => {
                 <LongRoundedButton>MASUK</LongRoundedButton>
             </div>
             <div className="w-full flex justify-center">
-                <AuthAnchor/>
+                <AuthAnchor hasAnAccount={true}/>
             </div>
         </div>
         </>
