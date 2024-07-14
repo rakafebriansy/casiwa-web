@@ -17,8 +17,8 @@ const FormLogin = () => {
                 <TextBox name="email">Email</TextBox>
                 <TextBox name="password">Kata Sandi</TextBox>
                 <div className="flex gap-4 items-center">
-                    <CheckBox/>
-                    <p>Ingat Saya</p>
+                    <CheckBox name="rememberme" id="checkbox-rememberme"/>
+                    <label htmlFor="checkbox-rememberme" className="cursor-pointer select-none">Ingat Saya</label>
                 </div>
                 <LongRoundedButton>MASUK</LongRoundedButton>
             </div>

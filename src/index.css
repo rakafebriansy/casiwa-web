@@ -19,6 +19,6 @@
   src: url('./assets/fonts/Montserrat-SemiBold.ttf');
 }
 
-#checkbox-1:checked ~ .check-1 {
+#checkbox-rememberme:checked ~ .check-1 {
   display: block;
 }
