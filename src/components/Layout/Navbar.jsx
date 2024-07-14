@@ -16,8 +16,8 @@ const Navbar = (props) => {
                     })}
                 </ul>
                 <div className="flex justify-between gap-2 md:gap-8">
-                    <SquareButton colorCode="bg-primary">Masuk</SquareButton>
-                    <SquareButton colorCode="bg-secondary">Daftar</SquareButton>
+                    <SquareButton path="/login" colorCode="bg-primary">Masuk</SquareButton>
+                    <SquareButton path="/register" colorCode="bg-secondary">Daftar</SquareButton>
                 </div>
             </div>
         </nav>
