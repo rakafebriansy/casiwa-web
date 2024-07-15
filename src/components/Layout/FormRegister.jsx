@@ -5,7 +5,9 @@ import LongRoundedButton from "../Elements/LongRoundedButton";
 import AuthAnchor from "../Elements/AuthAnchor";
 import DropdownField from "../Fragments/DropdownField";
 
-const FormRegister = () => {
+const FormRegister = (props) => {
+    const {universities, studyPrograms} = props;
+
     return (
         <>
         <div className="w-[70%] h-[70%] flex flex-col items-center justify-between md:w-[50rem] md:border md:py-8 md:px-12 md:items-start md:rounded-xl md:shadow-lg bg-white">
@@ -18,13 +20,13 @@ const FormRegister = () => {
                 <div className="flex flex-col gap-2 lg:grid lg:grid-cols-2 w-full lg:gap-8">
                     <div className="flex flex-col gap-2">
                         <TextBox name="first_name">Nama Depan</TextBox>
-                        <DropdownField name="university" label="Universitas">Pilih universitas</DropdownField>
+                        <DropdownField list={universities} name="university" label="Universitas">Pilih universitas</DropdownField>
                         <TextBox name="starting_year">Tahun Masuk Perkuliahan</TextBox>
                         <TextBox name="password">Kata Sandi</TextBox>
                     </div>
                     <div className="flex flex-col gap-2">
                         <TextBox name="last_name">Nama Belakang</TextBox>
-                        <DropdownField name="study_program" label="Program Studi">Pilih Program Studi</DropdownField>
+                        <DropdownField list={studyPrograms} name="study_program" label="Program Studi">Pilih Program Studi</DropdownField>
                         <TextBox name="email">Alamat Email</TextBox>
                         <TextBox name="confirm_password">Konfirmasi Kata Sandi</TextBox>
                     </div>

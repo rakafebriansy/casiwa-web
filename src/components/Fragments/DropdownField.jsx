@@ -3,8 +3,8 @@ import InputDropdown from "../Elements/InputDropdown";
 import Label from "../Elements/Label";
 
 const DropdownField = (props) => {
-    const {children, name, id='', label} = props;
-    
+    const {children, name, id='', label, list} = props;
+
     const refBtnClicked = useRef(null);
     const refDropdownClicked = useRef(null);
 
@@ -36,22 +36,14 @@ const DropdownField = (props) => {
             <div className="relative">
                 <InputDropdown name={name} id={'btn-' + id} ref={refBtnClicked} onclick={dropdownToggle}>{children}</InputDropdown>
                 <ul ref={refDropdownClicked} id={id} className={` ${clicked ? 'flex' : 'hidden'} max-h-20 overflow-scroll overflow-x-hidden flex flex-col absolute top-9 w-full bg-white border-b border-x border-[#9B9B9B] cursor-pointer pb-1 rounded-b-lg justify-between items-center`} type="text">
-                    <li onClick={() => { dropdownClicked(1, 'Contoh 1') }} className="flex justify-start w-full hover:bg-[rgba(0,0,0,0.04)] px-2 py-1">
-                        <input type="hidden" name={name} id={id} />
-                        <p className="select-none">Contoh 1</p>
-                    </li>
-                    <li onClick={() => { dropdownClicked(2, 'Contoh 2') }} className="flex justify-start w-full hover:bg-[rgba(0,0,0,0.04)] px-2 py-1">
-                        <input type="hidden" name={name} id={id} />
-                        <p className="select-none">Contoh 2</p>
-                    </li>
-                    <li onClick={() => { dropdownClicked(3, 'Contoh 3') }} className="flex justify-start w-full hover:bg-[rgba(0,0,0,0.04)] px-2 py-1">
-                        <input type="hidden" name={name} id={id} />
-                        <p className="select-none">Contoh 3</p>
-                    </li>
-                    <li onClick={() => { dropdownClicked(4, 'Contoh 4') }} className="flex justify-start w-full hover:bg-[rgba(0,0,0,0.04)] px-2 py-1">
-                        <input type="hidden" name={name} id={id} />
-                        <p className="select-none">Contoh 4</p>
-                    </li>
+                    {list.map(item => {
+                        return (
+                            <li key={item.id} onClick={() => { dropdownClicked(item.id, item.name) }} className="flex justify-start w-full hover:bg-[rgba(0,0,0,0.04)] px-2 py-1">
+                                <input type="hidden" name={name} id={id} />
+                                <p className="select-none">{item.name}</p>
+                            </li>
+                        );
+                    })}
                 </ul>
             </div>
         </div>
