@@ -39,7 +39,7 @@ const DropdownField = (props) => {
                 <ul ref={refDropdownClicked} id={id} className={` ${clicked ? 'flex' : 'hidden'} max-h-20 overflow-scroll overflow-x-hidden flex flex-col absolute top-9 w-full bg-white border-b border-x border-[#9B9B9B] cursor-pointer pb-1 rounded-b-lg justify-between items-center`} type="text">
                     {list.map(item => {
                         return (
-                            <li key={item.id} onClick={() => { dropdownClicked(item.id, item.name) }} className="flex justify-start w-full hover:bg-[rgba(0,0,0,0.04)] px-2 py-1">
+                            <li key={item.id} onClick={() => { dropdownClicked(item.id, item.name) }} className="flex z-10 justify-start w-full bg-white hover:bg-[rgba(0,0,0,0.04)] px-2 py-1">
                                 <input type="hidden" id={item.id} />
                                 <p className="select-none">{item.name}</p>
                             </li>

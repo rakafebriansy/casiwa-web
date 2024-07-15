@@ -5,7 +5,7 @@ import authBackground from "../assets/images/auth-background.png"
 import Logo from "../components/Elements/Logo";
 import FormRegister from "../components/Layout/FormRegister";
 import { useContext, useEffect, useState } from "react";
-import { getStudyPrograms, getUniversities } from "../services/list.userDetail.mjs";
+import { getStudyPrograms, getUniversities } from "../../services/list.userDetail.mjs";
 import Alert from "../components/Elements/Alert";
 import { ShowAlertContext } from "../contexts/ShowAlert";
 
@@ -13,7 +13,7 @@ const RegisterPage = () => {
 
     const [universities, setUniversities] = useState([]);
     const [studyPrograms, setStudyPrograms] = useState([]);
-    const {isShowAlert, setIsShowAlert} = useContext(ShowAlertContext);
+    const {isShowAlert} = useContext(ShowAlertContext);
 
     useEffect(()=> {
         getUniversities((data) => {

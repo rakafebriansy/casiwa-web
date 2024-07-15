@@ -1,6 +1,5 @@
 import axios from "axios";
-
-const baseURL = 'http://127.0.0.1:8000/api';
+import { baseURL } from "./env.mjs";
 
 export const getData = (data) => {
     return data;
