@@ -17,6 +17,6 @@ const InputDropdown = React.forwardRef((props,ref) => {
             </svg>
         </div>
     );
-})
+});
 
 export default InputDropdown;

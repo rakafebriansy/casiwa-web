@@ -27,6 +27,7 @@ const DropdownField = (props) => {
 
     const dropdownClicked = (id, text) => {
         refBtnClicked.current.children[1].innerText = text;
+        refBtnClicked.current.firstElementChild.value = id;
         dropdownToggle();
     }
 
@@ -39,7 +40,7 @@ const DropdownField = (props) => {
                     {list.map(item => {
                         return (
                             <li key={item.id} onClick={() => { dropdownClicked(item.id, item.name) }} className="flex justify-start w-full hover:bg-[rgba(0,0,0,0.04)] px-2 py-1">
-                                <input type="hidden" name={name} id={id} />
+                                <input type="hidden" id={item.id} />
                                 <p className="select-none">{item.name}</p>
                             </li>
                         );
