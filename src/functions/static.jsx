@@ -8,7 +8,6 @@ export const getAnchorList = (isLogin = false) => {
         ];
     } 
     return [
-        {name: 'Beranda', path: '/'},
-        {name: 'Catatan', path: '/catatan'},
+
     ];
 }
