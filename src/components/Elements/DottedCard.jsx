@@ -1,5 +1,3 @@
-import trophy from '../../assets/images/trophy.png'
-
 const DottedCard = () => {
     return (
         <div className="w-[50%] hover:shadow-xl dotted-card text-[#4A4A4A] hover:bg-secondary rounded-[2.5rem] box-border transition hover:border-secondary hover:border-dashed p-5 flex flex-col gap-5 justify-between  items-center text-[0.7rem]">
