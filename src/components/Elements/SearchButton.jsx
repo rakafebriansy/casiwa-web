@@ -1,7 +1,7 @@
 const SearchButton = () => {
     return (
         <div className="font-montserratSemiBold flex">
-            <input type="text" placeholder="Cari dokumen" className="w-[85%] p-2 rounded-l-lg" />
+            <input type="text" placeholder="Cari dokumen" className="w-[85%] p-2 rounded-l-lg font-montserratRegular text-sm" />
             <button className="p-2 box-border bg-secondary rounded-r-lg w-[15%] flex justify-center items-center">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M14.4121 14.4121L20 20" stroke="white" stroke-linecap="round"/>

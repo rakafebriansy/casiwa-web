@@ -6,6 +6,7 @@ import studyImage from "../assets/images/study.png"
 import globeImage from '../assets/images/globe.png'
 import schoolImage from "../assets/images/school.png"
 import partnershipImage from "../assets/images/partnership.png"
+import Footer from "../components/Layout/Footer";
 
 const LandingPage = () => {
     return (
@@ -34,7 +35,7 @@ const LandingPage = () => {
         <div className="py-6">
             <h1 className="text-2xl font-montserratBold text-[#4A4A4A] text-center mb-6">Kenapa Harus CASIWA ?</h1>
             <ul className="flex flex-col items-center gap-6">
-                <li className="w-[50%] hover:shadow-xl dotted-card text-[#4A4A4A] hover:bg-secondary rounded-[2.5rem] box-border transition hover:border-secondary hover:border-dashed p-5 flex flex-col gap-5 justify-between  items-center text-[0.7rem]">
+                <li className="w-[60%] hover:shadow-xl dotted-card text-[#4A4A4A] hover:bg-secondary rounded-[2.5rem] box-border transition hover:border-secondary hover:border-dashed p-5 flex flex-col gap-3 justify-between  items-center text-[0.7rem]">
                     <div className="w-[20%]">
                         <svg width="90" height="89" className="w-full" viewBox="0 0 90 89" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <g clip-path="url(#clip0_392_2180)">
@@ -54,7 +55,7 @@ const LandingPage = () => {
                     <p className="font-montserratRegular text-center">CASIWA menghargai keberagaman latar belakang, budaya, dan identitas gender.</p>
                     <p className="font-montserratLight">Kami bertanggung jawab atas dampak lingkungan dan peran kami dalam masyarakat. Kami terus berupaya menjadi lebih beragam, inklusif, dan ramah lingkungan.</p>
                 </li>
-                <li className="w-[50%] hover:shadow-xl dotted-card text-[#4A4A4A] hover:bg-secondary rounded-[2.5rem] box-border transition hover:border-secondary hover:border-dashed p-5 flex flex-col gap-5 justify-between  items-center text-[0.7rem]">
+                <li className="w-[60%] hover:shadow-xl dotted-card text-[#4A4A4A] hover:bg-secondary rounded-[2.5rem] box-border transition hover:border-secondary hover:border-dashed p-5 flex flex-col gap-3 justify-between  items-center text-[0.7rem]">
                     <div className="w-[20%]">
                         <svg width="30" className='w-full' height="87" viewBox="0 0 80 87" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <g clip-path="url(#clip0_367_2382)">
@@ -70,7 +71,7 @@ const LandingPage = () => {
                     <p className="font-montserratRegular text-center">Tujuan kami adalah memberikan dampak positif dan nyata kepada pengguna kami.</p>
                     <p className="font-montserratLight">Kami berkomitmen untuk menciptakan sistem belajar yang mudah dan bermanfaat, dan terus menantang diri kami untuk membuat perbedaan.</p>
                 </li>
-                <li className="w-[50%] hover:shadow-xl dotted-card text-[#4A4A4A] hover:bg-secondary rounded-[2.5rem] box-border transition hover:border-secondary hover:border-dashed p-5 flex flex-col gap-5 justify-between  items-center text-[0.7rem]">
+                <li className="w-[60%] hover:shadow-xl dotted-card text-[#4A4A4A] hover:bg-secondary rounded-[2.5rem] box-border transition hover:border-secondary hover:border-dashed p-5 flex flex-col gap-3 justify-between  items-center text-[0.7rem]">
                     <div className="w-[20%]">
                         <svg width="88" height="87" className="w-full" viewBox="0 0 88 87" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <g clip-path="url(#clip0_392_2177)">
@@ -110,6 +111,7 @@ const LandingPage = () => {
                 </div>
             </div>
         </div>
+    <Footer />
         </>
     );
 }

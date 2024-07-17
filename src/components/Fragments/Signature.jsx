@@ -1,10 +1,18 @@
 import Logo from "../Elements/Logo";
 
 const Signature = (props) => {
-    const { isAuth = false, classname} = props;
+    const { isAuth, isFooter, classname} = props;
     if (isAuth) {
         return (
             <div className={`flex justify-between max-w-[20rem] md:max-w-[24rem] gap-2 md:gap-3 items-center ${classname}`}>
+                <Logo classname="w-16 md:w-24"/>
+                <h3 className="font-montserratBold text-2xl md:text-3xl text-primary">Casiwa</h3>
+            </div>
+        );
+    }
+    if (isFooter) {
+        return (
+            <div className={`flex justify-between max-w-40 md:max-w-[24rem] gap-2 md:gap-3 items-center ${classname}`}>
                 <Logo classname="w-16 md:w-24"/>
                 <h3 className="font-montserratBold text-2xl md:text-3xl text-primary">Casiwa</h3>
             </div>
