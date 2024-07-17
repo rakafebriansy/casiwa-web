@@ -1,3 +1,4 @@
+import DottedCard from "../components/Elements/DottedCard";
 import Hero from "../components/Elements/Hero";
 import SearchButton from "../components/Elements/SearchButton";
 import Navbar from "../components/Layout/Navbar"
@@ -14,6 +15,14 @@ const LandingPage = () => {
                     <SearchButton />
                 </div>
             </div>
+        </div>
+        <div>
+            <h1 className="text-2xl font-montserratBold text-[#4A4A4A] text-center my-8">Kenapa Harus CASIWA ?</h1>
+            <ul className="flex flex-col items-center gap-8">
+                <DottedCard/>
+                <DottedCard/>
+                <DottedCard/>
+            </ul>
         </div>
         </>
     );

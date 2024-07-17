@@ -15,7 +15,8 @@ export default {
       montserratBold: 'montserratBold',
       montserratSemiBold: 'montserratSemiBold',
       montserratRegular: 'montserratRegular',
-      montserratMedium: 'montserratMedium'
+      montserratMedium: 'montserratMedium',
+      montserratLight: 'montserratLight',
     }
   },
   plugins: [],

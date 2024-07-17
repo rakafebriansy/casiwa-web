@@ -18,3 +18,15 @@
   font-family: 'montserratSemiBold';
   src: url('./assets/fonts/Montserrat-SemiBold.ttf');
 }
+@font-face {
+  font-family: 'montserratLight';
+  src: url('./assets/fonts/Montserrat-Light.ttf');
+}
+
+.dotted-card:hover > p {
+  color:white;
+}
+
+.dotted-card:hover path {
+  fill:white
+}
