@@ -1,7 +1,7 @@
 import Navbar from "../components/Layout/Navbar";
 import { getScreenSize } from "../functions/layout";
 import { getAnchorList } from "../functions/static";
-import authBackground from "../assets/images/auth-background.png"
+import authBackgroundImage from "../assets/images/auth-background.png"
 import Logo from "../components/Elements/Logo";
 import FormRegister from "../components/Layout/FormRegister";
 import { useContext, useEffect, useState } from "react";
@@ -26,7 +26,7 @@ const RegisterPage = () => {
 
     return (
         <>
-            <img src={authBackground} alt="" className="hidden absolute h-screen w-screen z-[-1] lg:block"/>
+            <img src={authBackgroundImage} alt="" className="hidden absolute h-screen w-screen z-[-1] lg:block"/>
             {isShowAlert.status && (<Alert>{isShowAlert.message}</Alert>)}
             {universities.length > 0 && studyPrograms.length > 0 && (
             <>

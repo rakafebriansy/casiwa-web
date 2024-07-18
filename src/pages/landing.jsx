@@ -6,6 +6,7 @@ import studyImage from "../assets/images/study.png"
 import globeImage from '../assets/images/globe.png'
 import schoolImage from "../assets/images/school.png"
 import partnershipImage from "../assets/images/partnership.png"
+import landingBackgroundImage from "../assets/images/landing-background.png"
 import Footer from "../components/Layout/Footer";
 
 const LandingPage = () => {
@@ -13,28 +14,27 @@ const LandingPage = () => {
         <>
         <Navbar anchors={getAnchorList()}/>
         <div className="bg-gradient-to-tr from-[#dfe9f3] via-60% via-white to-white w-full flex justify-center items-center min-h-screen">
-            <div className="w-[80%]">
-                <div className="flex flex-col gap-10">
-                    <div className="font-montserratBold w-full flex flex-col gap-10">
-                        <div className="text-base">
-                            <p className="text-[#596280]">CASIWA</p>
-                            <div className="text-3xl">
-                                <p>SOLUSI <span className="text-secondary">BELAJAR</span></p>
-                                <p><span className="text-secondary">SAMBIL</span> BEKERJA</p>
-                            </div>
-                            <p className="text-[#00293F] font-montserratRegular text-sm">Layanan Berbagi Catatan Mahasiswa</p>
+            <img src={landingBackgroundImage} alt="" className="hidden absolute h-screen w-screen lg:block"/>
+            <div className="w-[80%] flex flex-col justify-between z-[10]">
+                <div className="font-montserratBold w-full flex flex-col md:flex-row justify-around items-center gap-10">
+                    <div className="text-base lg:text-2xl">
+                        <p className="text-[#596280]">CASIWA</p>
+                        <div className="text-3xl lg:text-4xl">
+                            <p>SOLUSI <span className="text-secondary">BELAJAR</span></p>
+                            <p><span className="text-secondary">SAMBIL</span> BEKERJA</p>
                         </div>
-                        <div className="w-full">
-                            <img src={globeImage} className="w-full" alt="" />
-                        </div>
+                        <p className="text-[#00293F] font-montserratRegular text-sm lg:text-base">Layanan Berbagi Catatan Mahasiswa</p>
                     </div>
-                    <SearchButton />
+                    <div className="w-full lg:w-[40%]">
+                        <img src={globeImage} className="w-full" alt="" />
+                    </div>
                 </div>
+                <SearchButton />
             </div>
         </div>
-        <div className="py-6">
+        <div className="py-6 flex flex-col items-center">
             <h1 className="text-2xl font-montserratBold text-[#4A4A4A] text-center mb-6">Kenapa Harus CASIWA ?</h1>
-            <ul className="flex flex-col items-center gap-6">
+            <ul className="flex flex-col lg:flex-row lg:w-[80%] items-center gap-6">
                 <li className="w-[60%] hover:shadow-xl dotted-card text-[#4A4A4A] hover:bg-secondary rounded-[2.5rem] box-border transition hover:border-secondary hover:border-dashed p-5 flex flex-col gap-3 justify-between  items-center text-[0.7rem]">
                     <div className="w-[20%]">
                         <svg width="90" height="89" className="w-full" viewBox="0 0 90 89" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -47,7 +47,7 @@ const LandingPage = () => {
                             </g>
                             <defs>
                             <clipPath id="clip0_392_2180">
-                            <rect width="90" height="89" fill="white"/>
+                            <rect width="90" height="89" fill="noe"/>
                             </clipPath>
                             </defs>
                         </svg>
@@ -89,11 +89,13 @@ const LandingPage = () => {
                 </li>
             </ul>
         </div>
-        <div className="py-6 flex justify-center bg-gradient-to-t from-[#dfe9f3] via-60% via-white to-white">
-            <div className="flex flex-col items-center gap-8 text-center w-[70%]">
+        <div className="py-10 flex justify-center bg-gradient-to-t from-[#dfe9f3] via-60% via-white to-white">
+            <div className="flex flex-col items-center lg:grid lg:grid-cols-2 gap-8 lg:gap-12 text-center w-[70%] lg:w-[90%]">
                 <img src={studyImage} alt="" />
-                <h1 className="text-2xl font-montserratBold text-[#4A4A4A] text-center">Platform Berbagi Catatan Pertama Di Indonesia</h1>
-                <SquareButton colorCode="bg-[#25426C]" path="/register">Daftar Sekarang</SquareButton>
+                <div className="flex flex-col items-center gap-8 lg:items-start">
+                    <h1 className="text-2xl font-montserratBold text-[#4A4A4A] text-center lg:text-4xl lg:text-start">Platform Berbagi Catatan Pertama Di Indonesia</h1>
+                    <SquareButton colorCode="bg-[#25426C]" path="/register">Daftar Sekarang</SquareButton>
+                </div>
             </div>
         </div>
         <div className="p-10 flex justify-center font-montserratSemiBold">

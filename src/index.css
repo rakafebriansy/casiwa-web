@@ -28,5 +28,6 @@
 }
 
 .dotted-card:hover path {
-  fill:white
+  fill:white;
+  stroke: white;
 }
