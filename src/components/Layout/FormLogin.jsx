@@ -3,11 +3,39 @@ import TextBox from "../Fragments/TextBox";
 import InputCheckBox from "../Elements/InputCheckBox";
 import LongRoundedButton from "../Elements/LongRoundedButton";
 import AuthAnchor from "../Elements/AuthAnchor";
+import { useNavigate } from "react-router-dom";
+import { login } from "../../../services/auth.login.mjs";
+import { useContext } from "react";
+import { AuthorizedContext } from "../../contexts/Authorized";
+import { ShowAlertContext } from "../../contexts/ShowAlert";
 
 const FormLogin = () => {
+    const {setIsAuthorized} = useContext(AuthorizedContext);
+    const {setIsShowAlert} = useContext(ShowAlertContext);
+    const navigate = useNavigate();
+    
+    const handleLogin = (e) => {
+        e.preventDefault();
+
+        const data = {
+            email: e.target.email.value,
+            password: e.target.password.value,
+        }
+
+        login(data,(data) => {
+            console.log(data)
+            if(data.success) {
+                setIsAuthorized(data);
+                navigate('/');
+            } else {
+                setIsShowAlert({status: true, message:data.message});
+            }
+        });
+    };
+
     return (
         <>
-        <div className="w-[70%] h-[70%] flex flex-col items-center justify-between md:w-[28rem] md:border md:py-8 md:px-12 md:items-start md:rounded-xl md:shadow-lg bg-white">
+        <form onSubmit={handleLogin} className="w-[70%] h-[70%] flex flex-col items-center justify-between md:w-[28rem] md:border md:py-8 md:px-12 md:items-start md:rounded-xl md:shadow-lg bg-white">
             <div className="flex flex-col items-center justify-between gap-2 md:items-start">
                 <Signature isAuth={true} classname="lg:hidden"/>
                 <h1 className="font-montserratBold text-secondary text-3xl mt-4">MASUK</h1>
@@ -15,7 +43,7 @@ const FormLogin = () => {
             </div>
             <div className="w-full flex flex-col items-start gap-3 my-6">
                 <TextBox name="email">Email</TextBox>
-                <TextBox name="password">Kata Sandi</TextBox>
+                <TextBox name="password" type="password">Kata Sandi</TextBox>
                 <div className="flex gap-4 items-center">
                     <InputCheckBox name="rememberme" id="checkbox-rememberme"/>
                     <label htmlFor="checkbox-rememberme" className="cursor-pointer select-none">Ingat Saya</label>
@@ -25,7 +53,7 @@ const FormLogin = () => {
             <div className="w-full flex justify-center">
                 <AuthAnchor hasAnAccount={true}/>
             </div>
-        </div>
+        </form>
         </>
     );
 }

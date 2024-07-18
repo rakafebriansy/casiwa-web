@@ -1,14 +1,17 @@
 import Signature from "../Fragments/Signature";
 import SquareButton from "../Elements/SquareButton";
 import ProfilePicture from "../Elements/ProfilePicture";
+import { Link } from "react-router-dom";
 
 
 const Navbar = (props) => {
-    const {anchors, isLogin = false} = props;
+    const {anchors, isLogin} = props;
     return (
         <nav className="flex w-full justify-center font-montserratRegular fixed top-0 z-30 bg-white">
             <div className="flex w-[90%] justify-between items-center p-4">
-                <Signature/>
+                <Link to={'/'}>
+                    <Signature/>
+                </Link>
                 <ul className="hidden justify-between gap-4 items-center font-montserratSemiBold text-[#95979E] md:flex">
                     {anchors.map((value) => {
                         return (

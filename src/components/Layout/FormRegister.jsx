@@ -17,10 +17,6 @@ const FormRegister = (props) => {
     
     const handleRegister = (e) => {
         e.preventDefault();
-        
-        if(e.target.password.value !== e.target.confirm_password.value) {
-            setIsShowAlert({status:true, message:'Konfirmasi Kata Sandi tidak sesuai'});
-        }
 
         const data = {
             first_name: e.target.first_name.value,
@@ -30,17 +26,17 @@ const FormRegister = (props) => {
             starting_year: e.target.starting_year.value,
             email: e.target.email.value,
             password: e.target.password.value,
+            confirm_password: e.target.confirm_password.value,
         }
 
         register(data,(data) => {
             if(data.success) {
-                setIsAfterRegister({status: true, message:data.message});
+                setIsAfterRegister({success: true, message:data.message});
                 navigate('/login');
             } else {
                 setIsShowAlert({status: true, message:data.message});
             }
-        })
-        
+        });
     };
 
     return (
