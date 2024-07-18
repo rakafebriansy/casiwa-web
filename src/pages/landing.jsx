@@ -15,7 +15,7 @@ const LandingPage = () => {
         <Navbar anchors={getAnchorList()}/>
         <div className="bg-gradient-to-tr from-[#dfe9f3] via-60% via-white to-white w-full flex justify-center items-center min-h-screen">
             <img src={landingBackgroundImage} alt="" className="hidden absolute h-screen w-screen lg:block"/>
-            <div className="w-[80%] flex flex-col justify-between z-[10]">
+            <div className="w-[80%] gap-[5rem] flex flex-col justify-between z-[10]">
                 <div className="font-montserratBold w-full flex flex-col md:flex-row justify-around items-center gap-10">
                     <div className="text-base lg:text-2xl">
                         <p className="text-[#596280]">CASIWA</p>
@@ -35,7 +35,7 @@ const LandingPage = () => {
         <div className="py-6 flex flex-col items-center">
             <h1 className="text-2xl font-montserratBold text-[#4A4A4A] text-center mb-6">Kenapa Harus CASIWA ?</h1>
             <ul className="flex flex-col lg:flex-row lg:w-[80%] items-center gap-6">
-                <li className="w-[60%] hover:shadow-xl dotted-card text-[#4A4A4A] hover:bg-secondary rounded-[2.5rem] box-border transition hover:border-secondary hover:border-dashed p-5 flex flex-col gap-3 justify-between  items-center text-[0.7rem]">
+                <li className="w-[60%] hover:shadow-xl dotted-card text-[#4A4A4A] hover:bg-secondary rounded-[2.5rem] box-border transition hover:border-secondary hover:border-dashed py-5 px-10 flex flex-col gap-3 justify-between  items-center text-[0.7rem] lg:text-sm">
                     <div className="w-[20%]">
                         <svg width="90" height="89" className="w-full" viewBox="0 0 90 89" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <g clip-path="url(#clip0_392_2180)">
@@ -52,10 +52,10 @@ const LandingPage = () => {
                             </defs>
                         </svg>
                     </div>
-                    <p className="font-montserratRegular text-center">CASIWA menghargai keberagaman latar belakang, budaya, dan identitas gender.</p>
+                    <p className="font-montserratSemiBold text-center lg:text-base">CASIWA menghargai keberagaman latar belakang, budaya, dan identitas gender.</p>
                     <p className="font-montserratLight">Kami bertanggung jawab atas dampak lingkungan dan peran kami dalam masyarakat. Kami terus berupaya menjadi lebih beragam, inklusif, dan ramah lingkungan.</p>
                 </li>
-                <li className="w-[60%] hover:shadow-xl dotted-card text-[#4A4A4A] hover:bg-secondary rounded-[2.5rem] box-border transition hover:border-secondary hover:border-dashed p-5 flex flex-col gap-3 justify-between  items-center text-[0.7rem]">
+                <li className="w-[60%] hover:shadow-xl dotted-card text-[#4A4A4A] hover:bg-secondary rounded-[2.5rem] box-border transition hover:border-secondary hover:border-dashed py-5 px-10 flex flex-col gap-3 justify-between  items-center text-[0.7rem] lg:text-sm">
                     <div className="w-[20%]">
                         <svg width="30" className='w-full' height="87" viewBox="0 0 80 87" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <g clip-path="url(#clip0_367_2382)">
@@ -68,10 +68,10 @@ const LandingPage = () => {
                         </defs>
                         </svg>
                     </div>
-                    <p className="font-montserratRegular text-center">Tujuan kami adalah memberikan dampak positif dan nyata kepada pengguna kami.</p>
+                    <p className="font-montserratSemiBold text-center lg:text-base">Tujuan kami adalah memberikan dampak positif dan nyata kepada pengguna kami.</p>
                     <p className="font-montserratLight">Kami berkomitmen untuk menciptakan sistem belajar yang mudah dan bermanfaat, dan terus menantang diri kami untuk membuat perbedaan.</p>
                 </li>
-                <li className="w-[60%] hover:shadow-xl dotted-card text-[#4A4A4A] hover:bg-secondary rounded-[2.5rem] box-border transition hover:border-secondary hover:border-dashed p-5 flex flex-col gap-3 justify-between  items-center text-[0.7rem]">
+                <li className="w-[60%] hover:shadow-xl dotted-card text-[#4A4A4A] hover:bg-secondary rounded-[2.5rem] box-border transition hover:border-secondary hover:border-dashed py-5 px-10 flex flex-col gap-3 justify-between  items-center text-[0.7rem] lg:text-sm">
                     <div className="w-[20%]">
                         <svg width="88" height="87" className="w-full" viewBox="0 0 88 87" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <g clip-path="url(#clip0_392_2177)">
@@ -84,7 +84,7 @@ const LandingPage = () => {
                         </defs>
                         </svg>
                     </div>
-                    <p className="font-montserratRegular text-center">Pembelajaran adalah bagian integral dari DNA kita.</p>
+                    <p className="font-montserratSemiBold text-center lg:text-base">Pembelajaran adalah bagian integral dari DNA kita.</p>
                     <p className="font-montserratLight">Meski tujuan utama kami adalah mempermudah proses belajar bagi mahasiswa, kami sendiri terus-menerus berkembang dan belajar. Kami juga menyediakan kesempatan bagi mahasiswa untuk mendapatkan penghasilan tambahan dengan cara yang sangat mudah.</p>
                 </li>
             </ul>
@@ -99,26 +99,26 @@ const LandingPage = () => {
             </div>
         </div>
         <div className="p-10 flex justify-center font-montserratSemiBold">
-            <div className="bg-[rgba(122,143,200,0.1)] text-xs flex flex-col gap-7 p-8 rounded-3xl items-center text-center lg:text-start">
-                <h4 className="text-[#2325B3] text-sm lg:text-end">Benefit</h4>
-                <div className="flex flex-col items-center gap-6 justify-center lg:flex-row">
+            <div className="bg-[rgba(122,143,200,0.1)] text-xs lg:text-base flex flex-col gap-7 p-8 rounded-3xl items-center text-center lg:text-start">
+                <h4 className="text-[#2325B3] text-sm lg:text-end lg:text-lg">Benefit</h4>
+                <div className="flex flex-col items-center gap-6 lg:gap-10 justify-center lg:flex-row lg:w-[90%] lg:justify-start">
                     <img src={schoolImage} className="w-20 m-1" alt="" />
                     <div>
-                        <h5 className="text-[#25426C] text-base lg:mb-1">Memudahkan Mencari Materi Kuliah</h5>
+                        <h5 className="text-[#25426C] text-base lg:text-lg lg:mb-1">Memudahkan Mencari Materi Kuliah</h5>
                         <p className="font-montserratRegular">Membantu mahasiswa dalam mencari catatan materi kuliah dengan mudah dan menginspirasi kamu untuk aktif berbagi dan mengunggah catatan kuliah.</p>
                     </div>
                 </div>
-                <div className="flex flex-col items-center gap-6 justify-center lg:flex-row">
+                <div className="flex flex-col items-center gap-6 lg:gap-10 justify-center lg:flex-row lg:w-[90%] lg:justify-start">
                     <img src={partnershipImage} className="w-20 m-1" alt="" />
                     <div>
-                        <h5 className="text-[#25426C] text-base lg:mb-1">Memberi Penghasilan Tambahan bagi Pengunggah Catatan</h5>
+                        <h5 className="text-[#25426C] text-base lg:text-lg lg:mb-1">Memberi Penghasilan Tambahan bagi Pengunggah Catatan</h5>
                         <p className="font-montserratRegular">Memberikan peluang bagi kamu untuk mendapatkan penghasilan tambahan. Dengan mengunggah catatan kuliah, kamu tidak hanya membantu rekan mahasiswa lainnya, tetapi juga bisa mendapatkan uang dari setiap penjualan catatan yang kamu unggah.</p>
                     </div>
                 </div>
             </div>
         </div>
     <Footer />
-        </>
+    </>
     );
 }
 
