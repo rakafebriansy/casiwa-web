@@ -99,17 +99,21 @@ const LandingPage = () => {
             </div>
         </div>
         <div className="p-10 flex justify-center font-montserratSemiBold">
-            <div className="bg-[rgba(122,143,200,0.1)] text-xs flex flex-col gap-5 p-5 rounded-3xl items-center text-center">
-                <h4 className="text-[#2325B3] my-3 text-sm">Benefit</h4>
-                <div className="flex flex-col items-center gap-1 justify-center text-center">
+            <div className="bg-[rgba(122,143,200,0.1)] text-xs flex flex-col gap-7 p-8 rounded-3xl items-center text-center lg:text-start">
+                <h4 className="text-[#2325B3] text-sm lg:text-end">Benefit</h4>
+                <div className="flex flex-col items-center gap-6 justify-center lg:flex-row">
                     <img src={schoolImage} className="w-20 m-1" alt="" />
-                    <h5>Memudahkan Mencari Materi Kuliah</h5>
-                    <p className="font-montserratRegular">Membantu mahasiswa dalam mencari catatan materi kuliah dengan mudah dan menginspirasi kamu untuk aktif berbagi dan mengunggah catatan kuliah.</p>
+                    <div>
+                        <h5 className="text-[#25426C] text-base lg:mb-1">Memudahkan Mencari Materi Kuliah</h5>
+                        <p className="font-montserratRegular">Membantu mahasiswa dalam mencari catatan materi kuliah dengan mudah dan menginspirasi kamu untuk aktif berbagi dan mengunggah catatan kuliah.</p>
+                    </div>
                 </div>
-                <div className="flex flex-col items-center gap-1 justify-center text-center">
+                <div className="flex flex-col items-center gap-6 justify-center lg:flex-row">
                     <img src={partnershipImage} className="w-20 m-1" alt="" />
-                    <h5>Memudahkan Mencari Materi Kuliah</h5>
-                    <p className="font-montserratRegular">Membantu mahasiswa dalam mencari catatan materi kuliah dengan mudah dan menginspirasi kamu untuk aktif berbagi dan mengunggah catatan kuliah.</p>
+                    <div>
+                        <h5 className="text-[#25426C] text-base lg:mb-1">Memberi Penghasilan Tambahan bagi Pengunggah Catatan</h5>
+                        <p className="font-montserratRegular">Memberikan peluang bagi kamu untuk mendapatkan penghasilan tambahan. Dengan mengunggah catatan kuliah, kamu tidak hanya membantu rekan mahasiswa lainnya, tetapi juga bisa mendapatkan uang dari setiap penjualan catatan yang kamu unggah.</p>
+                    </div>
                 </div>
             </div>
         </div>
