@@ -4,7 +4,7 @@ import Copyright from "../Elements/Copyright";
 
 const Footer = () => {
     return (
-    <div className="flex-col flex py-8 items-center">
+    <div className="flex-col flex py-8 items-center w-full bg-white">
         <div className="w-[80%] pb-8 flex flex-col lg:flex-row lg:justify-around">
             <div className="pb-10">
                 <Signature isFooter={true}/>

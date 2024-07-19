@@ -31,3 +31,7 @@
   fill:white;
   stroke: white;
 }
+
+.small-shadow {
+  box-shadow: 0 0 5px 0.1px rgba(0, 0, 0, 0.1);
+}

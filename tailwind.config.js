@@ -9,6 +9,7 @@ export default {
       colors: {
         primary: '#2F63AF',
         secondary: '#7A8FC8',
+        backgroundPrime: '#F9F9FF'
       }
     },
     fontFamily: {

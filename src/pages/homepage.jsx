@@ -13,11 +13,10 @@ import { AuthorizedContext } from "../contexts/Authorized";
 
 const HomePage = () => {
     const {isAuthorized} = useContext(AuthorizedContext);
-    console.log(isAuthorized)
     return (
-        <>
+        <main>
         <Navbar anchors={getAnchorList(isAuthorized.success)} isLogin={isAuthorized.success}/>
-        <div className="bg-gradient-to-tr from-[#dfe9f3] via-60% via-white to-white w-full flex justify-center items-center min-h-screen">
+        <section className="bg-gradient-to-tr from-[#dfe9f3] via-60% via-white to-white w-full flex justify-center items-center min-h-screen">
             <img src={landingBackgroundImage} alt="" className="hidden absolute h-screen w-screen lg:block"/>
             <div className="w-[80%] gap-[5rem] flex flex-col justify-between z-[10]">
                 <div className="font-montserratBold w-full flex flex-col md:flex-row justify-around items-center gap-10">
@@ -35,8 +34,8 @@ const HomePage = () => {
                 </div>
                 <SearchButton />
             </div>
-        </div>
-        <div className="py-6 flex flex-col items-center">
+        </section>
+        <section className="py-6 flex flex-col items-center">
             <h1 className="text-2xl font-montserratBold text-[#4A4A4A] text-center mb-6">Kenapa Harus CASIWA ?</h1>
             <ul className="flex flex-col lg:flex-row lg:w-[80%] items-center gap-6">
                 <li className="w-[60%] hover:shadow-xl dotted-card text-[#4A4A4A] hover:bg-secondary rounded-[2.5rem] box-border transition hover:border-secondary hover:border-dashed py-5 px-10 flex flex-col gap-3 justify-between  items-center text-[0.7rem] lg:text-sm">
@@ -92,8 +91,8 @@ const HomePage = () => {
                     <p className="font-montserratLight">Meski tujuan utama kami adalah mempermudah proses belajar bagi mahasiswa, kami sendiri terus-menerus berkembang dan belajar. Kami juga menyediakan kesempatan bagi mahasiswa untuk mendapatkan penghasilan tambahan dengan cara yang sangat mudah.</p>
                 </li>
             </ul>
-        </div>
-        <div className="py-10 flex justify-center bg-gradient-to-t from-[#dfe9f3] via-60% via-white to-white">
+        </section>
+        <section className="py-10 flex justify-center bg-gradient-to-t from-[#dfe9f3] via-60% via-white to-white">
             <div className="flex flex-col items-center lg:grid lg:grid-cols-2 gap-8 lg:gap-12 text-center w-[70%] lg:w-[90%]">
                 <img src={studyImage} alt="" />
                 <div className="flex flex-col items-center gap-8 lg:items-start">
@@ -101,8 +100,8 @@ const HomePage = () => {
                     <SquareButton colorCode="bg-[#25426C]" path="/register">Daftar Sekarang</SquareButton>
                 </div>
             </div>
-        </div>
-        <div className="p-10 flex justify-center font-montserratSemiBold">
+        </section>
+        <section className="p-10 flex justify-center font-montserratSemiBold">
             <div className="bg-[rgba(122,143,200,0.1)] text-xs lg:text-base flex flex-col gap-7 p-8 rounded-3xl items-center text-center lg:text-start">
                 <h4 className="text-[#2325B3] text-sm lg:text-end lg:text-lg">Benefit</h4>
                 <div className="flex flex-col items-center gap-6 lg:gap-10 justify-center lg:flex-row lg:w-[90%] lg:justify-start">
@@ -120,9 +119,9 @@ const HomePage = () => {
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
     <Footer />
-    </>
+    </main>
     );
 }
 
