@@ -1,8 +1,23 @@
+import { useEffect, useState } from "react";
+
 const SearchDropdown = (props) => {
-    const {children, icon} = props;
+    const {children, icon, list, name} = props;
+    const [clicked, setClicked] = useState(false);
+
+    const dropdownToggle = () => {
+        setClicked(!clicked);
+    };
+
+    useEffect(() => {
+
+    },[clicked]);
+
+
+
     return (
-        <div>
-            <button className="font-montserratSemiBold px-3 py-2 bg-white small-shadow inline-flex gap-3 rounded-lg items-center text-xs">
+        <div className="text-xs w-full">
+            <input type="hidden" name={name}/>
+            <button onClick={dropdownToggle} className={`font-montserratSemiBold justify-between w-full px-3 py-2 bg-white ${clicked? 'rounded-t-lg border-t border-x rounded-ss-lg' : 'border rounded-lg'} inline-flex gap-3 items-center`}>
                 {icon}
                 <span>
                     {children}
@@ -17,7 +32,18 @@ const SearchDropdown = (props) => {
                     </defs>
                 </svg>
             </button>
-
+            <div className="w-full relative">
+                <ul className={`${clicked? 'flex': 'hidden'} w-full max-h-20 border-x border-b overflow-scroll overflow-x-hidden flex-col absolute top-0 bg-white cursor-pointer pb-1 rounded-b-lg justify-between items-center`}>
+                    {list.map(item => {
+                        return (
+                            <li key={item.id} onClick={() => { dropdownClicked(item.id, item.name) }} className="flex z-10 justify-start w-full bg-white hover:bg-[rgba(0,0,0,0.04)] px-2 py-1">
+                                <input type="hidden" id={item.id} />
+                                <p className="select-none">{item.name}</p>
+                            </li>
+                        );
+                    })}
+                </ul>
+            </div>
         </div>
     );
 };
