@@ -1,12 +1,20 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const SearchDropdown = (props) => {
     const {children, icon, list, name} = props;
     const [clicked, setClicked] = useState(false);
+    const refText = useRef(null);
+    const refValue = useRef(null);
 
     const dropdownToggle = () => {
         setClicked(!clicked);
     };
+
+    const dropdownClicked = (id, text) => {
+        refText.current.innerText = text;
+        refValue.current.value = id;
+        dropdownToggle();
+    }
 
     useEffect(() => {
 
@@ -15,11 +23,11 @@ const SearchDropdown = (props) => {
 
 
     return (
-        <div className="text-xs w-full">
-            <input type="hidden" name={name}/>
+        <div className="text-xs w-full lg:w-fit">
+            <input ref={refValue} type="hidden" name={name}/>
             <button onClick={dropdownToggle} className={`font-montserratSemiBold justify-between w-full px-3 py-2 bg-white ${clicked? 'rounded-t-lg border-t border-x rounded-ss-lg' : 'border rounded-lg'} inline-flex gap-3 items-center`}>
                 {icon}
-                <span>
+                <span ref={refText}>
                     {children}
                 </span>
                 <svg className="w-2" width="14" height="8" viewBox="0 0 14 8" fill="none" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">

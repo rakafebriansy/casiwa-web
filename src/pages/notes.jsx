@@ -25,14 +25,14 @@ const NotesPage = () => {
     },[]);
 
     return (
-        <main className="bg-backgroundPrime font-montserratRegular">
+        <main className="bg-backgroundPrime font-montserratRegular flex flex-col items-center">
             {universities.length > 0 && studyPrograms.length > 0 && (
                 <>
                 <Navbar anchors={getAnchorList(isAuthorized.success)} isLogin={isAuthorized.success}/>
-                <div className="pt-28 flex flex-col items-center">
-                    <div className="w-[80%] mb-5">
+                <div className="pt-28 flex flex-col items-center lg:w-[80%]">
+                    <div className="w-[80%] lg:w-full mb-5">
                         <SearchButton/>
-                        <div className="mt-5 mb-2 grid grid-cols-2 gap-2 ">
+                        <div className="mt-5 mb-2 grid grid-cols-2 gap-2 lg:flex ">
                             <SearchDropdown list={universities} icon={<UniversityIcon classname="w-3"/>}>Universitas</SearchDropdown>
                             <SearchDropdown list={studyPrograms} icon={<BookIcon classname="w-3"/>}>Program Studi</SearchDropdown>
                         </div>
@@ -42,31 +42,31 @@ const NotesPage = () => {
                     </div>
                     <div className="w-full mb-5">
                         <ul className="flex flex-col gap-5">
-                            {[1,2,3].map(item => {
+                            {['ini','diganti','data api'].map(item => {
                                 return (
-                                    <li className="flex flex-col gap-2 bg-white rounded-lg small-shadow items-center">
-                                    <div className="flex w-full justify-between p-2">
-                                        <div className="h-24 w-24 flex justify-center items-center">
-                                            <img src={documentPreviewImage} className="h-full" alt="" />
+                                    <li className="flex flex-col gap-4 bg-white rounded-lg small-shadow items-center p-4">
+                                        <div className="flex w-full justify-start items-start gap-4">
+                                            <div className="h-24 w-24 flex justify-center items-center border">
+                                                <img src={documentPreviewImage} className="h-full" alt="" />
+                                            </div>
+                                            <div className="flex flex-col gap-1 justify-center">
+                                                <p className="text-sm font-montserratSemiBold">Rangkuman Transformasi Geometri Matematika Murni</p>
+                                                <p className="text-xs">Statistika • Universitas Jember • 2024</p>
+                                            </div>
                                         </div>
-                                        <div className="flex flex-col gap-1 justify-center">
-                                            <p className="text-sm font-montserratSemiBold">Rangkuman Transformasi Geometri Matematika Murni</p>
-                                            <p className="text-xs">Statistika • Universitas Jember • 2024</p>
+                                        <div className="flex justify-end border-t border-slate-300 w-full py-1">
+                                            <div className="flex gap-1 items-center">
+                                                <DownloadCountIcon classname="w-2 lg:w-3"/>
+                                                <span className="text-xs lg:text-sm">8</span>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div className="flex justify-end border-t border-slate-300 w-[90%]">
-                                        <div className="flex gap-1 items-center">
-                                            <DownloadCountIcon classname="w-2"/>
-                                            <span className="text-xs">8</span>
-                                        </div>
-                                    </div>
-                                </li>
+                                    </li>
                                 );
                             })}
                         </ul>
                     </div>
-                    <Footer />
                 </div>
+                <Footer />
                 </>
             )}
         </main>
