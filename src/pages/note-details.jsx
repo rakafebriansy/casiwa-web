@@ -14,7 +14,7 @@ const NoteDetailsPage = () => {
     return (
         <>
         <Navbar anchors={getAnchorList(isAuthorized.success)} isLogin={isAuthorized.success} />
-        <main className="pt-20 flex lg:pt-28 justify-center font-montserratRegular">
+        <main className="pt-20 flex lg:pt-28 flex-col items-center justify-center gap-5 lg:gap-10 font-montserratRegular">
             <div className="w-[80%] gap-3 flex flex-col">
                 <Link to="/notes" className="text-blue-500 text-xs lg:text-sm ">&lt;&lt; <span className="hover:underline">Kembali ke Daftar</span></Link>
                 <div className="flex flex-col items-start text-sm gap-3 lg:gap-4">
@@ -31,15 +31,14 @@ const NoteDetailsPage = () => {
                         <div className="bg-backgroundPrime w-full h-[35rem] lg:h-[55rem] relative small-shadow ">
                             <canvas className="w-full h-full"></canvas>
                             <div className="absolute flex bg-white py-3 small-shadow flex-col gap-2 lg:gap-3 items-center w-full bottom-0 text-sm lg:text-base">
-                                <Signature/>
                                 <p className="font-montserratSemiBold">Preview</p>
                                 <p className="text-xs lg:text-sm">Login untuk mengunduh.</p>
                             </div>
                         </div>
                     </div>
                 </div>
-                <Footer />
             </div>
+            <Footer />
         </main>
         </>
     );
