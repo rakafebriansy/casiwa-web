@@ -8,6 +8,7 @@ import {BookIcon, DownloadCountIcon, UniversityIcon} from "../functions/svgs";
 import documentPreviewImage from "../assets/images/document-preview.png"
 import Footer from "../components/Layout/Footer";
 import { getStudyPrograms, getUniversities } from "../../services/list.userDetail.mjs";
+import { Link } from "react-router-dom";
 
 
 const NotesPage = () => {
@@ -25,11 +26,11 @@ const NotesPage = () => {
     },[]);
 
     return (
-        <main className="bg-backgroundPrime font-montserratRegular flex flex-col items-center">
+        <main className="bg-backgroundPrime pt-20 lg:pt-28 font-montserratRegular flex flex-col items-center">
             {universities.length > 0 && studyPrograms.length > 0 && (
                 <>
                 <Navbar anchors={getAnchorList(isAuthorized.success)} isLogin={isAuthorized.success}/>
-                <div className="pt-28 flex flex-col items-center lg:w-[80%]">
+                <div className=" flex flex-col items-center lg:w-[80%]">
                     <div className="w-[80%] lg:w-full mb-5">
                         <SearchButton/>
                         <div className="mt-5 mb-2 grid grid-cols-2 gap-2 lg:flex ">
@@ -44,13 +45,13 @@ const NotesPage = () => {
                         <ul className="flex flex-col gap-5">
                             {['ini','diganti','data api'].map(item => {
                                 return (
-                                    <li className="flex flex-col gap-4 bg-white rounded-lg small-shadow items-center p-4">
+                                    <li id={item.id} className="flex flex-col gap-4 bg-white rounded-lg small-shadow items-center p-4">
                                         <div className="flex w-full justify-start items-start gap-4">
                                             <div className="h-24 w-24 flex justify-center items-center border">
                                                 <img src={documentPreviewImage} className="h-full" alt="" />
                                             </div>
                                             <div className="flex flex-col gap-1 justify-center">
-                                                <p className="text-sm font-montserratSemiBold">Rangkuman Transformasi Geometri Matematika Murni</p>
+                                                <Link to="#" className="text-sm font-montserratSemiBold hover:text-blue-500">Rangkuman Transformasi Geometri Matematika Murni</Link>
                                                 <p className="text-xs">Statistika • Universitas Jember • 2024</p>
                                             </div>
                                         </div>

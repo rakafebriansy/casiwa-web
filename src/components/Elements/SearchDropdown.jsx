@@ -27,7 +27,7 @@ const SearchDropdown = (props) => {
             <input ref={refValue} type="hidden" name={name}/>
             <button onClick={dropdownToggle} className={`font-montserratSemiBold justify-between w-full px-3 py-2 bg-white ${clicked? 'rounded-t-lg border-t border-x rounded-ss-lg' : 'border rounded-lg'} inline-flex gap-3 items-center`}>
                 {icon}
-                <span ref={refText}>
+                <span className="hover:text-blue-500" ref={refText}>
                     {children}
                 </span>
                 <svg className="w-2" width="14" height="8" viewBox="0 0 14 8" fill="none" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
