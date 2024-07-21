@@ -4,6 +4,7 @@ import HomePage from './pages/homepage'
 import LoginPage from './pages/login';
 import RegisterPage from './pages/register';
 import NotesPage from './pages/notes';
+import NoteDetailsPage from './pages/note-details';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route path='/login' element={<LoginPage />}/>
         <Route path='/register' element={<RegisterPage />}/>
         <Route path='/notes' element={<NotesPage />}/>
+        <Route path='/note-details/:id' element={<NoteDetailsPage />}/>
       </Routes>
     </BrowserRouter>
   );
