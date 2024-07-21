@@ -14,17 +14,17 @@ const Footer = () => {
                     <div className="">
                         <h3 className="font-montserratBold text-base lg:text-lg mb-3">Pintasan</h3>
                         <ul className="gap-2">
-                            <li><Link to="#">Cari Catatan</Link></li>
-                            <li><Link to="#">Unggah Catatan</Link></li>
-                            <li><Link to="#">Profil Saya</Link></li>
+                            <li><Link to="#" className="hover:underline">Cari Catatan</Link></li>
+                            <li><Link to="#" className="hover:underline">Unggah Catatan</Link></li>
+                            <li><Link to="#" className="hover:underline">Profil Saya</Link></li>
                         </ul>
                     </div>
                     <div className="">
                         <h3 className="font-montserratBold text-base lg:text-lg mb-3">Tentang Kami</h3>
                         <ul className="gap-2">
-                            <li><Link to="#">Email</Link></li>
-                            <li><Link to="#">Instagram</Link></li>
-                            <li><Link to="#">Facebook</Link></li>
+                            <li><Link to="#" className="hover:underline">Email</Link></li>
+                            <li><Link to="#" className="hover:underline">Instagram</Link></li>
+                            <li><Link to="#" className="hover:underline">Facebook</Link></li>
                         </ul>
                     </div>
                 </div>
@@ -32,11 +32,11 @@ const Footer = () => {
                     <div  className="">
                         <h3 className="font-montserratBold text-base lg:text-lg mb-3">Lainnya</h3>
                         <ul className="gap-2">
-                            <li><Link to="#">Syarat dan Ketentuan</Link></li>
-                            <li><Link to="#">Layanan Pelanggan</Link></li>
-                            <li><Link to="#">Kebijakan Privasi</Link></li>
-                            <li><Link to="#">Kontak Darurat</Link></li>
-                            <li><Link to="#">FAQ</Link></li>
+                            <li><Link to="#" className="hover:underline">Syarat dan Ketentuan</Link></li>
+                            <li><Link to="#" className="hover:underline">Layanan Pelanggan</Link></li>
+                            <li><Link to="#" className="hover:underline">Kebijakan Privasi</Link></li>
+                            <li><Link to="#" className="hover:underline">Kontak Darurat</Link></li>
+                            <li><Link to="#" className="hover:underline">FAQ</Link></li>
                         </ul>
                     </div>
                 </div>
