@@ -19,7 +19,7 @@ const Signature = (props) => {
         );
     }
     return (
-        <div className={`flex gap-1 max-w-[8rem] lg:max-w-[10rem] items-center ${classname}`}>
+        <div className={`flex gap-1 max-w-[8rem] lg:max-w-[14rem] items-center ${classname}`}>
             <Logo classname="w-12 md:w-24"/>
             <h3 className="font-montserratBold text-base md:text-3xl text-primary">Casiwa</h3>
         </div>
