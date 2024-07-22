@@ -3,16 +3,20 @@ import TextareaBox from "../Fragments/TextareaBox";
 import TextBox from "../Fragments/TextBox";
 import LongRoundedButton from "../Elements/LongRoundedButton"
 import CloseButton from "../Elements/CloseButton";
+import React from "react";
 
-const FormUpload = () => {
+const FormUpload = React.forwardRef((props, ref) => {
     return (
-        <div className="flex items-center min-h-screen bg-backgroundPrime justify-center">
-            <div className="w-[40%] h-[40%] p-7 rounded-2xl bg-white flex flex-col gap-5">
+        <div ref={ref} className="hidden items-center w-full h-screen justify-center top-0 left-0 fixed z-30">
+            <div className="w-full h-full bg-black opacity-10 absolute top-0 left-0"></div>
+            <div className="p-7 rounded-2xl w-[40%] bg-white flex flex-col gap-5 z-10">
                 <div className="flex justify-between items-center py-3 border-b">
                     <h3 className="font-montserratBold text-lg">
-                    Unggah Catatan
+                    Unggah Catatan 
                     </h3>
-                    <CloseButton/>
+                    <CloseButton onclick={() => {
+                        ref.current.classList.replace('flex','hidden');
+                    }}/>
                 </div>
                 <div className="flex flex-col gap-3">
                     <TextBox name="title">Judul</TextBox>
@@ -23,6 +27,6 @@ const FormUpload = () => {
             </div>
         </div>
     );
-};
+});
 
 export default FormUpload;

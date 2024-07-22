@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 const Navbar = (props) => {
     const {anchors = [], isLogin} = props;
     return (
-        <nav className="flex w-full justify-center font-montserratRegular fixed top-0 z-30 bg-white shadow-sm">
+        <nav className="flex w-full justify-center font-montserratRegular fixed top-0 z-20 bg-white shadow-sm">
             <div className="flex w-[90%] justify-between items-center p-4">
                 <Link to={'/'}>
                     <Signature/>

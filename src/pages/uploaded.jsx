@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import Navbar from "../components/Layout/Navbar";
 import SearchButton from "../components/Elements/SearchButton";
 import SearchDropdown from "../components/Elements/SearchDropdown";
@@ -11,6 +11,7 @@ import { authenticatedUser } from "../../services/auth.authenticatedUser.mjs";
 import { useNavigate } from "react-router-dom";
 import { AnchorListContext } from "../contexts/AnchorList";
 import SquareButton from "../components/Elements/SquareButton";
+import FormUpload from "../components/Layout/FormUpload";
 
 
 const UploadedPage = () => {
@@ -20,6 +21,7 @@ const UploadedPage = () => {
     const [isLogin, setIsLogin] = useState(false);
     const navigate = useNavigate();
     const {anchorList} = useContext(AnchorListContext);
+    const refUploadDropdown = useRef(null);
 
     useEffect(()=> {
         const userData = JSON.parse(localStorage.getItem('user'));
@@ -50,7 +52,7 @@ const UploadedPage = () => {
     if (isLoading) return (<h1>Loading...</h1>);
 
     return (
-        <main className="bg-backgroundPrime pt-20 lg:pt-28 font-montserratRegular flex flex-col items-center">
+        <main className="bg-backgroundPrime pt-20 lg:pt-28 font-montserratRegular flex flex-col items-center relative">
             {universities.length > 0 && studyPrograms.length > 0 && (
                 <>
                 <Navbar anchors={anchorList} isLogin={isLogin}/>
@@ -58,7 +60,10 @@ const UploadedPage = () => {
                     <div className="w-[80%] lg:w-full mb-5">
                         <SearchButton/>
                         <div className="mt-5 mb-2 grid grid-cols-2 gap-2 lg:flex">
-                            <SquareButton outline={false} colorCode="border-primary hover:bg-primary text-primary">Unggah</SquareButton>
+                            <SquareButton onclick={(e) => {
+                                e.preventDefault();
+                                refUploadDropdown.current.classList.replace('hidden', 'flex');
+                            }} outline={false} colorCode="border-primary hover:bg-primary text-primary">Unggah</SquareButton>
                         </div>
                         <div className="w-full text-xs">
                             3057 hasil
@@ -69,6 +74,7 @@ const UploadedPage = () => {
                     </div>
                 </div>
                 <Footer />
+                <FormUpload ref={refUploadDropdown}/>
                 </>
             )}
         </main>
