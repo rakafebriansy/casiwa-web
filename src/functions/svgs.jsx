@@ -46,3 +46,13 @@ export const DownloadCountIcon = (props) => {
         </svg>
     );
 }
+
+export const UploadFileIcon = (props) => {
+    const {classname} = props;
+    return (
+        <svg className={`w-8 h-8 mb-4 text-gray-500 dark:text-gray-400 ${classname}`} viewBox="0 0 32 31" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M7.66667 11V9.33333C7.66667 4.73097 11.3976 1 16 1C20.6023 1 24.3333 4.73097 24.3333 9.33333V11C28.0152 11 31 13.9848 31 17.6667C31 20.1343 29.6593 22.3473 27.6667 23.5M7.66667 11C3.98477 11 1 13.9848 1 17.6667C1 20.1343 2.34067 22.3473 4.33333 23.5M7.66667 11C8.38808 11 9.08275 11.1147 9.73343 11.3265M16 14.3333V29.3333M16 14.3333L21 19.3333M16 14.3333L11 19.3333" stroke="#9B9B9B" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+        </svg>
+
+    );
+};
