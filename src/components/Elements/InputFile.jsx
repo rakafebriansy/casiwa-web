@@ -19,22 +19,22 @@ const InputFile = (props) => {
 
     return (
         <div onDragOver={handleDragOver} onDrop={handleDrop} className="flex items-center justify-center w-full input-file">
-            <label htmlFor="dropzone-file" className={`flex flex-col items-center justify-center w-full h-64 border-2 ${files && files.length > 0 ? 'border-primary' : 'border-gray-300'} border-dashed rounded-lg cursor-pointer hover:border-primary ${files && files.length > 0 ? 'bg-gray-100' : 'bg-gray-50'} hover:bg-gray-100`}>
+            <label htmlFor="dropzone-file" className={`flex flex-col items-center justify-center w-full h-40 border-2 ${files && files.length > 0 ? 'border-primary' : 'border-gray-300'} border-dashed rounded-lg cursor-pointer text-gray-500 hover:text-primary hover:border-primary ${files && files.length > 0 ? 'bg-gray-100' : 'bg-gray-50'} hover:bg-gray-100`}>
                 <div className="flex flex-col items-center justify-center pt-5 pb-6">
                     <UploadFileIcon strokeColor={files && files.length > 0 ? 'stroke-primary' : 'stroke-[#9B9B9B]'} />
                     {(!files || files.length == 0) && (
                         <>
-                        <p className="mb-2 text-sm text-gray-500 dark:text-gray-400"><span className="font-semibold">Click to upload</span> or drag and drop</p>
-                        <p className="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
+                        <p className="mb-2 text-sm "><span className="font-semibold">Click to upload</span> or drag and drop</p>
+                        <p className="text-xs ">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
                         </>
                     )}
                     {files && files.length > 0 && (
                         <>
-                        <p className="mb-2 text-sm text-primary dark:text-gray-400">{files[0].name}</p>
+                        <p className="mb-2 text-sm text-primary">{files[0].name}</p>
                         </>
                     )}
                 </div>
-                <input id="dropzone-file" type="file" className="hidden" onChange={e => {setFiles(e.target.files)}} ref={inputRef}/>
+                <input name={name} id="dropzone-file" type="file" className="hidden" onChange={e => {setFiles(e.target.files)}} ref={inputRef}/>
             </label>
         </div> 
     );
