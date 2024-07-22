@@ -20,7 +20,7 @@ const FormUpload = React.forwardRef((props, ref) => {
                 </div>
                 <div className="flex flex-col gap-3">
                     <TextBox name="title">Judul</TextBox>
-                    <TextareaBox name="description" placeholder="Masukkan deskripsi catatan anda...">Deskripsi</TextareaBox>
+                    <TextareaBox max={100} name="description" placeholder="Masukkan deskripsi catatan anda...">Deskripsi</TextareaBox>
                     <FileBox name="file">Dokumen</FileBox>
                 </div>
                 <LongRoundedButton>Unggah</LongRoundedButton>
