@@ -1,6 +1,5 @@
 import SearchButton from "../components/Elements/SearchButton";
 import Navbar from "../components/Layout/Navbar"
-import { getAnchorList } from "../functions/static";
 import SquareButton from "../components/Elements/SquareButton";
 import studyImage from "../assets/images/study.png"
 import globeImage from '../assets/images/globe.png'
@@ -8,14 +7,36 @@ import schoolImage from "../assets/images/school.png"
 import partnershipImage from "../assets/images/partnership.png"
 import landingBackgroundImage from "../assets/images/landing-background.png"
 import Footer from "../components/Layout/Footer";
-import { useContext } from "react";
-import { AuthorizedContext } from "../contexts/Authorized";
+import { useContext, useEffect, useState } from "react";
+import { authenticatedUser } from "../../services/auth.authenticatedUser.mjs";
+import { AnchorListContext } from "../contexts/AnchorList";
 
 const HomePage = () => {
-    const {isAuthorized} = useContext(AuthorizedContext);
+    const [isLogin, setIsLogin] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
+    const {anchorList} = useContext(AnchorListContext);
+
+    useEffect(()=> {
+        const userData = JSON.parse(localStorage.getItem('user'));
+        if(userData) {
+            authenticatedUser(userData.token,
+                res => {
+                setIsLogin(res.data.success);
+            }, 
+            err => {
+                console.log('Unauthenticated')
+            }, 
+            () => {
+                setIsLoading(false);
+            });
+        }
+    },[]);
+
+    if (isLoading) return (<h1>Loading...</h1>);
+
     return (
         <main>
-        <Navbar anchors={getAnchorList(isAuthorized.success)} isLogin={isAuthorized.success}/>
+        <Navbar anchors={anchorList} isLogin={isLogin}/>
         <section className="bg-gradient-to-tr from-[#dfe9f3] via-60% via-white to-white w-full flex justify-center items-center min-h-screen">
             <img src={landingBackgroundImage} alt="" className="hidden absolute h-screen w-screen lg:block"/>
             <div className="w-[80%] gap-[5rem] flex flex-col justify-between z-[10]">

@@ -8,14 +8,16 @@ import Footer from "../components/Layout/Footer";
 import { getStudyPrograms, getUniversities } from "../../services/list.userDetail.mjs";
 import NoteList from "../components/Layout/NoteList";
 import { authenticatedUser } from "../../services/auth.authenticatedUser.mjs";
+import { useNavigate } from "react-router-dom";
 import { AnchorListContext } from "../contexts/AnchorList";
 
 
-const NotesPage = () => {
+const UploadedPage = () => {
     const [universities, setUniversities] = useState([]);
     const [studyPrograms, setStudyPrograms] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
     const [isLogin, setIsLogin] = useState(false);
-    const [isLoading, setIsLoading] = useState(true);
+    const navigate = useNavigate();
     const {anchorList} = useContext(AnchorListContext);
 
     useEffect(()=> {
@@ -27,11 +29,15 @@ const NotesPage = () => {
             }, 
             err => {
                 console.log('Unauthenticated');
-            }, 
+                navigate('/login');
+            },
             () => {
                 setIsLoading(false);
             });
+        } else {
+            navigate('/login');
         }
+
         getUniversities((data) => {
             setUniversities(data.data);
         });
@@ -69,4 +75,4 @@ const NotesPage = () => {
     );
 };
 
-export default NotesPage;
+export default UploadedPage;

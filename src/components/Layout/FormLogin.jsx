@@ -6,11 +6,9 @@ import AuthAnchor from "../Elements/AuthAnchor";
 import { useNavigate } from "react-router-dom";
 import { login } from "../../../services/auth.login.mjs";
 import { useContext } from "react";
-import { AuthorizedContext } from "../../contexts/Authorized";
 import { ShowAlertContext } from "../../contexts/ShowAlert";
 
 const FormLogin = () => {
-    const {setIsAuthorized} = useContext(AuthorizedContext);
     const {setIsShowAlert} = useContext(ShowAlertContext);
     const navigate = useNavigate();
     
@@ -23,9 +21,11 @@ const FormLogin = () => {
         }
 
         login(data,(data) => {
-            console.log(data)
             if(data.success) {
-                setIsAuthorized(data);
+                localStorage.setItem('user',JSON.stringify({
+                    email: data.email,
+                    token: data.token
+                }))
                 navigate('/');
             } else {
                 setIsShowAlert({status: true, message:data.message});

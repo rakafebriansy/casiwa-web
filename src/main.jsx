@@ -4,15 +4,15 @@ import App from './App.jsx'
 import './index.css'
 import ShowAlertContextProvider from './contexts/ShowAlert.jsx'
 import AfterRegisterContextProvider from './contexts/AfterRegister.jsx'
-import AuthorizedContextProvider from './contexts/Authorized.jsx'
+import AnchorListContextProvider from './contexts/AnchorList.jsx'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <ShowAlertContextProvider>
       <AfterRegisterContextProvider>
-        <AuthorizedContextProvider>
+        <AnchorListContextProvider>
           <App />
-        </AuthorizedContextProvider>
+        </AnchorListContextProvider>
       </AfterRegisterContextProvider>
     </ShowAlertContextProvider>
   </React.StrictMode>,

@@ -1,6 +1,5 @@
 import Navbar from "../components/Layout/Navbar";
 import { getScreenSize } from "../functions/layout";
-import { getAnchorList } from "../functions/static";
 import authBackgroundImage from "../assets/images/auth-background.png"
 import Logo from "../components/Elements/Logo";
 import FormRegister from "../components/Layout/FormRegister";
@@ -29,7 +28,7 @@ const RegisterPage = () => {
             {isShowAlert.status && (<Alert>{isShowAlert.message}</Alert>)}
             {universities.length > 0 && studyPrograms.length > 0 && (
             <>
-                {getScreenSize().width >= 640 && (<Navbar anchors={getAnchorList()} />)}
+                {getScreenSize().width >= 640 && (<Navbar />)}
                 <div className="flex justify-around mt-[5rem] md:mt-0 lg:items-center min-h-screen">
                     <FormRegister universities={universities} studyPrograms={studyPrograms} />
                     <div className="hidden lg:flex justify-center flex-col items-center">

@@ -1,19 +1,36 @@
-import { useContext } from "react";
 import Navbar from "../components/Layout/Navbar";
-import { AuthorizedContext } from "../contexts/Authorized";
-import { getAnchorList } from "../functions/static";
-import Modal from "../components/Elements/Modal";
 import { Link } from "react-router-dom";
 import SquareButton from "../components/Elements/SquareButton";
-import Signature from "../components/Fragments/Signature";
 import Footer from "../components/Layout/Footer";
+import { authenticatedUser } from "../../services/auth.authenticatedUser.mjs";
+import { AnchorListContext } from "../contexts/AnchorList";
+import { useContext, useEffect, useState } from "react";
 
 const NoteDetailsPage = () => {
-    const {isAuthorized} = useContext(AuthorizedContext);
-    
+    const [isLogin, setIsLogin] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
+    const {anchorList} = useContext(AnchorListContext);
+
+    useEffect(()=> {
+        const userData = JSON.parse(localStorage.getItem('user'));
+        if(userData) {
+            authenticatedUser(userData.token,
+                res => {
+                setIsLogin(res.data.success);
+            }, 
+            err => {
+                console.log('Unauthenticated')
+            }, 
+            () => {
+                setIsLoading(false);
+            });
+        }
+    },[]);
+    if (isLoading) return (<h1>Loading...</h1>);
+
     return (
         <>
-        <Navbar anchors={getAnchorList(isAuthorized.success)} isLogin={isAuthorized.success} />
+        <Navbar anchors={anchorList} isLogin={isLogin} />
         <main className="pt-20 flex lg:pt-28 flex-col items-center justify-center gap-5 lg:gap-10 font-montserratRegular">
             <div className="w-[80%] gap-3 flex flex-col">
                 <Link to="/notes" className="text-blue-500 text-xs lg:text-sm ">&lt;&lt; <span className="hover:underline">Kembali ke Daftar</span></Link>
