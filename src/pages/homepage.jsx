@@ -36,7 +36,7 @@ const HomePage = () => {
 
     return (
         <main>
-        <Navbar anchors={anchorList} isLogin={isLogin}/>
+        <Navbar anchors={isLogin ? anchorList : []} isLogin={isLogin}/>
         <section className="bg-gradient-to-tr from-[#dfe9f3] via-60% via-white to-white w-full flex justify-center items-center min-h-screen">
             <img src={landingBackgroundImage} alt="" className="hidden absolute h-screen w-screen lg:block"/>
             <div className="w-[80%] gap-[5rem] flex flex-col justify-between z-[10]">

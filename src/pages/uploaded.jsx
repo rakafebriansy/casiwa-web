@@ -10,6 +10,7 @@ import NoteList from "../components/Layout/NoteList";
 import { authenticatedUser } from "../../services/auth.authenticatedUser.mjs";
 import { useNavigate } from "react-router-dom";
 import { AnchorListContext } from "../contexts/AnchorList";
+import SquareButton from "../components/Elements/SquareButton";
 
 
 const UploadedPage = () => {
@@ -56,9 +57,8 @@ const UploadedPage = () => {
                 <div className=" flex flex-col items-center lg:w-[80%]">
                     <div className="w-[80%] lg:w-full mb-5">
                         <SearchButton/>
-                        <div className="mt-5 mb-2 grid grid-cols-2 gap-2 lg:flex ">
-                            <SearchDropdown list={universities} icon={<UniversityIcon classname="w-3"/>}>Universitas</SearchDropdown>
-                            <SearchDropdown list={studyPrograms} icon={<BookIcon classname="w-3"/>}>Program Studi</SearchDropdown>
+                        <div className="mt-5 mb-2 grid grid-cols-2 gap-2 lg:flex">
+                            <SquareButton outline={false} colorCode="border-primary hover:bg-primary text-primary">Unggah</SquareButton>
                         </div>
                         <div className="w-full text-xs">
                             3057 hasil
