@@ -7,6 +7,7 @@ import NotesPage from './pages/notes';
 import NoteDetailsPage from './pages/note-details';
 import TestPage from './pages/test';
 import UploadedPage from './pages/uploaded';
+import DownloadedPage from './pages/downloaded';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path='/notes' element={<NotesPage />}/>
         <Route path='/note-details/:id' element={<NoteDetailsPage />}/>
         <Route path='/uploaded' element={<UploadedPage />}/>
+        <Route path='/downloaded' element={<DownloadedPage />}/>
         <Route path='/test' element={<TestPage />}/>
       </Routes>
     </BrowserRouter>
