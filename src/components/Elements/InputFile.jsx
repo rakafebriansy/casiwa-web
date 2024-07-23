@@ -3,7 +3,7 @@ import { UploadFileIcon } from "../../functions/svgs";
 import { useRef } from "react";
 
 const InputFile = (props) => {
-    const {name} = props;
+    const {name, setFile} = props;
     const [files, setFiles] = useState(null);
     const inputRef = useRef(null);
 
@@ -34,7 +34,7 @@ const InputFile = (props) => {
                         </>
                     )}
                 </div>
-                <input name={name} id="dropzone-file" type="file" className="hidden" onChange={e => {setFiles(e.target.files)}} ref={inputRef}/>
+                <input name={name} id="dropzone-file" type="file" className="hidden" onChange={e => {setFiles(e.target.files); setFile(e.target.files)}} ref={inputRef}/>
             </label>
         </div> 
     );

@@ -4,12 +4,73 @@ import SquareButton from "../components/Elements/SquareButton";
 import Footer from "../components/Layout/Footer";
 import { authenticatedUser } from "../../services/auth.authenticatedUser.mjs";
 import { AnchorListContext } from "../contexts/AnchorList";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
+import { getDocument, GlobalWorkerOptions } from '../../modules/pdf.js/build/pdf.mjs';
+GlobalWorkerOptions.workerSrc = '../../modules/pdf.js/build/pdf.worker.mjs';
 
 const NoteDetailsPage = () => {
     const [isLogin, setIsLogin] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
     const {anchorList} = useContext(AnchorListContext);
+    const [pdfDoc, setPdfDoc] = useState(null);
+    const [pageNum, setPageNum] = useState(1);
+    const [pageIsRendering, setPageIsRendering] = useState(1);
+    const [pageNumIsPending, setPageNumIsPending] = useState(1);
+    const refPdfCanvas = useRef(null);
+
+    const renderPage = (num, ctx, scale) => {
+        if (!pdfDoc || !refPdfCanvas.current || !ctx) {
+            return;
+        }
+
+        setPageIsRendering(true);
+        pdfDoc.getPage(num).then(page => {
+            const viewport = page.getViewport({
+                scale
+            });
+            refPdfCanvas.current.height = viewport.height;
+            refPdfCanvas.current.width = viewport.width;
+    
+            const renderCtx = {
+                canvasContext: ctx,
+                viewport
+            };
+    
+            page.render(renderCtx).promise.then(() => { 
+                setPageIsRendering(false);
+    
+                if(pageNumIsPending !== null) {
+                    renderPage(pageNumIsPending);
+                    setPageNumIsPending(null); 
+                }
+            });
+    
+        });
+    };
+    
+    const queueRenderPage = num => {
+        if(pageIsRendering) {
+            setPageNumIsPending(num);
+        } else {
+            renderPage(num);
+        }
+    }
+    
+    const showPrevPage = () => {
+        if(pageNum <= 1) { 
+            return;
+        }
+        setPageNum(pageNum - 1);
+        queueRenderPage(pageNum);
+    }
+    
+    const showNextPage = () => {
+        if(pageNum >= pdfDoc.numPages) { 
+            return;
+        }
+        setPageNum(pageNum + 1);
+        queueRenderPage(pageNum);
+    }
 
     useEffect(()=> {
         const userData = JSON.parse(localStorage.getItem('user'));
@@ -26,6 +87,34 @@ const NoteDetailsPage = () => {
             });
         }
     },[]);
+
+    useEffect(() => {
+        if(isLogin && refPdfCanvas.current) {
+
+            const url = '/assets/CVRaka.pdf';
+
+            getDocument(url).promise.then(pdfDoc_ => {
+                setPdfDoc(pdfDoc_);
+                const ctx = refPdfCanvas.current.getContext('2d');
+                if(ctx) {
+                    renderPage(pageNum, ctx, 1.5);
+                }
+            })
+             .catch(err => {
+                console.error(err);
+             });
+        }
+    },[isLogin]);
+
+    useEffect(() => {
+        if (pdfDoc && refPdfCanvas.current) {
+            const ctx = refPdfCanvas.current.getContext('2d');
+            if (ctx) {
+                renderPage(pageNum, ctx, 1.5);
+            }
+        }
+    }, [pdfDoc, pageNum]);
+
     if (isLoading) return (<h1>Loading...</h1>);
 
     return (
@@ -45,8 +134,8 @@ const NoteDetailsPage = () => {
                 <div className="flex flex-col items-start mt-5">
                     <div className="flex flex-col items-end gap-4 lg:gap-6  lg:w-[80%]">
                         <SquareButton colorCode="bg-primary">Unduh</SquareButton>
-                        <div className="bg-backgroundPrime w-full h-[35rem] lg:h-[55rem] relative small-shadow ">
-                            <canvas className="w-full h-full"></canvas>
+                        <div className="bg-backgroundPrime w-full h-[35rem] lg:h-[65rem] relative small-shadow ">
+                            <canvas ref={refPdfCanvas} id="pdf-render" className="w-full h-full"></canvas>
                             <div className="absolute flex bg-white py-3 small-shadow flex-col gap-2 lg:gap-3 items-center w-full bottom-0 text-sm lg:text-base">
                                 <p className="font-montserratSemiBold">Preview</p>
                                 <p className="text-xs lg:text-sm">Login untuk mengunduh.</p>
