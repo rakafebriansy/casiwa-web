@@ -7,12 +7,10 @@ import { useContext } from "react";
 import { ShowAlertContext } from "../../contexts/ShowAlert";
 import { register } from "../../../services/auth.register.mjs";
 import { useNavigate } from "react-router-dom";
-import { AfterRegisterContext } from "../../contexts/AfterRegister";
 
 const FormRegister = (props) => {
     const {universities, studyPrograms} = props;
     const {setIsShowAlert} = useContext(ShowAlertContext);
-    const {setIsAfterRegister} = useContext(AfterRegisterContext);
     const navigate = useNavigate();
     
     const handleRegister = (e) => {
@@ -31,7 +29,7 @@ const FormRegister = (props) => {
 
         register(data,(data) => {
             if(data.success) {
-                setIsAfterRegister({success: true, message:data.message});
+                setIsShowAlert({status: true, message:data.message});
                 navigate('/login');
             } else {
                 setIsShowAlert({status: true, message:data.message});

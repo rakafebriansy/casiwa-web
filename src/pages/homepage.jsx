@@ -59,8 +59,8 @@ const HomePage = () => {
         </section>
         <section className="py-6 flex flex-col items-center">
             <h1 className="text-2xl font-montserratBold text-[#4A4A4A] text-center mb-6">Kenapa Harus CASIWA ?</h1>
-            <ul className="flex flex-col lg:flex-row lg:w-[80%] items-center gap-6">
-                <li className="w-[60%] hover:shadow-xl dotted-card text-[#4A4A4A] hover:bg-secondary rounded-[2.5rem] box-border transition hover:border-secondary hover:border-dashed py-5 px-10 flex flex-col gap-3 justify-between  items-center text-[0.7rem] lg:text-sm">
+            <ul className="flex lg:h-96 flex-col lg:flex-row lg:w-[80%] items-center justify-start gap-6">
+                <li className="w-[60%] h-full hover:shadow-xl dotted-card text-[#4A4A4A] hover:bg-secondary rounded-[2.5rem] box-border transition hover:border-secondary hover:border-dashed py-5 px-10 flex flex-col gap-3 justify-start  items-center text-[0.7rem] lg:text-sm">
                     <div className="w-[20%]">
                         <svg width="90" height="89" className="w-full" viewBox="0 0 90 89" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <g clipPath="url(#clip0_392_2180)">
@@ -80,7 +80,7 @@ const HomePage = () => {
                     <p className="font-montserratSemiBold text-center lg:text-base">CASIWA menghargai keberagaman latar belakang, budaya, dan identitas gender.</p>
                     <p className="font-montserratLight">Kami bertanggung jawab atas dampak lingkungan dan peran kami dalam masyarakat. Kami terus berupaya menjadi lebih beragam, inklusif, dan ramah lingkungan.</p>
                 </li>
-                <li className="w-[60%] hover:shadow-xl dotted-card text-[#4A4A4A] hover:bg-secondary rounded-[2.5rem] box-border transition hover:border-secondary hover:border-dashed py-5 px-10 flex flex-col gap-3 justify-between  items-center text-[0.7rem] lg:text-sm">
+                <li className="w-[60%] h-full hover:shadow-xl dotted-card text-[#4A4A4A] hover:bg-secondary rounded-[2.5rem] box-border transition hover:border-secondary hover:border-dashed py-5 px-10 flex flex-col gap-3 justify-start  items-center text-[0.7rem] lg:text-sm">
                     <div className="w-[20%]">
                         <svg width="30" className='w-full' height="87" viewBox="0 0 80 87" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <g clipPath="url(#clip0_367_2382)">
@@ -96,7 +96,7 @@ const HomePage = () => {
                     <p className="font-montserratSemiBold text-center lg:text-base">Tujuan kami adalah memberikan dampak positif dan nyata kepada pengguna kami.</p>
                     <p className="font-montserratLight">Kami berkomitmen untuk menciptakan sistem belajar yang mudah dan bermanfaat, dan terus menantang diri kami untuk membuat perbedaan.</p>
                 </li>
-                <li className="w-[60%] hover:shadow-xl dotted-card text-[#4A4A4A] hover:bg-secondary rounded-[2.5rem] box-border transition hover:border-secondary hover:border-dashed py-5 px-10 flex flex-col gap-3 justify-between  items-center text-[0.7rem] lg:text-sm">
+                <li className="w-[60%] h-full hover:shadow-xl dotted-card text-[#4A4A4A] hover:bg-secondary rounded-[2.5rem] box-border transition hover:border-secondary hover:border-dashed py-5 px-10 flex flex-col gap-3 justify-start  items-center text-[0.7rem] lg:text-sm">
                     <div className="w-[20%]">
                         <svg width="88" height="87" className="w-full" viewBox="0 0 88 87" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <g clipPath="url(#clip0_392_2177)">
@@ -144,6 +144,7 @@ const HomePage = () => {
         </section>
     <Footer />
     </main>
+    
     );
 }
 
