@@ -74,7 +74,7 @@ const NoteDetailsPage = () => {
     }
 
     useEffect(()=> {
-        const userData = JSON.parse(getCookie('user'));
+        const userData = getCookie('user');
         if(userData) {
             authenticatedUser(userData.token,
                 res => {

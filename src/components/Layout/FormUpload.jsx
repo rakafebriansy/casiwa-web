@@ -65,7 +65,7 @@ const FormUpload = React.forwardRef((props, ref) => {
 
             formData.append('file', file);
             try {
-                const userData = JSON.parse(getCookie('user'));
+                const userData = getCookie('user');
                 const blob = await generateThumbnail(file);
                 formData.append('thumbnail',blob,'thumbnail.png');
                 upload(formData, userData.token, (data) => {
@@ -81,6 +81,8 @@ const FormUpload = React.forwardRef((props, ref) => {
                 console.log(error);
                 ref.current.classList.replace('flex', 'hidden');
                 setIsShowAlert({status: true, message:'Dokumen gagal diunggah'});
+            } finally {
+                form.reset();
             }
         }  else {
             ref.current.classList.replace('flex', 'hidden');
