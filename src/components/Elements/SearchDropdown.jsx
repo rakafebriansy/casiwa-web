@@ -16,12 +16,6 @@ const SearchDropdown = (props) => {
         dropdownToggle();
     }
 
-    useEffect(() => {
-
-    },[clicked]);
-
-
-
     return (
         <div className="text-xs w-full lg:w-fit">
             <input ref={refValue} type="hidden" name={name}/>
@@ -42,10 +36,12 @@ const SearchDropdown = (props) => {
             </button>
             <div className="w-full relative">
                 <ul className={`${clicked? 'flex': 'hidden'} w-full max-h-20 border-x border-b overflow-scroll overflow-x-hidden flex-col absolute top-0 bg-white cursor-pointer pb-1 rounded-b-lg justify-between items-center`}>
-                    {list.map(item => {
+                    <li key="0" onClick={() => { dropdownClicked(null, children) }} className="flex z-10 justify-start w-full bg-white hover:bg-[rgba(0,0,0,0.04)] px-2 py-1">
+                        <p className="select-none font-montserratSemiBold">{children}</p>
+                    </li>
+                    {list.map((item, index) => {
                         return (
-                            <li key={item.id} onClick={() => { dropdownClicked(item.id, item.name) }} className="flex z-10 justify-start w-full bg-white hover:bg-[rgba(0,0,0,0.04)] px-2 py-1">
-                                <input type="hidden" id={item.id} />
+                            <li key={index} onClick={() => { dropdownClicked(item.id, item.name) }} className="flex z-10 justify-start w-full bg-white hover:bg-[rgba(0,0,0,0.04)] px-2 py-1">
                                 <p className="select-none">{item.name}</p>
                             </li>
                         );

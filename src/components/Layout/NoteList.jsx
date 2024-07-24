@@ -8,7 +8,7 @@ const NoteList = (props) => {
         <ul className="flex flex-col gap-5">
             {notes.map((item, index) => {
                 return (
-                    <li id={index} className="flex flex-col gap-4 bg-white rounded-lg small-shadow items-center p-4">
+                    <li key={index} className="flex flex-col gap-4 bg-white rounded-lg small-shadow items-center p-4">
                         <div className="flex w-full justify-start items-start gap-4">
                             <div className="h-24 w-24 flex justify-center items-center border">
                                 <img src={baseURL + 'preview/' + item.thumbnail_name} className="h-full" alt="" />
