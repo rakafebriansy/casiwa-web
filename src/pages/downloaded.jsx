@@ -10,11 +10,12 @@ import NoteList from "../components/Layout/NoteList";
 import { authenticatedUser } from "../../services/auth.authenticatedUser.mjs";
 import { AnchorListContext } from "../contexts/AnchorList";
 import { getCookie } from "../functions/main";
-
+import { getNotes } from "../../services/list.notes.mjs";
 
 const DownloadedPage = () => {
     const [universities, setUniversities] = useState([]);
     const [studyPrograms, setStudyPrograms] = useState([]);
+    const [notes, setNotes] = useState([]);
     const [isLogin, setIsLogin] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
     const {anchorList} = useContext(AnchorListContext);
@@ -39,6 +40,9 @@ const DownloadedPage = () => {
         getStudyPrograms((data) => {
             setStudyPrograms(data.data);
         });
+        getNotes((data) => {
+            setNotes(data);
+        });
     },[]);
 
     if (isLoading) return (<h1>Loading...</h1>);
@@ -56,11 +60,11 @@ const DownloadedPage = () => {
                             <SearchDropdown list={studyPrograms} icon={<BookIcon classname="w-3"/>}>Program Studi</SearchDropdown>
                         </div>
                         <div className="w-full text-xs">
-                            3057 hasil
+                            {notes.total} hasil
                         </div>
                     </div>
                     <div className="w-full mb-5">
-                        <NoteList preview={documentPreviewImage} list={['ini','diganti','data api']}/>
+                        <NoteList notes={notes.data}/>
                     </div>
                 </div>
                 <Footer />

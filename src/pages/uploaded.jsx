@@ -12,10 +12,12 @@ import FormUpload from "../components/Layout/FormUpload";
 import { ShowAlertContext } from "../contexts/ShowAlert";
 import Alert from "../components/Elements/Alert";
 import { getCookie } from "../functions/main";
+import { getNotes } from "../../services/list.notes.mjs";
 
 const UploadedPage = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [isLogin, setIsLogin] = useState(false);
+    const [notes, setNotes] = useState([]);
     const navigate = useNavigate();
     const {anchorList} = useContext(AnchorListContext);
     const refUploadDropdown = useRef(null);
@@ -38,6 +40,10 @@ const UploadedPage = () => {
         } else {
             navigate('/login');
         }
+
+        getNotes((data) => {
+            setNotes(data);
+        });
     },[]);
 
     if (isLoading) return (<h1>Loading...</h1>);
@@ -56,11 +62,11 @@ const UploadedPage = () => {
                         }} outline={false} colorCode="border-primary hover:bg-primary text-primary">Unggah</SquareButton>
                     </div>
                     <div className="w-full text-xs">
-                        3057 hasil
+                    {notes.total} hasil
                     </div>
                 </div>
                 <div className="w-full mb-5">
-                    <NoteList preview={documentPreviewImage} list={['ini','diganti','data api']}/>
+                    <NoteList notes={notes.data}/>
                 </div>
             </div>
             <Footer />

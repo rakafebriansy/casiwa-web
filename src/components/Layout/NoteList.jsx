@@ -14,7 +14,7 @@ const NoteList = (props) => {
                                 <img src={baseURL + 'preview/' + item.thumbnail_name} className="h-full" alt="" />
                             </div>
                             <div className="flex flex-col gap-1 justify-center">
-                                <Link to="#" className="text-sm font-montserratSemiBold hover:text-blue-500">{item.title}</Link>
+                                <Link to={`/note-details/${item.id}`} className="text-sm font-montserratSemiBold hover:text-blue-500">{item.title}</Link>
                                 <p className="text-xs">{item.study_program + ' • ' + item.university + ' • ' + item.date}</p>
                             </div>
                         </div>

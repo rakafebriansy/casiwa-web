@@ -43,7 +43,7 @@ const NotesPage = () => {
         });
         getNotes((data) => {
             setNotes(data);
-        });    
+        });
     },[]);
 
     if (isLoading) return (<h1>Loading...</h1>);
@@ -65,7 +65,7 @@ const NotesPage = () => {
                         </div>
                     </div>
                     <div className="w-full mb-5">
-                        <NoteList notes={notes.data} list={['ini','diganti','data api']}/>
+                        <NoteList notes={notes.data}/>
                     </div>
                 </div>
                 <Footer />
