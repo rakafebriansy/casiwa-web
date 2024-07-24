@@ -3,7 +3,7 @@ import { UploadFileIcon } from "../../functions/svgs";
 import { useRef } from "react";
 
 const InputFile = (props) => {
-    const {name, setFile} = props;
+    const {name} = props;
     const [files, setFiles] = useState(null);
     const inputRef = useRef(null);
 
@@ -24,8 +24,8 @@ const InputFile = (props) => {
                     <UploadFileIcon strokeColor={files && files.length > 0 ? 'stroke-primary' : 'stroke-[#9B9B9B]'} />
                     {(!files || files.length == 0) && (
                         <>
-                        <p className="mb-2 text-sm "><span className="font-semibold">Click to upload</span> or drag and drop</p>
-                        <p className="text-xs ">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
+                        <p className="mb-2 text-sm "><span className="font-semibold">Klik untuk mengunggah</span> atau seret dan lepas</p>
+                        <p className="text-xs ">PDF (MAX. 20MB)</p>
                         </>
                     )}
                     {files && files.length > 0 && (
@@ -34,7 +34,7 @@ const InputFile = (props) => {
                         </>
                     )}
                 </div>
-                <input name={name} id="dropzone-file" type="file" className="hidden" onChange={e => {setFiles(e.target.files); setFile(e.target.files)}} ref={inputRef}/>
+                <input name={name} id="dropzone-file" type="file" className="hidden" onChange={e => {setFiles(e.target.files);}} ref={inputRef}/>
             </label>
         </div> 
     );

@@ -1,18 +1,16 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import Navbar from "../components/Layout/Navbar";
 import SearchButton from "../components/Elements/SearchButton";
-import SearchDropdown from "../components/Elements/SearchDropdown";
-import {BookIcon, UniversityIcon} from "../functions/svgs";
 import documentPreviewImage from "../assets/images/document-preview.png"
 import Footer from "../components/Layout/Footer";
-import { getStudyPrograms, getUniversities } from "../../services/list.userDetail.mjs";
 import NoteList from "../components/Layout/NoteList";
 import { authenticatedUser } from "../../services/auth.authenticatedUser.mjs";
 import { useNavigate } from "react-router-dom";
 import { AnchorListContext } from "../contexts/AnchorList";
 import SquareButton from "../components/Elements/SquareButton";
 import FormUpload from "../components/Layout/FormUpload";
-
+import { ShowAlertContext } from "../contexts/ShowAlert";
+import Alert from "../components/Elements/Alert";
 
 const UploadedPage = () => {
     const [isLoading, setIsLoading] = useState(true);
@@ -20,6 +18,7 @@ const UploadedPage = () => {
     const navigate = useNavigate();
     const {anchorList} = useContext(AnchorListContext);
     const refUploadDropdown = useRef(null);
+    const {isShowAlert} = useContext(ShowAlertContext);
 
     useEffect(()=> {
         const userData = JSON.parse(localStorage.getItem('user'));
@@ -44,6 +43,7 @@ const UploadedPage = () => {
 
     return (
         <main className="bg-backgroundPrime pt-20 lg:pt-28 font-montserratRegular flex flex-col items-center relative">
+            {isShowAlert.status && (<Alert>{isShowAlert.message}</Alert>)}
             <Navbar anchors={anchorList} isLogin={isLogin}/>
             <div className=" flex flex-col items-center lg:w-[80%]">
                 <div className="w-[80%] lg:w-full mb-5">

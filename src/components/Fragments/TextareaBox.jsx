@@ -3,7 +3,7 @@ import InputTextarea from "../Elements/InputTextarea";
 import Label from "../Elements/Label";
 
 const TextareaBox = (props) => {
-    const [characterCount, setCharacterCount] = useState(100);
+    const [characterCount, setCharacterCount] = useState(200);
     const {children, name, placeholder, max} = props;
     return (
         <div className="font-montserratRegular flex flex-col w-full">
