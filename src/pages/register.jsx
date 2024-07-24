@@ -1,5 +1,5 @@
 import Navbar from "../components/Layout/Navbar";
-import { getScreenSize } from "../functions/layout";
+import { getScreenSize } from "../functions/main";
 import authBackgroundImage from "../assets/images/auth-background.png"
 import Logo from "../components/Elements/Logo";
 import FormRegister from "../components/Layout/FormRegister";

@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { login } from "../../../services/auth.login.mjs";
 import { useContext } from "react";
 import { ShowAlertContext } from "../../contexts/ShowAlert";
+import { setCookie } from "../../functions/main";
 
 const FormLogin = () => {
     const {setIsShowAlert} = useContext(ShowAlertContext);
@@ -22,10 +23,10 @@ const FormLogin = () => {
 
         login(data,(data) => {
             if(data.success) {
-                localStorage.setItem('user',JSON.stringify({
+                setCookie('user',{
                     email: data.email,
                     token: data.token
-                }))
+                },1);
                 navigate('/');
             } else {
                 setIsShowAlert({status: true, message:data.message});

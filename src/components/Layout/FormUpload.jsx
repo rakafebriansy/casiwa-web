@@ -7,6 +7,7 @@ import React, { useContext } from "react";
 import { getDocument, GlobalWorkerOptions } from '../../../modules/pdf.js/build/pdf.mjs';
 import { upload } from "../../../services/auth.upload.mjs";
 import { ShowAlertContext } from "../../contexts/ShowAlert";
+import { getCookie } from "../../functions/main";
 GlobalWorkerOptions.workerSrc = '../../../modules/pdf.js/build/pdf.worker.mjs';
 
 const FormUpload = React.forwardRef((props, ref) => {
@@ -64,7 +65,7 @@ const FormUpload = React.forwardRef((props, ref) => {
 
             formData.append('file', file);
             try {
-                const userData = JSON.parse(localStorage.getItem('user'));
+                const userData = JSON.parse(getCookie('user'));
                 const blob = await generateThumbnail(file);
                 formData.append('thumbnail',blob,'thumbnail.png');
                 upload(formData, userData.token, (data) => {

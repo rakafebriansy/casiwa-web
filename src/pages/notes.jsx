@@ -9,6 +9,7 @@ import { getStudyPrograms, getUniversities } from "../../services/list.userDetai
 import NoteList from "../components/Layout/NoteList";
 import { authenticatedUser } from "../../services/auth.authenticatedUser.mjs";
 import { AnchorListContext } from "../contexts/AnchorList";
+import { getCookie } from "../functions/main";
 
 
 const NotesPage = () => {
@@ -19,7 +20,7 @@ const NotesPage = () => {
     const {anchorList} = useContext(AnchorListContext);
 
     useEffect(()=> {
-        const userData = JSON.parse(localStorage.getItem('user'));
+        const userData = getCookie('user');
         if(userData) {
             authenticatedUser(userData.token,
                 res => {

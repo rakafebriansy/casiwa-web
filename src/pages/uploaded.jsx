@@ -11,6 +11,7 @@ import SquareButton from "../components/Elements/SquareButton";
 import FormUpload from "../components/Layout/FormUpload";
 import { ShowAlertContext } from "../contexts/ShowAlert";
 import Alert from "../components/Elements/Alert";
+import { getCookie } from "../functions/main";
 
 const UploadedPage = () => {
     const [isLoading, setIsLoading] = useState(true);
@@ -21,7 +22,7 @@ const UploadedPage = () => {
     const {isShowAlert} = useContext(ShowAlertContext);
 
     useEffect(()=> {
-        const userData = JSON.parse(localStorage.getItem('user'));
+        const userData = getCookie('user')
         if(userData) {
             authenticatedUser(userData.token,
                 res => {

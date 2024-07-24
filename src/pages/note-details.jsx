@@ -6,6 +6,7 @@ import { authenticatedUser } from "../../services/auth.authenticatedUser.mjs";
 import { AnchorListContext } from "../contexts/AnchorList";
 import { useContext, useEffect, useRef, useState } from "react";
 import { getDocument, GlobalWorkerOptions } from '../../modules/pdf.js/build/pdf.mjs';
+import { getCookie } from "../functions/main";
 GlobalWorkerOptions.workerSrc = '../../modules/pdf.js/build/pdf.worker.mjs';
 
 const NoteDetailsPage = () => {
@@ -73,7 +74,7 @@ const NoteDetailsPage = () => {
     }
 
     useEffect(()=> {
-        const userData = JSON.parse(localStorage.getItem('user'));
+        const userData = JSON.parse(getCookie('user'));
         if(userData) {
             authenticatedUser(userData.token,
                 res => {

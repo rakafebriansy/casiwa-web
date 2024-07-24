@@ -10,6 +10,7 @@ import Footer from "../components/Layout/Footer";
 import { useContext, useEffect, useState } from "react";
 import { authenticatedUser } from "../../services/auth.authenticatedUser.mjs";
 import { AnchorListContext } from "../contexts/AnchorList";
+import { getCookie } from "../functions/main";
 
 const HomePage = () => {
     const [isLogin, setIsLogin] = useState(false);
@@ -17,7 +18,7 @@ const HomePage = () => {
     const {anchorList} = useContext(AnchorListContext);
 
     useEffect(()=> {
-        const userData = JSON.parse(localStorage.getItem('user'));
+        const userData = getCookie('user');
         if(userData) {
             authenticatedUser(userData.token,
                 res => {
