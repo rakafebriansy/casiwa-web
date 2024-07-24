@@ -42,7 +42,7 @@ const NotesPage = () => {
             setStudyPrograms(data.data);
         });
         getNotes((data) => {
-            setNotes(data.data);
+            setNotes(data);
         });    
     },[]);
 
@@ -61,11 +61,11 @@ const NotesPage = () => {
                             <SearchDropdown list={studyPrograms} icon={<BookIcon classname="w-3"/>}>Program Studi</SearchDropdown>
                         </div>
                         <div className="w-full text-xs">
-                            3057 hasil
+                            {notes.total} hasil
                         </div>
                     </div>
                     <div className="w-full mb-5">
-                        <NoteList notes={notes} list={['ini','diganti','data api']}/>
+                        <NoteList notes={notes.data} list={['ini','diganti','data api']}/>
                     </div>
                 </div>
                 <Footer />
