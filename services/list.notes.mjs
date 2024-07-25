@@ -29,6 +29,18 @@ export const getUploadedNotes = (callback, token, keyword = '') => {
         console.error(err);
     });
 }
+export const getDownloadedNotes = (callback, token, keyword = '') => {
+    axios.get(baseURL + 'user/downloaded-notes?keyword=' + keyword, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      }).then(res => {
+        callback(res.data);
+    }).catch(err => {
+        console.error(err);
+    });
+}
 
 export const getSingleNotePreview = (id, callback) => {
     axios.get(baseURL + 'note-preview?id=' + id).then(res => {

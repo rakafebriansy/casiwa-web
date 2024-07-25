@@ -3,14 +3,13 @@ import Navbar from "../components/Layout/Navbar";
 import SearchButton from "../components/Elements/SearchButton";
 import SearchDropdown from "../components/Elements/SearchDropdown";
 import {BookIcon, UniversityIcon} from "../functions/svgs";
-import documentPreviewImage from "../assets/images/document-preview.png"
 import Footer from "../components/Layout/Footer";
 import { getStudyPrograms, getUniversities } from "../../services/list.userDetail.mjs";
 import NoteList from "../components/Layout/NoteList";
 import { authenticatedUser } from "../../services/auth.authenticatedUser.mjs";
 import { AnchorListContext } from "../contexts/AnchorList";
 import { getCookie } from "../functions/main";
-import { getNotes } from "../../services/list.notes.mjs";
+import { getDownloadedNotes, getNotes } from "../../services/list.notes.mjs";
 
 const DownloadedPage = () => {
     const [universities, setUniversities] = useState([]);
@@ -19,6 +18,14 @@ const DownloadedPage = () => {
     const [isLogin, setIsLogin] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
     const {anchorList} = useContext(AnchorListContext);
+
+    const handleSearch = async (e) => {
+        e.preventDefault();
+        const userData = getCookie('user');
+        getDownloadedNotes((data) => {
+            setNotes(data);
+        },userData.token);
+    }
 
     useEffect(()=> {
         const userData = getCookie('user');
@@ -33,15 +40,15 @@ const DownloadedPage = () => {
             () => {
                 setIsLoading(false);
             });
+            getDownloadedNotes((data) => {
+                setNotes(data);
+            },userData.token);
         }
         getUniversities((data) => {
             setUniversities(data.data);
         });
         getStudyPrograms((data) => {
             setStudyPrograms(data.data);
-        });
-        getNotes((data) => {
-            setNotes(data);
         });
     },[]);
 
@@ -52,7 +59,7 @@ const DownloadedPage = () => {
             {universities.length > 0 && studyPrograms.length > 0 && (
                 <>
                 <Navbar anchors={isLogin ? anchorList : []} isLogin={isLogin}/>
-                <div className=" flex flex-col items-center lg:w-[80%]">
+                <form onSubmit={handleSearch} className=" flex flex-col items-center lg:w-[80%]">
                     <div className="w-[80%] lg:w-full mb-5">
                         <SearchButton name="keyword">Cari dokumen</SearchButton>
                         <div className="mt-5 mb-2 grid grid-cols-2 gap-2 lg:flex ">
@@ -66,7 +73,7 @@ const DownloadedPage = () => {
                     <div className="w-full mb-5">
                         <NoteList notes={notes.data}/>
                     </div>
-                </div>
+                </form>
                 <Footer />
                 </>
             )}
