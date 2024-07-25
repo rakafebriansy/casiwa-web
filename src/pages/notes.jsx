@@ -31,7 +31,7 @@ const NotesPage = () => {
         } else {
             getNotes((data) => {
                 setNotes(data);
-            });
+            },form.keyword.value);
         }
     }
 

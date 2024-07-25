@@ -12,7 +12,7 @@ import FormUpload from "../components/Layout/FormUpload";
 import { ShowAlertContext } from "../contexts/ShowAlert";
 import Alert from "../components/Elements/Alert";
 import { getCookie } from "../functions/main";
-import { getNotes } from "../../services/list.notes.mjs";
+import { getNotes, getUploadedNotes } from "../../services/list.notes.mjs";
 
 const UploadedPage = () => {
     const [isLoading, setIsLoading] = useState(true);
@@ -22,6 +22,14 @@ const UploadedPage = () => {
     const {anchorList} = useContext(AnchorListContext);
     const refUploadDropdown = useRef(null);
     const {isShowAlert} = useContext(ShowAlertContext);
+
+    const handleSearch = async (e) => {
+        e.preventDefault();
+        const userData = getCookie('user');
+        getUploadedNotes((data) => {
+            setNotes(data);
+        },userData.token,e.target.keyword.value);
+    }
 
     useEffect(()=> {
         const userData = getCookie('user')
@@ -41,9 +49,9 @@ const UploadedPage = () => {
             navigate('/login');
         }
 
-        getNotes((data) => {
+        getUploadedNotes((data) => {
             setNotes(data);
-        });
+        },userData.token);
     },[]);
 
     if (isLoading) return (<h1>Loading...</h1>);
@@ -53,8 +61,8 @@ const UploadedPage = () => {
             {isShowAlert.status && (<Alert>{isShowAlert.message}</Alert>)}
             <Navbar anchors={anchorList} isLogin={isLogin}/>
             <div className=" flex flex-col items-center lg:w-[80%]">
-                <div className="w-[80%] lg:w-full mb-5">
-                    <SearchButton/>
+                <form onSubmit={handleSearch} className="w-[80%] lg:w-full mb-5">
+                    <SearchButton name="keyword">Cari dokumen</SearchButton>
                     <div className="mt-5 mb-2 grid grid-cols-2 gap-2 lg:flex">
                         <SquareButton onclick={(e) => {
                             e.preventDefault();
@@ -64,7 +72,7 @@ const UploadedPage = () => {
                     <div className="w-full text-xs">
                     {notes.total} hasil
                     </div>
-                </div>
+                </form>
                 <div className="w-full mb-5">
                     <NoteList notes={notes.data}/>
                 </div>

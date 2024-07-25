@@ -54,7 +54,7 @@ const DownloadedPage = () => {
                 <Navbar anchors={isLogin ? anchorList : []} isLogin={isLogin}/>
                 <div className=" flex flex-col items-center lg:w-[80%]">
                     <div className="w-[80%] lg:w-full mb-5">
-                        <SearchButton/>
+                        <SearchButton name="keyword">Cari dokumen</SearchButton>
                         <div className="mt-5 mb-2 grid grid-cols-2 gap-2 lg:flex ">
                             <SearchDropdown list={universities} icon={<UniversityIcon classname="w-3"/>}>Universitas</SearchDropdown>
                             <SearchDropdown list={studyPrograms} icon={<BookIcon classname="w-3"/>}>Program Studi</SearchDropdown>
