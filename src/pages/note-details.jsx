@@ -90,7 +90,10 @@ const NoteDetailsPage = () => {
     },[]);
 
     useEffect(() => {
-        if(isLogin && refPdfCanvas.current) {
+        if(!isLoading) {
+            console.log(refPdfCanvas.current)
+            console.log(refPdfCanvas.current)
+
 
             const url = '/assets/CVRaka.pdf';
 
@@ -105,7 +108,7 @@ const NoteDetailsPage = () => {
                 console.error(err);
              });
         }
-    },[isLogin]);
+    },[isLoading]);
 
     useEffect(() => {
         if (pdfDoc && refPdfCanvas.current) {
