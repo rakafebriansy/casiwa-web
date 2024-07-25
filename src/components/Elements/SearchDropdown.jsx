@@ -5,6 +5,7 @@ const SearchDropdown = (props) => {
     const [clicked, setClicked] = useState(false);
     const refText = useRef(null);
     const refValue = useRef(null);
+    const refBtn = useRef(null);
 
     const dropdownToggle = () => {
         setClicked(!clicked);
@@ -14,12 +15,25 @@ const SearchDropdown = (props) => {
         refText.current.innerText = text;
         refValue.current.value = id;
         dropdownToggle();
-    }
+    };
+
+    const outsideClicked = (event) => {
+        if (refBtn.current && !refBtn.current.contains(event.target)) {
+          setClicked(false);
+        }
+    };
+
+    useEffect(() => {
+        document.addEventListener('mousedown', outsideClicked);
+        return () => {
+            document.removeEventListener('mousedown', outsideClicked);
+        };
+    },[]);
 
     return (
         <div className="text-xs w-full lg:w-fit">
             <input ref={refValue} type="hidden" name={name}/>
-            <button onClick={dropdownToggle} className={`font-montserratSemiBold justify-between w-full px-3 py-2 bg-white ${clicked? 'rounded-t-lg border-t border-x rounded-ss-lg' : 'border rounded-lg'} inline-flex gap-3 items-center`}>
+            <button ref={refBtn} onClick={dropdownToggle} className={`font-montserratSemiBold justify-between w-full px-3 py-2 bg-white ${clicked? 'rounded-t-lg border-t border-x rounded-ss-lg' : 'border rounded-lg'} inline-flex gap-3 items-center`}>
                 {icon}
                 <span className="hover:text-blue-500" ref={refText}>
                     {children}

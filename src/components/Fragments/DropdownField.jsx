@@ -29,7 +29,20 @@ const DropdownField = (props) => {
         refBtnClicked.current.children[1].innerText = text;
         refBtnClicked.current.firstElementChild.value = id;
         dropdownToggle();
-    }
+    };
+
+    const outsideClicked = (event) => {
+        if (refBtnClicked.current && !refBtnClicked.current.contains(event.target)) {
+          setClicked(false);
+        }
+    };
+
+    useEffect(() => {
+        document.addEventListener('mousedown', outsideClicked);
+        return () => {
+            document.removeEventListener('mousedown', outsideClicked);
+        };
+    },[]);
 
     return (
         <div className="font-montserratRegular flex flex-col w-full">
