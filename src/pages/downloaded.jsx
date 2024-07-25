@@ -4,12 +4,12 @@ import SearchButton from "../components/Elements/SearchButton";
 import SearchDropdown from "../components/Elements/SearchDropdown";
 import {BookIcon, UniversityIcon} from "../functions/svgs";
 import Footer from "../components/Layout/Footer";
-import { getStudyPrograms, getUniversities } from "../../services/util.userDetail.mjs";
+import { getStudyPrograms, getUniversities } from "../../services/util.userDetail.jsx";
 import NoteList from "../components/Layout/NoteList";
-import { authenticatedUser } from "../../services/auth.authenticatedUser.mjs";
+import { authenticatedUser } from "../../services/auth.authenticatedUser.jsx";
 import { AnchorListContext } from "../contexts/AnchorList";
 import { getCookie } from "../functions/main";
-import { getDownloadedNotes, getNotes } from "../../services/util.notes.mjs";
+import { getDownloadedNotes, getNotes } from "../../services/util.notes.jsx";
 
 const DownloadedPage = () => {
     const [universities, setUniversities] = useState([]);

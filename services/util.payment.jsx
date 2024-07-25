@@ -1,5 +1,8 @@
-export const getPaymentToken = (token, callback) => {
-    axios.get(baseURL + 'payment-token', {
+import axios from "axios";
+
+export const getPaymentToken = (callback, token, price) => {
+    const params = price ? 'user/payment-token?price' + price : 'user/payment-token';
+    axios.get(import.meta.env.VITE_BASE_URL + params, {
         headers: {
             'Authorization': `Bearer ${token}`,
             'Content-Type': 'multipart/form-data'

@@ -24,7 +24,7 @@ const Navbar = (props) => {
                 ):(
                     <div className="flex justify-between gap-2 md:gap-8">
                         <SquareButton path="/login" colorCode="bg-secondary">Masuk</SquareButton>
-                        <SquareButton path="/register" colorCode="bg-secondary" outline={true}>Daftar</SquareButton>
+                        <SquareButton path="/register" colorCode="text-secondary hover:bg-secondary border-secondary" outline={true}>Daftar</SquareButton>
                     </div>
                 )}
             </div>

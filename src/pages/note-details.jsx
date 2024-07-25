@@ -2,16 +2,16 @@ import Navbar from "../components/Layout/Navbar";
 import { Link } from "react-router-dom";
 import SquareButton from "../components/Elements/SquareButton";
 import Footer from "../components/Layout/Footer";
-import { hasDocumentUser } from "../../services/auth.authenticatedUser.mjs";
+import { hasDocumentUser } from "../../services/auth.authenticatedUser.jsx";
 import { AnchorListContext } from "../contexts/AnchorList";
 import { useContext, useEffect, useRef, useState } from "react";
 import { getDocument, GlobalWorkerOptions } from '../../modules/pdf.js/build/pdf.mjs';
 import { getCookie, parseDate } from "../functions/main";
 import { useParams } from 'react-router-dom';
-import { getSingleNote, getSingleNotePreview } from "../../services/util.notes.mjs";
-import { baseURL } from "../../services/env.mjs";
+import { getSingleNote, getSingleNotePreview } from "../../services/util.notes.jsx";
 GlobalWorkerOptions.workerSrc = '../../modules/pdf.js/build/pdf.worker.mjs';
 import Modal from "../components/Elements/Modal";
+import { getPaymentToken } from "../../services/util.payment.jsx";
 
 const NoteDetailsPage = () => {
     const [isLogin, setIsLogin] = useState(false);
@@ -81,7 +81,10 @@ const NoteDetailsPage = () => {
     }
 
     const handlePayment = async () => {
-
+        const userData = getCookie('user');
+        getPaymentToken((data) => {
+            console.log(data);
+        }, userData.token);
     }
 
     useEffect(()=> {
@@ -110,14 +113,24 @@ const NoteDetailsPage = () => {
                 });
             }, 
             () => {
-                setIsLoading(false);
+                    const script = document.createElement('script');
+                    script.src = 'https://app.sandbox.midtrans.com/snap/snap.js';
+                    script.dataset.clientKey = import.meta.env.MIDTRANS_CLIENT_KEY;
+                    script.async = true;
+                    document.body.appendChild(script);
+
+                    setIsLoading(false);
+
+                    return () => {
+                    document.body.removeChild(script);
+                    };
             });
         }
     },[]);
 
     useEffect(() => {
         if(note.file_name) {
-            getDocument(baseURL + 'document/' + note.file_name).promise.then(pdfDoc_ => {
+            getDocument(import.meta.env.VITE_BASE_URL + 'document/' + note.file_name).promise.then(pdfDoc_ => {
                 setPdfDoc(pdfDoc_);
                 const ctx = refPdfCanvas.current.getContext('2d');
                 if(ctx) {
@@ -165,7 +178,7 @@ const NoteDetailsPage = () => {
                                 {note.file_name ? (
                                     <canvas ref={refPdfCanvas} id="pdf-render" className="w-full h-full"></canvas>
                                 ) : (
-                                    <img src={baseURL + 'preview/' + note.thumbnail_name} className="w-full h-full" alt="" />
+                                    <img src={import.meta.env.VITE_BASE_URL + 'preview/' + note.thumbnail_name} className="w-full h-full" alt="" />
                                 )}
                                 <div className="absolute flex bg-white py-3 small-shadow flex-col gap-2 lg:gap-3 items-center w-full bottom-0 text-sm lg:text-base">
                                     <p className="font-montserratSemiBold">Preview</p>
@@ -178,7 +191,9 @@ const NoteDetailsPage = () => {
                 <Footer />
             </main>
         )}
-        <Modal ref={refModal} title="Pembayaran" decline="Batal" accept="Bayar sekarang">
+        <Modal ref={refModal} title="Pembayaran" decline="Batal" accept="Bayar sekarang" onsubmit={() => {
+
+        }}>
             <table>
                 <tbody className="align-top">
                     <tr>

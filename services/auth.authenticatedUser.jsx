@@ -1,8 +1,7 @@
 import axios from "axios";
-import { baseURL } from "./env.mjs";
 
 export const authenticatedUser = (token, callback, errorHandler = () => {}, finallyHandler = () => {}) => {
-  axios.get(baseURL + 'user',{
+  axios.get(import.meta.env.VITE_BASE_URL + 'user',{
       headers: {
         'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json',
@@ -11,7 +10,7 @@ export const authenticatedUser = (token, callback, errorHandler = () => {}, fina
 }
 
 export const hasDocumentUser = (token, id, callback, errorHandler = () => {}, finallyHandler = () => {}) => {
-  axios.get(baseURL + 'user/is-bought?id=' + id,{
+  axios.get(import.meta.env.VITE_BASE_URL + 'user/is-bought?id=' + id,{
       headers: {
         'Authorization': `Bearer ${token}`,
         'Content-Type': 'application/json',

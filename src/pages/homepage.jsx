@@ -8,7 +8,7 @@ import partnershipImage from "../assets/images/partnership.png"
 import landingBackgroundImage from "../assets/images/landing-background.png"
 import Footer from "../components/Layout/Footer";
 import { useContext, useEffect, useState } from "react";
-import { authenticatedUser } from "../../services/auth.authenticatedUser.mjs";
+import { authenticatedUser } from "../../services/auth.authenticatedUser.jsx";
 import { AnchorListContext } from "../contexts/AnchorList";
 import { getCookie } from "../functions/main";
 

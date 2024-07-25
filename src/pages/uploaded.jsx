@@ -1,10 +1,9 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import Navbar from "../components/Layout/Navbar";
 import SearchButton from "../components/Elements/SearchButton";
-import documentPreviewImage from "../assets/images/document-preview.png"
 import Footer from "../components/Layout/Footer";
 import NoteList from "../components/Layout/NoteList";
-import { authenticatedUser } from "../../services/auth.authenticatedUser.mjs";
+import { authenticatedUser } from "../../services/auth.authenticatedUser.jsx";
 import { useNavigate } from "react-router-dom";
 import { AnchorListContext } from "../contexts/AnchorList";
 import SquareButton from "../components/Elements/SquareButton";
@@ -12,7 +11,7 @@ import FormUpload from "../components/Layout/FormUpload";
 import { ShowAlertContext } from "../contexts/ShowAlert";
 import Alert from "../components/Elements/Alert";
 import { getCookie } from "../functions/main";
-import { getNotes, getUploadedNotes } from "../../services/list.notes.mjs";
+import { getNotes, getUploadedNotes } from "../../services/util.notes.jsx";
 
 const UploadedPage = () => {
     const [isLoading, setIsLoading] = useState(true);

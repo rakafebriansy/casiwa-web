@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import {DownloadCountIcon} from "../../functions/svgs"
-import { baseURL } from "../../../services/env.mjs";
 
 const NoteList = (props) => {
     const {notes = []} = props;
@@ -11,7 +10,7 @@ const NoteList = (props) => {
                     <li key={index} className="flex flex-col gap-4 bg-white rounded-lg small-shadow items-center p-4">
                         <div className="flex w-full justify-start items-start gap-4">
                             <div className="h-24 w-24 flex justify-center items-center border">
-                                <img src={baseURL + 'preview/' + item.thumbnail_name} className="h-full" alt="" />
+                                <img src={import.meta.env.VITE_BASE_URL + 'preview/' + item.thumbnail_name} className="h-full" alt="" />
                             </div>
                             <div className="flex flex-col gap-1 justify-center">
                                 <Link to={`/note-details/${item.id}`} className="text-sm font-montserratSemiBold hover:text-blue-500">{item.title}</Link>

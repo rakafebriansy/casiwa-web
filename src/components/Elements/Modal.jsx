@@ -6,7 +6,7 @@ const Modal = React.forwardRef((props, ref) => {
     const {title, children, accept, onsubmit = () => {}} = props;
 
     return (
-        <form ref={ref} onSubmit={onsubmit} className="flex items-center w-full h-screen justify-center top-0 left-0 fixed z-30">
+        <form ref={ref} onSubmit={onsubmit} className="hidden items-center w-full h-screen justify-center top-0 left-0 fixed z-30">
             <div className="w-full h-full bg-black opacity-10 absolute top-0 left-0"></div>
             <div className="fixed bottom-1/2 start-1/2 translate-y-1/2 -translate-x-1/2 overflow-x-hidden transition-all overflow-y-auto pointer-events-none">
                 <div className="sm:max-w-lg sm:w-full m-3 sm:mx-auto">
@@ -25,7 +25,7 @@ const Modal = React.forwardRef((props, ref) => {
                         </p>
                     </div>
                     <div className="flex justify-center items-center gap-x-2 py-3 px-4 border-t">
-                        <SquareButton type="button" onClick={onsubmit} colorCode="bg-secondary">{accept}</SquareButton>
+                        <SquareButton type="button" onClick={onsubmit} colorCode="bg-primary">{accept}</SquareButton>
                     </div>
                     </div>
                 </div>

@@ -14,7 +14,7 @@ const SquareButton = (props) => {
         if(outline) {
             return (
                 <Link to={path} className={`w-fit relative px-5 text-xs py-0 flex justify-center items-center md:text-sm md:min-w-24 h-8 md:h-10 shadow-lg rounded-md border-2 hover:text-white transition ${colorCode} font-montserratSemiBold`}>
-                    <span className="z-10 button-hover">{children}</span>
+                    <span className="z-10">{children}</span>
                     <div className="absolute top0 w-full h-full rounded-md hover:opacity-10 opacity-0 bg-black "></div>
                 </Link>
             );

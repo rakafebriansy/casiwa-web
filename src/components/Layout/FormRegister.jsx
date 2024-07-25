@@ -5,7 +5,7 @@ import AuthAnchor from "../Elements/AuthAnchor";
 import DropdownField from "../Fragments/DropdownField";
 import { useContext } from "react";
 import { ShowAlertContext } from "../../contexts/ShowAlert";
-import { register } from "../../../services/auth.register.mjs";
+import { register } from "../../../services/auth.register.jsx";
 import { useNavigate } from "react-router-dom";
 
 const FormRegister = (props) => {

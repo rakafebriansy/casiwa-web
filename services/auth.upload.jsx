@@ -1,8 +1,7 @@
 import axios from "axios";
-import { baseURL } from "./env.mjs";
 
 export const upload = (data, token, callback) => {
-    axios.post(baseURL + 'user/upload', data, {
+    axios.post(import.meta.env.VITE_BASE_URL + 'user/upload', data, {
         headers: {
             'Authorization': `Bearer ${token}`,
             'Content-Type': 'multipart/form-data'

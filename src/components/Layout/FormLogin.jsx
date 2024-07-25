@@ -4,7 +4,7 @@ import InputCheckBox from "../Elements/InputCheckBox";
 import LongRoundedButton from "../Elements/LongRoundedButton";
 import AuthAnchor from "../Elements/AuthAnchor";
 import { useNavigate } from "react-router-dom";
-import { login } from "../../../services/auth.login.mjs";
+import { login } from "../../../services/auth.login.jsx";
 import { useContext } from "react";
 import { ShowAlertContext } from "../../contexts/ShowAlert";
 import { setCookie } from "../../functions/main";

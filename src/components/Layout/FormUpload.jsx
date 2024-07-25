@@ -5,7 +5,7 @@ import LongRoundedButton from "../Elements/LongRoundedButton"
 import CloseButton from "../Elements/CloseButton";
 import React, { useContext } from "react";
 import { getDocument, GlobalWorkerOptions } from '../../../modules/pdf.js/build/pdf.mjs';
-import { upload } from "../../../services/auth.upload.mjs";
+import { upload } from "../../../services/auth.upload.jsx";
 import { ShowAlertContext } from "../../contexts/ShowAlert";
 import { getCookie } from "../../functions/main";
 GlobalWorkerOptions.workerSrc = '../../../modules/pdf.js/build/pdf.worker.mjs';

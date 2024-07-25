@@ -4,7 +4,7 @@ import authBackgroundImage from "../assets/images/auth-background.png"
 import Logo from "../components/Elements/Logo";
 import FormRegister from "../components/Layout/FormRegister";
 import { useContext, useEffect, useState } from "react";
-import { getStudyPrograms, getUniversities } from "../../services/list.userDetail.mjs";
+import { getStudyPrograms, getUniversities } from "../../services/util.userDetail.jsx";
 import Alert from "../components/Elements/Alert";
 import { ShowAlertContext } from "../contexts/ShowAlert";
 

@@ -1,8 +1,7 @@
 import axios from "axios";
-import { baseURL } from "./env.mjs";
 
 export const register = (data, callback) => {
-    axios.post(baseURL + 'register', data).then(res => {
+    axios.post(import.meta.env.VITE_BASE_URL + 'register', data).then(res => {
         callback(res.data.data);
     }).catch(res => {
         callback({
