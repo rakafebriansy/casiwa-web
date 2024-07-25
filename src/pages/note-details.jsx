@@ -8,9 +8,10 @@ import { useContext, useEffect, useRef, useState } from "react";
 import { getDocument, GlobalWorkerOptions } from '../../modules/pdf.js/build/pdf.mjs';
 import { getCookie, parseDate } from "../functions/main";
 import { useParams } from 'react-router-dom';
-import { getSingleNote, getSingleNotePreview } from "../../services/list.notes.mjs";
+import { getSingleNote, getSingleNotePreview } from "../../services/util.notes.mjs";
 import { baseURL } from "../../services/env.mjs";
 GlobalWorkerOptions.workerSrc = '../../modules/pdf.js/build/pdf.worker.mjs';
+import Modal from "../components/Elements/Modal";
 
 const NoteDetailsPage = () => {
     const [isLogin, setIsLogin] = useState(false);
@@ -23,6 +24,7 @@ const NoteDetailsPage = () => {
     const [pageNumIsPending, setPageNumIsPending] = useState(1);
     const refPdfCanvas = useRef(null);
     const {id} = useParams();
+    const refModal = useRef(null);
 
     const renderPage = (num, ctx, scale) => {
         if (!pdfDoc || !refPdfCanvas.current || !ctx) {
@@ -76,6 +78,10 @@ const NoteDetailsPage = () => {
         }
         setPageNum(pageNum + 1);
         queueRenderPage(pageNum);
+    }
+
+    const handlePayment = async () => {
+
     }
 
     useEffect(()=> {
@@ -152,7 +158,9 @@ const NoteDetailsPage = () => {
                     </div>
                     <div className="flex flex-col items-start mt-5">
                         <div className="flex flex-col items-end gap-4 lg:gap-6  lg:w-[80%]">
-                            <SquareButton colorCode="bg-primary">Unduh</SquareButton>
+                            <SquareButton type="button" colorCode="bg-primary" onclick={() => {
+                                refModal.current.classList.replace('hidden','flex');
+                            }} >Unduh</SquareButton>
                             <div className="bg-backgroundPrime w-full h-[35rem] lg:h-[65rem] relative small-shadow ">
                                 {note.file_name ? (
                                     <canvas ref={refPdfCanvas} id="pdf-render" className="w-full h-full"></canvas>
@@ -170,6 +178,24 @@ const NoteDetailsPage = () => {
                 <Footer />
             </main>
         )}
+        <Modal ref={refModal} title="Pembayaran" decline="Batal" accept="Bayar sekarang">
+            <table>
+                <tbody className="align-top">
+                    <tr>
+                        <td className="p-1">Judul:</td>
+                        <td className="p-1">{note.title}</td>
+                    </tr>
+                    <tr>
+                        <td className="p-1">Deskripsi:</td>
+                        <td className="p-1">{note.description}</td>
+                    </tr>
+                    <tr>
+                        <td className="p-1">Harga:</td>
+                        <td className="p-1">Rp 2500</td>
+                    </tr>
+                </tbody>
+            </table>
+        </Modal>
         </>
     );
 };

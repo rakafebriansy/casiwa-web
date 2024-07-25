@@ -3,15 +3,13 @@ import Navbar from "../components/Layout/Navbar";
 import SearchButton from "../components/Elements/SearchButton";
 import SearchDropdown from "../components/Elements/SearchDropdown";
 import {BookIcon, UniversityIcon} from "../functions/svgs";
-import documentPreviewImage from "../assets/images/document-preview.png"
 import Footer from "../components/Layout/Footer";
-import { getStudyPrograms, getUniversities } from "../../services/list.userDetail.mjs";
+import { getStudyPrograms, getUniversities } from "../../services/util.userDetail.mjs";
 import NoteList from "../components/Layout/NoteList";
 import { authenticatedUser } from "../../services/auth.authenticatedUser.mjs";
 import { AnchorListContext } from "../contexts/AnchorList";
 import { getCookie } from "../functions/main";
-import { getNotes, getNotesByFilter } from "../../services/list.notes.mjs";
-
+import { getNotes, getNotesByFilter } from "../../services/util.notes.mjs";
 
 const NotesPage = () => {
     const [universities, setUniversities] = useState([]);

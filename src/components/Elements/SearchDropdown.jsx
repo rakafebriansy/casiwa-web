@@ -31,7 +31,7 @@ const SearchDropdown = (props) => {
     },[]);
 
     return (
-        <div className="text-xs w-full lg:w-fit">
+        <div className="text-xs w-full lg:w-fit select-none">
             <input ref={refValue} type="hidden" name={name}/>
             <button ref={refBtn} onClick={dropdownToggle} className={`font-montserratSemiBold justify-between w-full px-3 py-2 bg-white ${clicked? 'rounded-t-lg border-t border-x rounded-ss-lg' : 'border rounded-lg'} inline-flex gap-3 items-center`}>
                 {icon}
