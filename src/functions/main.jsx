@@ -20,3 +20,15 @@ export const getCookie = (name) => {
     }
     return {token:null}
 }
+
+export const parseDate = (inputDate) => {
+    const months = [
+      'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
+      'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
+    ];
+    const [day, month, year] = inputDate.split('-').map(Number);
+    if (month < 1 || month > 12) {
+      throw new Error('Bulan tidak valid');
+    }
+    return `${day} ${months[month - 1]} ${year}`;
+  }

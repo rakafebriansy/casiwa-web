@@ -29,3 +29,24 @@ export const getUploadedNotes = (callback, token, keyword = '') => {
         console.error(err);
     });
 }
+
+export const getSingleNotePreview = (id, callback) => {
+    axios.get(baseURL + 'note-preview?id=' + id).then(res => {
+        callback(res.data.data);
+    }).catch(err => {
+        console.error(err);
+    });
+}
+
+export const getSingleNote = (id, token, callback) => {
+    axios.get(baseURL + 'note-details?id=' + id, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      }).then(res => {
+        callback(res.data.data);
+    }).catch(err => {
+        console.error(err);
+    });
+}
