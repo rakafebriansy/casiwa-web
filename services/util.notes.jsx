@@ -45,7 +45,7 @@ export const getSingleNotePreview = (id, callback) => {
     axios.get(import.meta.env.VITE_BASE_URL + 'note-preview?id=' + id).then(res => {
         callback(res.data.data);
     }).catch(err => {
-        console.error(err);
+        console.log(err);
     });
 }
 
@@ -58,6 +58,6 @@ export const getSingleNote = (id, token, callback) => {
       }).then(res => {
         callback(res.data.data);
     }).catch(err => {
-        console.error(err);
+        console.log(err)
     });
 }

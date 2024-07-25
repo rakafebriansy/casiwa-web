@@ -20,12 +20,12 @@ const Modal = React.forwardRef((props, ref) => {
                         }}/>
                     </div>
                     <div className="p-4 overflow-y-auto">
-                        <p className="mt-1 text-gray-800 dark:text-neutral-400">
+                        <div className="mt-1 text-gray-800 dark:text-neutral-400">
                         {children}
-                        </p>
+                        </div>
                     </div>
                     <div className="flex justify-center items-center gap-x-2 py-3 px-4 border-t">
-                        <SquareButton type="button" onClick={onsubmit} colorCode="bg-primary">{accept}</SquareButton>
+                        <SquareButton type="submit" colorCode="bg-primary">{accept}</SquareButton>
                     </div>
                     </div>
                 </div>

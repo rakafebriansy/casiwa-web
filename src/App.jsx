@@ -17,7 +17,7 @@ function App() {
         <Route path='/login' element={<LoginPage />}/>
         <Route path='/register' element={<RegisterPage />}/>
         <Route path='/notes' element={<NotesPage />}/>
-        <Route path='/note-details/:id' element={<NoteDetailsPage />}/>
+        <Route path='/note-details/:idParams' element={<NoteDetailsPage />}/>
         <Route path='/uploaded' element={<UploadedPage />}/>
         <Route path='/downloaded' element={<DownloadedPage />}/>
         <Route path='/test' element={<TestPage />}/>

@@ -12,7 +12,6 @@ GlobalWorkerOptions.workerSrc = '../../../modules/pdf.js/build/pdf.worker.mjs';
 
 const FormUpload = React.forwardRef((props, ref) => {
 
-    // const [file, setFile] = useState(null);
     const {setIsShowAlert} = useContext(ShowAlertContext);
 
     const generateThumbnail = async (file) => {
@@ -35,7 +34,6 @@ const FormUpload = React.forwardRef((props, ref) => {
     
                             page.render(renderContext).promise.then(function() {
                                 canvas.toBlob(function(blob) {
-                                    // setThumbnail(blob);
                                     if(blob) resolve(blob);
                                     else reject(new Error('Failed to create blob'));
                                     }, 'image/png');

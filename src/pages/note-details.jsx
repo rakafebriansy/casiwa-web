@@ -11,20 +11,25 @@ import { useParams } from 'react-router-dom';
 import { getSingleNote, getSingleNotePreview } from "../../services/util.notes.jsx";
 GlobalWorkerOptions.workerSrc = '../../modules/pdf.js/build/pdf.worker.mjs';
 import Modal from "../components/Elements/Modal";
-import { getPaymentToken } from "../../services/util.payment.jsx";
+import { doPayment, getPaymentToken } from "../../services/util.payment.jsx";
+import { ShowAlertContext } from "../contexts/ShowAlert.jsx";
 
 const NoteDetailsPage = () => {
     const [isLogin, setIsLogin] = useState(false);
+    const [isBought, setIsBought] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
     const [note, setNote] = useState({});
-    const {anchorList} = useContext(AnchorListContext);
+    const [snapToken, setSnapToken] = useState('');
     const [pdfDoc, setPdfDoc] = useState(null);
     const [pageNum, setPageNum] = useState(1);
     const [pageIsRendering, setPageIsRendering] = useState(1);
     const [pageNumIsPending, setPageNumIsPending] = useState(1);
+    const {anchorList} = useContext(AnchorListContext);
+    const {isShowAlert,setIsShowAlert} = useContext(ShowAlertContext);
+
     const refPdfCanvas = useRef(null);
-    const {id} = useParams();
     const refModal = useRef(null);
+    const {idParams} = useParams();
 
     const renderPage = (num, ctx, scale) => {
         if (!pdfDoc || !refPdfCanvas.current || !ctx) {
@@ -80,56 +85,86 @@ const NoteDetailsPage = () => {
         queueRenderPage(pageNum);
     }
 
-    const handlePayment = async () => {
+    const handlePaymentToken = async () => {
         const userData = getCookie('user');
         getPaymentToken((data) => {
-            console.log(data);
+            refModal.current.classList.replace('hidden','flex');
+            setSnapToken(data.snap_token);
         }, userData.token);
+    }
+
+    const handlePayment = async (e) => {
+        e.preventDefault();
+        refModal.current.classList.replace('flex','hidden');
+        if (window.snap) {
+            window.snap.pay(snapToken, {
+                onSuccess: function (result) {
+                const userData = getCookie('user');
+                const paymentInformation = new FormData();
+                paymentInformation.append('id', idParams);
+                paymentInformation.append('transaction_id', result.transaction_id);
+                paymentInformation.append('order_id', result.order_id);
+                doPayment(userData.token, paymentInformation, (data) => {
+                    if(data.success) {
+                        setIsShowAlert({status: true, message:data.message});
+                    }
+                }, (data) => {
+                    setIsShowAlert({status:data.status, message:data.message});
+                });
+            },
+            onPending: function (result) {
+                console.log(result)
+            },
+            onError: function (result) {
+                console.log(result)
+            }
+        });
+        }
     }
 
     useEffect(()=> {
         const userData = getCookie('user');
         if(userData) {
-            hasDocumentUser(userData.token, id,res => 
+            hasDocumentUser(userData.token, idParams,res => 
                 {
                 if(res.data.success) {
                     setIsLogin(res.data.data.login);
+                    setIsBought(res.data.data.bought);
                     if(res.data.data.bought) {
                         const userData = getCookie('user');
-                        getSingleNote(id, userData.token, data => {
+                        getSingleNote(idParams, userData.token, data => {
                             setNote(data);
                         });
                     } else {
-                        getSingleNotePreview(id, (data) => {
+                        getSingleNotePreview(idParams, (data) => {
                             setNote(data);
                         });
                     }
                 }
             }, 
             err => {
-                console.log('Unauthenticated');
-                getSingleNotePreview(id, (data) => {
+                getSingleNotePreview(idParams, (data) => {
                     setNote(data);
                 });
             }, 
             () => {
-                    const script = document.createElement('script');
-                    script.src = 'https://app.sandbox.midtrans.com/snap/snap.js';
-                    script.dataset.clientKey = import.meta.env.MIDTRANS_CLIENT_KEY;
-                    script.async = true;
-                    document.body.appendChild(script);
+                const script = document.createElement('script');
+                script.src = 'https://app.sandbox.midtrans.com/snap/snap.js';
+                script.dataset.clientKey = import.meta.env.MIDTRANS_CLIENT_KEY;
+                script.async = true;
+                document.body.appendChild(script);
 
-                    setIsLoading(false);
+                setIsLoading(false);
 
-                    return () => {
-                    document.body.removeChild(script);
-                    };
+                return () => {
+                document.body.removeChild(script);
+                };
             });
         }
     },[]);
 
     useEffect(() => {
-        if(note.file_name) {
+        if(isBought && Object.keys(note).length > 0) {
             getDocument(import.meta.env.VITE_BASE_URL + 'document/' + note.file_name).promise.then(pdfDoc_ => {
                 setPdfDoc(pdfDoc_);
                 const ctx = refPdfCanvas.current.getContext('2d');
@@ -144,7 +179,7 @@ const NoteDetailsPage = () => {
     },[note]);
 
     useEffect(() => {
-        if (pdfDoc && refPdfCanvas.current) {
+        if (isBought && pdfDoc && refPdfCanvas.current) {
             const ctx = refPdfCanvas.current.getContext('2d');
             if (ctx) {
                 renderPage(pageNum, ctx, 1.5);
@@ -156,8 +191,10 @@ const NoteDetailsPage = () => {
 
     return (
         <>
-        <Navbar anchors={anchorList} isLogin={isLogin} /> 
-        {note.title && (
+            {note.title && (
+            <>
+            <Navbar anchors={anchorList} isLogin={isLogin} /> 
+            {isShowAlert.status && (<Alert>{isShowAlert.message}</Alert>)}
             <main className="pt-20 flex lg:pt-28 flex-col items-center justify-center gap-5 lg:gap-10 font-montserratRegular">
                 <div className="w-[80%] gap-3 flex flex-col">
                     <Link to="/notes" className="text-blue-500 text-xs lg:text-sm ">&lt;&lt; <span className="hover:underline">Kembali ke Daftar</span></Link>
@@ -171,11 +208,9 @@ const NoteDetailsPage = () => {
                     </div>
                     <div className="flex flex-col items-start mt-5">
                         <div className="flex flex-col items-end gap-4 lg:gap-6  lg:w-[80%]">
-                            <SquareButton type="button" colorCode="bg-primary" onclick={() => {
-                                refModal.current.classList.replace('hidden','flex');
-                            }} >Unduh</SquareButton>
+                            <SquareButton type="button" colorCode="bg-primary" onclick={handlePaymentToken} >Unduh</SquareButton>
                             <div className="bg-backgroundPrime w-full h-[35rem] lg:h-[65rem] relative small-shadow ">
-                                {note.file_name ? (
+                                {isBought ? (
                                     <canvas ref={refPdfCanvas} id="pdf-render" className="w-full h-full"></canvas>
                                 ) : (
                                     <img src={import.meta.env.VITE_BASE_URL + 'preview/' + note.thumbnail_name} className="w-full h-full" alt="" />
@@ -190,27 +225,26 @@ const NoteDetailsPage = () => {
                 </div>
                 <Footer />
             </main>
+            <Modal ref={refModal} title="Pembayaran" decline="Batal" accept="Bayar sekarang" onsubmit={handlePayment}>
+                <table>
+                    <tbody className="align-top">
+                        <tr>
+                            <td className="p-1">Judul:</td>
+                            <td className="p-1">{note.title}</td>
+                        </tr>
+                        <tr>
+                            <td className="p-1">Deskripsi:</td>
+                            <td className="p-1">{note.description}</td>
+                        </tr>
+                        <tr>
+                            <td className="p-1">Harga:</td>
+                            <td className="p-1">Rp 2500</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </Modal>
+            </>
         )}
-        <Modal ref={refModal} title="Pembayaran" decline="Batal" accept="Bayar sekarang" onsubmit={() => {
-
-        }}>
-            <table>
-                <tbody className="align-top">
-                    <tr>
-                        <td className="p-1">Judul:</td>
-                        <td className="p-1">{note.title}</td>
-                    </tr>
-                    <tr>
-                        <td className="p-1">Deskripsi:</td>
-                        <td className="p-1">{note.description}</td>
-                    </tr>
-                    <tr>
-                        <td className="p-1">Harga:</td>
-                        <td className="p-1">Rp 2500</td>
-                    </tr>
-                </tbody>
-            </table>
-        </Modal>
         </>
     );
 };
