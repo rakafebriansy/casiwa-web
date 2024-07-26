@@ -22,49 +22,54 @@ const NoteDetailsPage = () => {
     const [snapToken, setSnapToken] = useState('');
     const [pdfDoc, setPdfDoc] = useState(null);
     const [pageNum, setPageNum] = useState(1);
-    const [pageIsRendering, setPageIsRendering] = useState(1);
-    const [pageNumIsPending, setPageNumIsPending] = useState(1);
+    const [pageIsRendering, setPageIsRendering] = useState(false);
+    const [pageNumIsPending, setPageNumIsPending] = useState(null);
     const {anchorList} = useContext(AnchorListContext);
     const {isShowAlert} = useContext(ShowAlertContext);
     const refPdfCanvas = useRef(null);
     const refModal = useRef(null);
     const {idParams} = useParams();
 
-    const renderPage = (num, ctx, scale) => {
+    const renderPage = (num, ctx, scale = 1.5) => {
         if (!pdfDoc || !refPdfCanvas.current || !ctx) {
             return;
         }
 
-        setPageIsRendering(true);
-        pdfDoc.getPage(num).then(page => {
-            const viewport = page.getViewport({
-                scale
+        if(pageIsRendering) {
+            console.log('oks');
+            setPageNumIsPending(num);
+        } else {
+            console.log('ok');
+            setPageIsRendering(true);
+            pdfDoc.getPage(num).then(page => {
+                const viewport = page.getViewport({
+                    scale
+                });
+                refPdfCanvas.current.height = viewport.height;
+                refPdfCanvas.current.width = viewport.width;
+        
+                const renderCtx = {
+                    canvasContext: ctx,
+                    viewport
+                };
+        
+                page.render(renderCtx).promise.then(() => { 
+                    setPageIsRendering(false);
+        
+                    if(pageNumIsPending !== null) {
+                        renderPage(pageNumIsPending, ctx, scale);
+                        setPageNumIsPending(null); 
+                    }
+                });
             });
-            refPdfCanvas.current.height = viewport.height;
-            refPdfCanvas.current.width = viewport.width;
-    
-            const renderCtx = {
-                canvasContext: ctx,
-                viewport
-            };
-    
-            page.render(renderCtx).promise.then(() => { 
-                setPageIsRendering(false);
-    
-                if(pageNumIsPending !== null) {
-                    renderPage(pageNumIsPending);
-                    setPageNumIsPending(null); 
-                }
-            });
-    
-        });
+        }
     };
     
     const queueRenderPage = num => {
         if(pageIsRendering) {
             setPageNumIsPending(num);
         } else {
-            renderPage(num);
+            renderPage(num, ctx, scale);
         }
     }
     
