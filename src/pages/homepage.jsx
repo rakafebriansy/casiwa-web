@@ -54,7 +54,7 @@ const HomePage = () => {
                         <img src={globeImage} className="w-full" alt="" />
                     </div>
                 </div>
-                <SearchButton />
+                <SearchButton>Cari dokumen</SearchButton>
             </div>
         </section>
         <section className="py-6 flex flex-col items-center">

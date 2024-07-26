@@ -28,9 +28,9 @@ const FormLogin = () => {
                     token: data.token
                 },1);
                 navigate('/');
-            } else {
-                setIsShowAlert({status: true, message:data.message});
             }
+        },(err) =>{
+            setIsShowAlert({status: true, message:err.message});
         });
     };
 

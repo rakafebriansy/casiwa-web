@@ -7,11 +7,12 @@ export const upload = (data, token, callback) => {
             'Content-Type': 'multipart/form-data'
         }
     }).then(res => {
-        callback(res.data.data);
+        callback(res.data);
     }).catch(res => {
+        console.log(res)
         callback({
             status: false,
-            message:Object.values(res.response.data.errors)[0][0]
+            message:res.response.data.message
         });
     });
 }

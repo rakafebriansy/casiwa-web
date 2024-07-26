@@ -1,5 +1,5 @@
 import Navbar from "../components/Layout/Navbar";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import SquareButton from "../components/Elements/SquareButton";
 import Footer from "../components/Layout/Footer";
 import { hasDocumentUser } from "../../services/auth.authenticatedUser.jsx";
@@ -11,7 +11,7 @@ import { useParams } from 'react-router-dom';
 import { getSingleNote, getSingleNotePreview } from "../../services/util.notes.jsx";
 GlobalWorkerOptions.workerSrc = '../../modules/pdf.js/build/pdf.worker.mjs';
 import Modal from "../components/Elements/Modal";
-import { doPayment, getPaymentToken } from "../../services/util.payment.jsx";
+import { getPaymentToken } from "../../services/util.payment.jsx";
 import { ShowAlertContext } from "../contexts/ShowAlert.jsx";
 
 const NoteDetailsPage = () => {
@@ -25,8 +25,7 @@ const NoteDetailsPage = () => {
     const [pageIsRendering, setPageIsRendering] = useState(1);
     const [pageNumIsPending, setPageNumIsPending] = useState(1);
     const {anchorList} = useContext(AnchorListContext);
-    const {isShowAlert,setIsShowAlert} = useContext(ShowAlertContext);
-
+    const {isShowAlert} = useContext(ShowAlertContext);
     const refPdfCanvas = useRef(null);
     const refModal = useRef(null);
     const {idParams} = useParams();
@@ -90,34 +89,24 @@ const NoteDetailsPage = () => {
         getPaymentToken((data) => {
             refModal.current.classList.replace('hidden','flex');
             setSnapToken(data.snap_token);
-        }, userData.token);
+        }, userData.token, idParams, 2500);
     }
 
     const handlePayment = async (e) => {
         e.preventDefault();
+        console.log('ok')
         refModal.current.classList.replace('flex','hidden');
         if (window.snap) {
             window.snap.pay(snapToken, {
-                onSuccess: function (result) {
-                const userData = getCookie('user');
-                const paymentInformation = new FormData();
-                paymentInformation.append('id', idParams);
-                paymentInformation.append('transaction_id', result.transaction_id);
-                paymentInformation.append('order_id', result.order_id);
-                doPayment(userData.token, paymentInformation, (data) => {
-                    if(data.success) {
-                        setIsShowAlert({status: true, message:data.message});
-                    }
-                }, (data) => {
-                    setIsShowAlert({status:data.status, message:data.message});
-                });
-            },
-            onPending: function (result) {
-                console.log(result)
-            },
-            onError: function (result) {
-                console.log(result)
-            }
+                onSuccess: async function (result) {
+                    console.log(result)
+                },
+                onPending: function (result) {
+                    console.log(result)
+                },
+                onError: function (result) {
+                    console.log(result)
+                }
         });
         }
     }
@@ -181,7 +170,7 @@ const NoteDetailsPage = () => {
     useEffect(() => {
         if (isBought && pdfDoc && refPdfCanvas.current) {
             const ctx = refPdfCanvas.current.getContext('2d');
-            if (ctx) {
+            if (ctx) { 
                 renderPage(pageNum, ctx, 1.5);
             }
         }
@@ -208,7 +197,11 @@ const NoteDetailsPage = () => {
                     </div>
                     <div className="flex flex-col items-start mt-5">
                         <div className="flex flex-col items-end gap-4 lg:gap-6  lg:w-[80%]">
-                            <SquareButton type="button" colorCode="bg-primary" onclick={handlePaymentToken} >Unduh</SquareButton>
+                            {isLogin ? (
+                                <SquareButton type="button" colorCode="bg-primary" onclick={handlePaymentToken} >Unduh</SquareButton>
+                            ) : (
+                                <SquareButton type="link" colorCode="bg-primary" path='/login' >Unduh</SquareButton>
+                            )}
                             <div className="bg-backgroundPrime w-full h-[35rem] lg:h-[65rem] relative small-shadow ">
                                 {isBought ? (
                                     <canvas ref={refPdfCanvas} id="pdf-render" className="w-full h-full"></canvas>

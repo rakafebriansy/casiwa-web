@@ -63,7 +63,7 @@ const UploadedPage = () => {
                 <form onSubmit={handleSearch} className="w-[80%] lg:w-full mb-5">
                     <SearchButton name="keyword">Cari dokumen</SearchButton>
                     <div className="mt-5 mb-2 grid grid-cols-2 gap-2 lg:flex">
-                        <SquareButton onclick={(e) => {
+                        <SquareButton type="button" onclick={(e) => {
                             e.preventDefault();
                             refUploadDropdown.current.classList.replace('hidden', 'flex');
                         }} outline={false} colorCode="border-primary hover:bg-primary text-primary">Unggah</SquareButton>
