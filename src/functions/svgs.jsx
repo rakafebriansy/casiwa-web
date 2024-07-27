@@ -78,11 +78,30 @@ export const TickIcon = (props) => {
 }
 
 export const LoadingIcon = (props) => {
-    const {classname, fill = '#2F63AF'} = props;
+    const {classname, color = '#2F63AF'} = props;
     return (
         <svg className={classname} width="136" height="136" viewBox="0 0 136 136" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M83.7985 116.251L77.697 104.839C66.1524 108.787 40.7302 108.86 31.3983 77.5634L20.0115 80.983C24.1934 97.8686 42.8055 128.562 83.7985 116.251Z" fill={fill}/>
-            <path d="M52.2024 19.7493L58.3039 31.1618C69.8486 27.2131 95.2708 27.14 104.603 58.4371L115.99 55.0175C111.808 38.1318 93.1954 7.43834 52.2024 19.7493Z" fill={fill}/>
+            <path d="M83.7985 116.251L77.697 104.839C66.1524 108.787 40.7302 108.86 31.3983 77.5634L20.0115 80.983C24.1934 97.8686 42.8055 128.562 83.7985 116.251Z" fill={color}/>
+            <path d="M52.2024 19.7493L58.3039 31.1618C69.8486 27.2131 95.2708 27.14 104.603 58.4371L115.99 55.0175C111.808 38.1318 93.1954 7.43834 52.2024 19.7493Z" fill={color}/>
         </svg>
     );
 }
+
+export const RightArrowIcon = (props) => {
+    const {classname, color = '#2F63AF', onclick = () => {}} = props;
+    return (
+        <svg className={classname} onClick={onclick} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6 12H18M18 12L13 7M18 12L13 17" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+        </svg>
+    );
+}
+
+export const LeftArrowIcon = (props) => {
+    const {classname, color = '#2F63AF', onclick = () => {}} = props;
+    return (
+        <svg className={classname} onClick={onclick} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6 12H18M6 12L11 7M6 12L11 17" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+        </svg>
+    );
+}
+

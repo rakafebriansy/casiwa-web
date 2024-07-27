@@ -1,5 +1,5 @@
 import Navbar from "../components/Layout/Navbar";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import SquareButton from "../components/Elements/SquareButton";
 import Footer from "../components/Layout/Footer";
 import { hasDocumentUser } from "../../services/auth.authenticatedUser.jsx";
@@ -13,7 +13,7 @@ GlobalWorkerOptions.workerSrc = '../../modules/pdf.js/build/pdf.worker.mjs';
 import Modal from "../components/Elements/Modal";
 import { getPaymentToken } from "../../services/util.payment.jsx";
 import { ShowAlertContext } from "../contexts/ShowAlert.jsx";
-import { LoadingIcon } from '../functions/svgs';
+import { LeftArrowIcon, LoadingIcon, RightArrowIcon } from '../functions/svgs';
 
 const NoteDetailsPage = () => {
     const [isLogin, setIsLogin] = useState(false);
@@ -31,11 +31,13 @@ const NoteDetailsPage = () => {
     const refModal = useRef(null);
     const {idParams} = useParams();
 
-    const renderPage = (num, ctx, scale = 1.5) => {
+    const renderPage = (num, ctx, scale) => {
+        console.log('render')
         if (!pdfDoc || !refPdfCanvas.current || !ctx) {
             return;
         }
-
+        console.log('rendersss')
+        
         if(pageIsRendering) {
             setPageNumIsPending(num);
         } else {
@@ -63,29 +65,22 @@ const NoteDetailsPage = () => {
             });
         }
     };
-    
-    const queueRenderPage = num => {
-        if(pageIsRendering) {
-            setPageNumIsPending(num);
-        } else {
-            renderPage(num, ctx, scale);
-        }
-    }
+
     
     const showPrevPage = () => {
         if(pageNum <= 1) { 
             return;
         }
         setPageNum(pageNum - 1);
-        queueRenderPage(pageNum);
     }
     
     const showNextPage = () => {
         if(pageNum >= pdfDoc.numPages) { 
             return;
         }
+        console.log(pageNum)
+        console.log(pdfDoc.numPages)
         setPageNum(pageNum + 1);
-        queueRenderPage(pageNum);
     }
 
     const handlePaymentToken = async () => {
@@ -98,7 +93,6 @@ const NoteDetailsPage = () => {
 
     const handlePayment = async (e) => {
         e.preventDefault();
-        console.log('ok')
         refModal.current.classList.replace('flex','hidden');
         if (window.snap) {
             window.snap.pay(snapToken, {
@@ -162,8 +156,9 @@ const NoteDetailsPage = () => {
             getDocument(import.meta.env.VITE_BASE_URL + 'document/' + note.file_name).promise.then(pdfDoc_ => {
                 setPdfDoc(pdfDoc_);
                 const ctx = refPdfCanvas.current.getContext('2d');
+                const scale = 1.5;
                 if(ctx) {
-                    renderPage(pageNum, ctx, 1.5);
+                    renderPage(pageNum, ctx, scale);
                 }
             })
              .catch(err => {
@@ -174,9 +169,13 @@ const NoteDetailsPage = () => {
 
     useEffect(() => {
         if (isBought && pdfDoc && refPdfCanvas.current) {
-            const ctx = refPdfCanvas.current.getContext('2d');
-            if (ctx) { 
-                renderPage(pageNum, ctx, 1.5);
+            if(pageIsRendering) {
+                setPageNumIsPending(num);
+            } else {
+                const ctx = refPdfCanvas.current.getContext('2d');
+                if (ctx) { 
+                    renderPage(pageNum, ctx, 1.5);
+                }
             }
         }
     }, [pdfDoc, pageNum]);
@@ -186,7 +185,6 @@ const NoteDetailsPage = () => {
             <LoadingIcon classname="animate-spin"/>
         </div>
     );
-
 
     return (
         <>
@@ -218,10 +216,28 @@ const NoteDetailsPage = () => {
                                 ) : (
                                     <img src={import.meta.env.VITE_BASE_URL + 'preview/' + note.thumbnail_name} className="w-full h-full" alt="" />
                                 )}
-                                <div className="absolute flex bg-white py-3 small-shadow flex-col gap-2 lg:gap-3 items-center w-full bottom-0 text-sm lg:text-base">
-                                    <p className="font-montserratSemiBold">Preview</p>
-                                    <p className="text-xs lg:text-sm">{isLogin? 'Silahkan beli terlebih dahulu' : 'Login untuk mengunduh'}</p>
-                                </div>
+                                {isBought ? (
+                                    <div className="absolute text-xs flex bg-white p-2 lg:py-3 small-shadow gap-2 lg:gap-3 items-center justify-between w-full bottom-0 lg:text-base">
+                                        {pdfDoc ? (
+                                            <div>
+                                                <span className="font-montserratBold">{pageNum}</span> dari {pdfDoc.numPages}
+                                            </div>
+                                        ) : (
+                                            <div>
+                                                <span className="font-montserratBold">0</span> dari 0
+                                            </div>
+                                        )}
+                                        <div className="flex justify-between">
+                                            <LeftArrowIcon classname="w-5" onclick={showPrevPage}/>
+                                            <RightArrowIcon classname="w-5" onclick={showNextPage}/>
+                                        </div>
+                                    </div>
+                                ) : (
+                                    <div className="absolute flex bg-white py-3 small-shadow flex-col gap-2 lg:gap-3 items-center w-full bottom-0 text-sm lg:text-base">
+                                        <p className="font-montserratSemiBold">Preview</p>
+                                        <p className="text-xs lg:text-sm">{isLogin ? 'Silahkan beli terlebih dahulu' : 'Login untuk mengunduh'}</p>
+                                    </div>
+                                )}
                             </div>
                         </div>
                     </div>
