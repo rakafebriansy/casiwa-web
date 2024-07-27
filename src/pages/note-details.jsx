@@ -104,9 +104,7 @@ const NoteDetailsPage = () => {
     const handleDownload = async (e) => {
         e.preventDefault();
         const userData = getCookie('user');
-        downloadNote(note.file_name, userData.token, (data) =>{
-            console.log(data);
-        });
+        downloadNote(note.file_name, userData.token);
     }
 
     useEffect(()=> {
@@ -200,6 +198,7 @@ const NoteDetailsPage = () => {
                             <p className="font-montserratSemiBold">{parseDate(note.date)}</p>
                         </div>
                     </div>
+                    <a href="http://127.0.0.1:8000/api/user/download/29783718166a32746a83fa4.14872703.pdf" className="font-bold">download</a>
                     <div className="flex flex-col items-start mt-5">
                         <div className="flex flex-col items-end gap-4 lg:gap-6  lg:w-[80%]">
                             {!isLogin && (

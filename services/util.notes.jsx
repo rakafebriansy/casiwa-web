@@ -65,18 +65,17 @@ export const getSingleNote = (id, token, callback) => {
 
 export const downloadNote = async (name, token) => {
     try {
-        const response = await axios.get(import.meta.env.VITE_BASE_URL + 'user/download/' + name, {
+        const response = await axios.get('http://127.0.0.1:8000/api/' + 'user/download/' + name, {
             headers: {
               'Authorization': `Bearer ${token}`,
               'Content-Type': 'application/json',
             },
+            responseType:'blob'
         });
         if (response.request.status !== 200) {
             throw new Error('Network response was not ok');
         }
-        console.log(response)
-        const blob = new Blob([response.data], { type: 'application/pdf' });
-        const url = window.URL.createObjectURL(blob);
+        const url = window.URL.createObjectURL(response.data);
         const a = document.createElement('a');
         a.href = url;
         a.download = name;
