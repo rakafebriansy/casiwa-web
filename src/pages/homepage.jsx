@@ -11,11 +11,19 @@ import { useContext, useEffect, useState } from "react";
 import { authenticatedUser } from "../../services/auth.authenticatedUser.jsx";
 import { AnchorListContext } from "../contexts/AnchorList";
 import { getCookie } from "../functions/main";
+import { useNavigate } from "react-router-dom";
 
 const HomePage = () => {
     const [isLogin, setIsLogin] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
     const {anchorList} = useContext(AnchorListContext);
+    const navigate = useNavigate();
+
+    const handleSearch = async (e) => {
+        e.preventDefault();
+        const keyword = e.target.keyword;
+        navigate('/notes?keyword=' + keyword.value);
+    }
 
     useEffect(()=> {
         const userData = getCookie('user');
@@ -40,7 +48,7 @@ const HomePage = () => {
         <Navbar anchors={isLogin ? anchorList : []} isThisPage="Beranda" isLogin={isLogin}/>
         <section className="bg-gradient-to-tr from-[#dfe9f3] via-60% via-white to-white w-full flex justify-center items-center min-h-screen">
             <img src={landingBackgroundImage} alt="" className="hidden absolute h-screen w-screen lg:block"/>
-            <div className="w-[80%] gap-[5rem] flex flex-col justify-between z-[10]">
+            <form onSubmit={handleSearch} className="w-[80%] gap-[5rem] flex flex-col justify-between z-[10]">
                 <div className="font-montserratBold w-full flex flex-col md:flex-row justify-around items-center gap-10">
                     <div className="text-base lg:text-2xl">
                         <p className="text-[#596280]">CASIWA</p>
@@ -54,8 +62,8 @@ const HomePage = () => {
                         <img src={globeImage} className="w-full" alt="" />
                     </div>
                 </div>
-                <SearchButton>Cari dokumen</SearchButton>
-            </div>
+                <SearchButton name="keyword">Cari dokumen</SearchButton>
+            </form>
         </section>
         <section className="py-6 flex flex-col items-center">
             <h1 className="text-2xl font-montserratBold text-[#4A4A4A] text-center mb-6">Kenapa Harus CASIWA ?</h1>

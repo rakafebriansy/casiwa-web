@@ -10,6 +10,7 @@ import { authenticatedUser } from "../../services/auth.authenticatedUser.jsx";
 import { AnchorListContext } from "../contexts/AnchorList";
 import { getCookie } from "../functions/main";
 import { getNotes, getNotesByFilter } from "../../services/util.notes.jsx";
+import { useLocation } from "react-router-dom";
 
 const NotesPage = () => {
     const [universities, setUniversities] = useState([]);
@@ -18,6 +19,9 @@ const NotesPage = () => {
     const [isLogin, setIsLogin] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
     const {anchorList} = useContext(AnchorListContext);
+    const { search } = useLocation();
+    const queryParams = new URLSearchParams(search);
+    const keyword = queryParams.get('keyword');
 
     const handleSearch = async (e) => {
         e.preventDefault();
@@ -31,6 +35,10 @@ const NotesPage = () => {
                 setNotes(data);
             },form.keyword.value);
         }
+    }
+
+    const handlePreSearch = () => {
+        
     }
 
     useEffect(()=> {
@@ -55,7 +63,7 @@ const NotesPage = () => {
         });
         getNotes((data) => {
             setNotes(data);
-        });
+        },keyword);
     },[]);
 
     if (isLoading) return (<h1>Loading...</h1>);
