@@ -24,7 +24,6 @@ const NoteDetailsPage = () => {
     const [pdfDoc, setPdfDoc] = useState(null);
     const [pageNum, setPageNum] = useState(1);
     const [pageIsRendering, setPageIsRendering] = useState(false);
-    const [pageNumIsPending, setPageNumIsPending] = useState(null);
     const {anchorList} = useContext(AnchorListContext);
     const {isShowAlert} = useContext(ShowAlertContext);
     const refPdfCanvas = useRef(null);
@@ -32,41 +31,35 @@ const NoteDetailsPage = () => {
     const {idParams} = useParams();
 
     const renderPage = (num, ctx, scale) => {
-        console.log('render')
         if (!pdfDoc || !refPdfCanvas.current || !ctx) {
             return;
         }
-        console.log('rendersss')
-        
-        if(pageIsRendering) {
-            setPageNumIsPending(num);
-        } else {
-            setPageIsRendering(true);
-            pdfDoc.getPage(num).then(page => {
-                const viewport = page.getViewport({
-                    scale
-                });
-                refPdfCanvas.current.height = viewport.height;
-                refPdfCanvas.current.width = viewport.width;
-        
-                const renderCtx = {
-                    canvasContext: ctx,
-                    viewport
-                };
-        
-                page.render(renderCtx).promise.then(() => { 
-                    setPageIsRendering(false);
-        
-                    if(pageNumIsPending !== null) {
-                        renderPage(pageNumIsPending, ctx, scale);
-                        setPageNumIsPending(null); 
-                    }
-                });
-            });
+        if (pageIsRendering) {
+            return;
         }
+        setPageIsRendering(true);
+        pdfDoc.getPage(num).then(page => {
+            const viewport = page.getViewport({
+                scale
+            });
+            refPdfCanvas.current.height = viewport.height;
+            refPdfCanvas.current.width = viewport.width;
+            const renderCtx = {
+                canvasContext: ctx,
+                viewport
+            };
+            page.render(renderCtx).promise.then(() => { 
+                setPageIsRendering(false);
+            }).catch((err) => {
+                console.error('Render error:', err);
+                setPageIsRendering(false);
+            });
+        }).catch((err) => {
+            console.error('Page retrieval error:', err);
+            setPageIsRendering(false);
+        });
     };
-
-    
+ 
     const showPrevPage = () => {
         if(pageNum <= 1) { 
             return;
@@ -78,8 +71,6 @@ const NoteDetailsPage = () => {
         if(pageNum >= pdfDoc.numPages) { 
             return;
         }
-        console.log(pageNum)
-        console.log(pdfDoc.numPages)
         setPageNum(pageNum + 1);
     }
 
@@ -120,7 +111,6 @@ const NoteDetailsPage = () => {
                     if(res.data.data.bought) {
                         const userData = getCookie('user');
                         getSingleNote(idParams, userData.token, data => {
-                            console.log(data)
                             setNote(data);
                         });
                     } else {
@@ -162,30 +152,28 @@ const NoteDetailsPage = () => {
                 }
             })
              .catch(err => {
-                console.error(err);
+                console.error('Error loading document:', err);
             });
         }
     },[note]);
-
+ 
     useEffect(() => {
-        if (isBought && pdfDoc && refPdfCanvas.current) {
-            if(pageIsRendering) {
-                setPageNumIsPending(num);
-            } else {
+        if(!pageIsRendering) {
+            console.log('num: ' + pageNum) 
+            console.log('rendering ' + pageIsRendering)
+            if (isBought && pdfDoc && refPdfCanvas.current) {
                 const ctx = refPdfCanvas.current.getContext('2d');
-                if (ctx) { 
-                    renderPage(pageNum, ctx, 1.5);
-                }
+                const scale = 1.5;
+                renderPage(pageNum, ctx, scale);
             }
         }
-    }, [pdfDoc, pageNum]);
+    }, [pdfDoc, pageNum]); 
 
     if (isLoading) return (
         <div className="flex justify-center items-center w-full min-h-screen">
             <LoadingIcon classname="animate-spin"/>
         </div>
     );
-
     return (
         <>
             {note.title && (
@@ -217,7 +205,7 @@ const NoteDetailsPage = () => {
                                     <img src={import.meta.env.VITE_BASE_URL + 'preview/' + note.thumbnail_name} className="w-full h-full" alt="" />
                                 )}
                                 {isBought ? (
-                                    <div className="absolute text-xs flex bg-white p-2 lg:py-3 small-shadow gap-2 lg:gap-3 items-center justify-between w-full bottom-0 lg:text-base">
+                                    <div className="absolute text-xs flex bg-white p-2 lg:py-3 lg:px-5 small-shadow gap-2 lg:gap-3 items-center justify-between w-full bottom-0 lg:text-base">
                                         {pdfDoc ? (
                                             <div>
                                                 <span className="font-montserratBold">{pageNum}</span> dari {pdfDoc.numPages}
@@ -227,10 +215,17 @@ const NoteDetailsPage = () => {
                                                 <span className="font-montserratBold">0</span> dari 0
                                             </div>
                                         )}
-                                        <div className="flex justify-between">
-                                            <LeftArrowIcon classname="w-5" onclick={showPrevPage}/>
-                                            <RightArrowIcon classname="w-5" onclick={showNextPage}/>
-                                        </div>
+                                        {!pageIsRendering ? (
+                                            <div className="flex justify-between">
+                                                <LeftArrowIcon classname="w-5 lg:w-7" onclick={showPrevPage}/>
+                                                <RightArrowIcon classname="w-5 lg:w-7" onclick={showNextPage}/>
+                                            </div>
+                                        ) : (
+                                            <div className="flex justify-between">
+                                                ...
+                                            </div>
+                                            
+                                        )}
                                     </div>
                                 ) : (
                                     <div className="absolute flex bg-white py-3 small-shadow flex-col gap-2 lg:gap-3 items-center w-full bottom-0 text-sm lg:text-base">
