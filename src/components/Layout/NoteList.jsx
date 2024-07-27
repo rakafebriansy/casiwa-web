@@ -8,7 +8,6 @@ const NoteList = (props) => {
         {notes.length > 0 ? (
             <ul className="flex flex-col gap-5">
             {notes.map((item, index) => {
-                console.log(item)
                 return (
                     <li key={index} className="flex flex-col gap-4 bg-white rounded-lg small-shadow items-center p-4">
                         <div className="flex w-full justify-start items-start gap-4">

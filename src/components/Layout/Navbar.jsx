@@ -2,6 +2,7 @@ import Signature from "../Fragments/Signature";
 import SquareButton from "../Elements/SquareButton";
 import ProfilePicture from "../Elements/ProfilePicture";
 import { Link } from "react-router-dom";
+import { HamburgerIcon } from "../../functions/svgs";
 
 
 const Navbar = (props) => {
@@ -20,12 +21,15 @@ const Navbar = (props) => {
                             );
                         }
                         return (
-                            <li key={value.name} className="hover:text-primary hover:opacity-60"><Link to={value.path}>{value.name}</Link></li>
+                            <li key={value.name} className="hover:text-primary hover:opacity-80"><Link to={value.path}>{value.name}</Link></li>
                         );
                     })}
                 </ul>
                 {isLogin ? (
-                    <ProfilePicture/>
+                    <>
+                    <ProfilePicture classname="hidden lg:block"/>
+                    <HamburgerIcon classname="w-5 lg:hidden"/>
+                    </>
                 ):(
                     <div className="flex justify-between gap-2 md:gap-8">
                         <SquareButton path="/login" colorCode="bg-secondary">Masuk</SquareButton>

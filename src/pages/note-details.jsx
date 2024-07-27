@@ -1,5 +1,5 @@
 import Navbar from "../components/Layout/Navbar";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import SquareButton from "../components/Elements/SquareButton";
 import Footer from "../components/Layout/Footer";
 import { hasDocumentUser } from "../../services/auth.authenticatedUser.jsx";
@@ -29,6 +29,7 @@ const NoteDetailsPage = () => {
     const refPdfCanvas = useRef(null);
     const refModal = useRef(null);
     const {idParams} = useParams();
+    const navigate = useNavigate();
 
     const renderPage = (num, ctx, scale) => {
         if (!pdfDoc || !refPdfCanvas.current || !ctx) {
@@ -184,11 +185,13 @@ const NoteDetailsPage = () => {
         <>
             {note.title && (
             <>
-            <Navbar anchors={anchorList} isThisPage="Catatan" isLogin={isLogin} /> 
+            <Navbar anchors={anchorList} isLogin={isLogin} /> 
             {isShowAlert.status && (<Alert>{isShowAlert.message}</Alert>)}
             <section className="pt-20 flex lg:pt-28 flex-col items-center justify-center gap-5 lg:gap-10 font-montserratRegular">
                 <div className="w-[80%] gap-3 flex flex-col">
-                    <Link to="/notes" className="text-blue-500 text-xs lg:text-sm ">&lt;&lt; <span className="hover:underline">Kembali ke Daftar</span></Link>
+                    <div className="flex w-full items-start">
+                        <button onClick={() => {navigate(-1)}} className="text-blue-500 text-xs lg:text-sm ">&lt;&lt; <span className="hover:underline">Kembali ke Daftar</span></button>
+                    </div>
                     <div className="flex flex-col items-start text-sm gap-3 lg:gap-4">
                         <h1 className="text-xl font-montserratBold lg:text-3xl">{note.title}</h1>
                         <p className="lg:text-base">{note.description}</p>
