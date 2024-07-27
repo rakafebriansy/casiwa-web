@@ -70,7 +70,7 @@ const NotesPage = () => {
     );
 
     return (
-        <main className="bg-backgroundPrime pt-20 lg:pt-28 font-montserratRegular flex flex-col items-center">
+        <section className="bg-backgroundPrime pt-20 lg:pt-28 font-montserratRegular min-h-screen justify-between flex flex-col items-center">
             {universities.length > 0 && studyPrograms.length > 0 && (
                 <>
                 <Navbar anchors={isLogin ? anchorList : []} isThisPage="Catatan" isLogin={isLogin}/>
@@ -85,14 +85,14 @@ const NotesPage = () => {
                             {notes.total} hasil
                         </div>
                     </form>
-                    <div className="w-full mb-5">
-                        <NoteList notes={notes.data}/>
-                    </div>
+                </div>
+                <div className="lg:w-[80%] mb-5">
+                    <NoteList notes={notes.data}/>
                 </div>
                 <Footer />
                 </>
             )}
-        </main>
+        </section>
     );
 };
 

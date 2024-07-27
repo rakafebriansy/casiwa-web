@@ -186,7 +186,7 @@ const NoteDetailsPage = () => {
             <>
             <Navbar anchors={anchorList} isThisPage="Catatan" isLogin={isLogin} /> 
             {isShowAlert.status && (<Alert>{isShowAlert.message}</Alert>)}
-            <main className="pt-20 flex lg:pt-28 flex-col items-center justify-center gap-5 lg:gap-10 font-montserratRegular">
+            <section className="pt-20 flex lg:pt-28 flex-col items-center justify-center gap-5 lg:gap-10 font-montserratRegular">
                 <div className="w-[80%] gap-3 flex flex-col">
                     <Link to="/notes" className="text-blue-500 text-xs lg:text-sm ">&lt;&lt; <span className="hover:underline">Kembali ke Daftar</span></Link>
                     <div className="flex flex-col items-start text-sm gap-3 lg:gap-4">
@@ -248,7 +248,7 @@ const NoteDetailsPage = () => {
                     </div>
                 </div>
                 <Footer />
-            </main>
+            </section>
             <Modal ref={refModal} title="Pembayaran" decline="Batal" accept="Bayar sekarang" onsubmit={handlePayment}>
                 <table>
                     <tbody className="align-top">

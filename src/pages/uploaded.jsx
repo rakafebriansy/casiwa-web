@@ -61,7 +61,7 @@ const UploadedPage = () => {
     );
 
     return (
-        <main className="bg-backgroundPrime pt-20 lg:pt-28 font-montserratRegular flex flex-col items-center relative">
+        <section className="bg-backgroundPrime pt-20 min-h-screen lg:pt-28 font-montserratRegular flex flex-col items-center justify-between relative">
             {isShowAlert.status && (<Alert>{isShowAlert.message}</Alert>)}
             <Navbar anchors={anchorList} isThisPage="Unggahan" isLogin={isLogin}/>
             <div className=" flex flex-col items-center lg:w-[80%]">
@@ -77,13 +77,13 @@ const UploadedPage = () => {
                     {notes.total} hasil
                     </div>
                 </form>
-                <div className="w-full mb-5">
-                    <NoteList notes={notes.data}/>
-                </div>
+            </div>
+            <div className="lg:w-[80%] mb-5">
+                <NoteList notes={notes.data}/>
             </div>
             <Footer />
             <FormUpload ref={refUploadDropdown}/>
-        </main>
+        </section>
     );
 };
 

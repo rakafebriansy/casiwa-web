@@ -4,8 +4,11 @@ import {DownloadCountIcon} from "../../functions/svgs"
 const NoteList = (props) => {
     const {notes = []} = props;
     return (
-        <ul className="flex flex-col gap-5">
+        <>
+        {notes.length > 0 ? (
+            <ul className="flex flex-col gap-5">
             {notes.map((item, index) => {
+                console.log(item)
                 return (
                     <li key={index} className="flex flex-col gap-4 bg-white rounded-lg small-shadow items-center p-4">
                         <div className="flex w-full justify-start items-start gap-4">
@@ -27,6 +30,12 @@ const NoteList = (props) => {
                 );
             })}
         </ul>
+        ) : (
+            <div className="flex justify-center items-center text-primary text-xl">
+                <h3>Tidak ada hasil</h3>
+            </div>
+        )}
+        </>
     );
 };
 

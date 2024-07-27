@@ -58,31 +58,31 @@ const DownloadedPage = () => {
             <LoadingIcon classname="animate-spin"/>
         </div>
     );
-
+    
     return (
-        <main className="bg-backgroundPrime pt-20 lg:pt-28 font-montserratRegular flex flex-col items-center">
+        <>
+        <Navbar anchors={isLogin ? anchorList : []} isThisPage="Unduhan" isLogin={isLogin}/>
             {universities.length > 0 && studyPrograms.length > 0 && (
-                <>
-                <Navbar anchors={isLogin ? anchorList : []} isThisPage="Unduhan" isLogin={isLogin}/>
-                <form onSubmit={handleSearch} className=" flex flex-col items-center lg:w-[80%]">
-                    <div className="w-[80%] lg:w-full mb-5">
-                        <SearchButton name="keyword">Cari dokumen</SearchButton>
-                        <div className="mt-5 mb-2 grid grid-cols-2 gap-2 lg:flex ">
-                            <SearchDropdown list={universities} icon={<UniversityIcon classname="w-3"/>}>Universitas</SearchDropdown>
-                            <SearchDropdown list={studyPrograms} icon={<BookIcon classname="w-3"/>}>Program Studi</SearchDropdown>
+                <section className="bg-backgroundPrime pt-20 lg:pt-28 font-montserratRegular min-h-screen justify-between flex flex-col items-center">
+                    <form onSubmit={handleSearch} className=" flex flex-col items-center lg:w-[80%]">
+                        <div className="w-[80%] lg:w-full mb-5">
+                            <SearchButton name="keyword">Cari dokumen</SearchButton>
+                            <div className="mt-5 mb-2 grid grid-cols-2 gap-2 lg:flex ">
+                                <SearchDropdown list={universities} icon={<UniversityIcon classname="w-3"/>}>Universitas</SearchDropdown>
+                                <SearchDropdown list={studyPrograms} icon={<BookIcon classname="w-3"/>}>Program Studi</SearchDropdown>
+                            </div>
+                            <div className="w-full text-xs">
+                                {notes.total} hasil
+                            </div>
                         </div>
-                        <div className="w-full text-xs">
-                            {notes.total} hasil
-                        </div>
-                    </div>
-                    <div className="w-full mb-5">
+                    </form>
+                    <div className="lg:w-[80%] mb-5">
                         <NoteList notes={notes.data}/>
                     </div>
-                </form>
-                <Footer />
-                </>
+                    <Footer />
+                </section>
             )}
-        </main>
+        </>
     );
 };
 

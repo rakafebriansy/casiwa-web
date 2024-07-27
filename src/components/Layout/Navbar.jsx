@@ -16,11 +16,11 @@ const Navbar = (props) => {
                     {anchors.map((value) => {
                         if(isThisPage == value.name) {
                             return (
-                                <li className="underline text-primary" key={value.name}><a href={value.path}>{value.name}</a></li>
+                                <li className="underline text-primary" key={value.name}><Link to={value.path}>{value.name}</Link></li>
                             );
                         }
                         return (
-                            <li key={value.name}><a href={value.path}>{value.name}</a></li>
+                            <li key={value.name} className="hover:text-primary hover:opacity-60"><Link to={value.path}>{value.name}</Link></li>
                         );
                     })}
                 </ul>
