@@ -12,13 +12,14 @@ const SearchDropdown = (props) => {
     };
 
     const dropdownClicked = (id, text) => {
+        console.log(refText)
         refText.current.innerText = text;
         refValue.current.value = id;
         dropdownToggle();
     };
 
     const outsideClicked = (event) => {
-        if (refBtn.current && !refBtn.current.contains(event.target)) {
+        if (refBtn.current && !refBtn.current.contains(event.target) && !event.target.classList.contains('dropdown-li')) {
           setClicked(false);
         }
     };
@@ -49,14 +50,14 @@ const SearchDropdown = (props) => {
                 </svg>
             </button>
             <div className="w-full relative">
-                <ul className={`${clicked? 'flex': 'hidden'} w-full max-h-20 border-x border-b overflow-scroll overflow-x-hidden flex-col absolute top-0 bg-white cursor-pointer pb-1 rounded-b-lg justify-between items-center`}>
-                    <li key="0" onClick={() => { dropdownClicked(null, children) }} className="flex z-10 justify-start w-full bg-white hover:bg-[rgba(0,0,0,0.04)] px-2 py-1">
-                        <p className="select-none font-montserratSemiBold">{children}</p>
+                <ul className={`${clicked? 'flex': 'hidden'} w-full text-start max-h-20 border-x border-b overflow-scroll overflow-x-hidden flex-col absolute top-0 bg-white cursor-pointer pb-1 rounded-b-lg justify-between items-center`}>
+                    <li key="0" onClick={() => { dropdownClicked(null, children) }} className="flex z-10 justify-start w-full bg-white hover:bg-[rgba(0,0,0,0.04)] px-2 py-1 dropdown-li">
+                        <p className="select-none font-montserratSemiBold dropdown-li">{children}</p>
                     </li>
                     {list.map((item, index) => {
                         return (
-                            <li key={index} onClick={() => { dropdownClicked(item.id, item.name) }} className="flex z-10 justify-start w-full bg-white hover:bg-[rgba(0,0,0,0.04)] px-2 py-1">
-                                <p className="select-none">{item.name}</p>
+                            <li key={index} onClick={() => {dropdownClicked(item.id, item.name) }} className="flex z-10 justify-start w-full bg-white hover:bg-[rgba(0,0,0,0.04)] px-2 py-1 dropdown-li">
+                                <p className="select-none dropdown-li">{item.name}</p>
                             </li>
                         );
                     })}

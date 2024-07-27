@@ -8,7 +8,7 @@ import { useContext, useEffect, useRef, useState } from "react";
 import { getDocument, GlobalWorkerOptions } from '../../modules/pdf.js/build/pdf.mjs';
 import { getCookie, parseDate } from "../functions/main";
 import { useParams } from 'react-router-dom';
-import { getSingleNote, getSingleNotePreview } from "../../services/util.notes.jsx";
+import { downloadNote, getSingleNote, getSingleNotePreview } from "../../services/util.notes.jsx";
 GlobalWorkerOptions.workerSrc = '../../modules/pdf.js/build/pdf.worker.mjs';
 import Modal from "../components/Elements/Modal";
 import { getPaymentToken } from "../../services/util.payment.jsx";
@@ -100,6 +100,14 @@ const NoteDetailsPage = () => {
         }
     }
 
+    const handleDownload = async (e) => {
+        e.preventDefault();
+        const userData = getCookie('user');
+        downloadNote(note.file_name, userData.token, (data) =>{
+            console.log(data);
+        });
+    }
+
     useEffect(()=> {
         const userData = getCookie('user');
         if(userData) {
@@ -159,8 +167,6 @@ const NoteDetailsPage = () => {
  
     useEffect(() => {
         if(!pageIsRendering) {
-            console.log('num: ' + pageNum) 
-            console.log('rendering ' + pageIsRendering)
             if (isBought && pdfDoc && refPdfCanvas.current) {
                 const ctx = refPdfCanvas.current.getContext('2d');
                 const scale = 1.5;
@@ -193,10 +199,14 @@ const NoteDetailsPage = () => {
                     </div>
                     <div className="flex flex-col items-start mt-5">
                         <div className="flex flex-col items-end gap-4 lg:gap-6  lg:w-[80%]">
-                            {isLogin ? (
-                                <SquareButton type="button" colorCode="bg-primary" onclick={handlePaymentToken} >Unduh</SquareButton>
-                            ) : (
-                                <SquareButton type="link" colorCode="bg-primary" path='/login' >Unduh</SquareButton>
+                            {!isLogin && (
+                                <SquareButton type="link" colorCode="bg-primary" path='/login' >Beli</SquareButton>
+                            )}
+                            {isLogin && !isBought && (
+                                <SquareButton type="button" colorCode="bg-primary" onclick={handlePaymentToken} >Beli</SquareButton>
+                            )}
+                            {isLogin && isBought && (
+                                <SquareButton type="button" colorCode="bg-primary" onclick={handleDownload} >Unduh</SquareButton>
                             )}
                             <div className="bg-backgroundPrime w-full h-[35rem] lg:h-[65rem] relative small-shadow ">
                                 {isBought ? (
@@ -205,7 +215,7 @@ const NoteDetailsPage = () => {
                                     <img src={import.meta.env.VITE_BASE_URL + 'preview/' + note.thumbnail_name} className="w-full h-full" alt="" />
                                 )}
                                 {isBought ? (
-                                    <div className="absolute text-xs flex bg-white p-2 lg:py-3 lg:px-5 small-shadow gap-2 lg:gap-3 items-center justify-between w-full bottom-0 lg:text-base">
+                                    <div className="absolute  text-primary text-xs flex bg-white p-2 lg:py-3 lg:px-5 small-shadow gap-2 lg:gap-3 items-center justify-between w-full bottom-0 lg:text-base">
                                         {pdfDoc ? (
                                             <div>
                                                 <span className="font-montserratBold">{pageNum}</span> dari {pdfDoc.numPages}
@@ -221,7 +231,7 @@ const NoteDetailsPage = () => {
                                                 <RightArrowIcon classname="w-5 lg:w-7" onclick={showNextPage}/>
                                             </div>
                                         ) : (
-                                            <div className="flex justify-between">
+                                            <div className="flex justify-between text-primary">
                                                 ...
                                             </div>
                                             

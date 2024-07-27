@@ -62,3 +62,28 @@ export const getSingleNote = (id, token, callback) => {
         console.log(err)
     });
 }
+
+export const downloadNote = async (name, token) => {
+    try {
+        const response = await axios.get(import.meta.env.VITE_BASE_URL + 'user/download/' + name, {
+            headers: {
+              'Authorization': `Bearer ${token}`,
+              'Content-Type': 'application/json',
+            },
+        });
+        if (response.request.status !== 200) {
+            throw new Error('Network response was not ok');
+        }
+        console.log(response)
+        const blob = new Blob([response.data], { type: 'application/pdf' });
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = name;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+    } catch (error) {
+        console.error('Error downloading file:', error);
+    }
+}
