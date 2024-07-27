@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 
 const Navbar = (props) => {
-    const {anchors = [], isLogin} = props;
+    const {anchors = [], isLogin, isThisPage} = props;
     return (
         <nav className="flex w-full justify-center font-montserratRegular fixed top-0 z-20 bg-white shadow-sm">
             <div className="flex w-[90%] justify-between items-center p-4">
@@ -14,6 +14,11 @@ const Navbar = (props) => {
                 </Link>
                 <ul className="hidden justify-between gap-4 items-center font-montserratSemiBold text-[#95979E] md:flex">
                     {anchors.map((value) => {
+                        if(isThisPage == value.name) {
+                            return (
+                                <li className="underline text-primary" key={value.name}><a href={value.path}>{value.name}</a></li>
+                            );
+                        }
                         return (
                             <li key={value.name}><a href={value.path}>{value.name}</a></li>
                         );

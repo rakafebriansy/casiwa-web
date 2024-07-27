@@ -36,10 +36,8 @@ const NoteDetailsPage = () => {
         }
 
         if(pageIsRendering) {
-            console.log('oks');
             setPageNumIsPending(num);
         } else {
-            console.log('ok');
             setPageIsRendering(true);
             pdfDoc.getPage(num).then(page => {
                 const viewport = page.getViewport({
@@ -127,6 +125,7 @@ const NoteDetailsPage = () => {
                     if(res.data.data.bought) {
                         const userData = getCookie('user');
                         getSingleNote(idParams, userData.token, data => {
+                            console.log(data)
                             setNote(data);
                         });
                     } else {
@@ -187,7 +186,7 @@ const NoteDetailsPage = () => {
         <>
             {note.title && (
             <>
-            <Navbar anchors={anchorList} isLogin={isLogin} /> 
+            <Navbar anchors={anchorList} isThisPage="Catatan" isLogin={isLogin} /> 
             {isShowAlert.status && (<Alert>{isShowAlert.message}</Alert>)}
             <main className="pt-20 flex lg:pt-28 flex-col items-center justify-center gap-5 lg:gap-10 font-montserratRegular">
                 <div className="w-[80%] gap-3 flex flex-col">
