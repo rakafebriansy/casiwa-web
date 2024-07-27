@@ -20,7 +20,7 @@ function App() {
         <Route path='/note-details/:idParams' element={<NoteDetailsPage />}/>
         <Route path='/uploaded' element={<UploadedPage />}/>
         <Route path='/downloaded' element={<DownloadedPage />}/>
-        <Route path='/test/:idParams' element={<TestPage />}/>
+        <Route path='/test' element={<TestPage />}/>
       </Routes>
     </BrowserRouter>
   );

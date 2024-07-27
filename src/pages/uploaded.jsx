@@ -12,6 +12,7 @@ import { ShowAlertContext } from "../contexts/ShowAlert";
 import Alert from "../components/Elements/Alert";
 import { getCookie } from "../functions/main";
 import { getNotes, getUploadedNotes } from "../../services/util.notes.jsx";
+import { LoadingIcon } from '../functions/svgs';
 
 const UploadedPage = () => {
     const [isLoading, setIsLoading] = useState(true);
@@ -53,7 +54,11 @@ const UploadedPage = () => {
         },userData.token);
     },[]);
 
-    if (isLoading) return (<h1>Loading...</h1>);
+    if (isLoading) return (
+        <div className="flex justify-center items-center w-full min-h-screen">
+            <LoadingIcon classname="animate-spin"/>
+        </div>
+    );
 
     return (
         <main className="bg-backgroundPrime pt-20 lg:pt-28 font-montserratRegular flex flex-col items-center relative">

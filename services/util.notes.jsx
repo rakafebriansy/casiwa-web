@@ -1,6 +1,7 @@
 import axios from "axios";
 
-export const getNotes = (callback, keyword = '') => {
+export const getNotes = (callback, keyword) => {
+    keyword = keyword ?? '';
     axios.get(import.meta.env.VITE_BASE_URL + 'notes?keyword=' + keyword).then(res => {
         callback(res.data);
     }).catch(err => {

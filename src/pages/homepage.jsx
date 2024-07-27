@@ -12,6 +12,7 @@ import { authenticatedUser } from "../../services/auth.authenticatedUser.jsx";
 import { AnchorListContext } from "../contexts/AnchorList";
 import { getCookie } from "../functions/main";
 import { useNavigate } from "react-router-dom";
+import { LoadingIcon } from '../functions/svgs';
 
 const HomePage = () => {
     const [isLogin, setIsLogin] = useState(false);
@@ -41,7 +42,11 @@ const HomePage = () => {
         }
     },[]);
 
-    if (isLoading) return (<h1>Loading...</h1>);
+    if (isLoading) return (
+        <div className="flex justify-center items-center w-full min-h-screen">
+            <LoadingIcon classname="animate-spin"/>
+        </div>
+    );
 
     return (
         <main>

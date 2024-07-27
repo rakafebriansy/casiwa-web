@@ -11,6 +11,7 @@ import { AnchorListContext } from "../contexts/AnchorList";
 import { getCookie } from "../functions/main";
 import { getNotes, getNotesByFilter } from "../../services/util.notes.jsx";
 import { useLocation } from "react-router-dom";
+import { LoadingIcon } from '../functions/svgs';
 
 const NotesPage = () => {
     const [universities, setUniversities] = useState([]);
@@ -35,10 +36,6 @@ const NotesPage = () => {
                 setNotes(data);
             },form.keyword.value);
         }
-    }
-
-    const handlePreSearch = () => {
-        
     }
 
     useEffect(()=> {
@@ -66,7 +63,11 @@ const NotesPage = () => {
         },keyword);
     },[]);
 
-    if (isLoading) return (<h1>Loading...</h1>);
+    if (isLoading) return (
+        <div className="flex justify-center items-center w-full min-h-screen">
+            <LoadingIcon classname="animate-spin"/>
+        </div>
+    );
 
     return (
         <main className="bg-backgroundPrime pt-20 lg:pt-28 font-montserratRegular flex flex-col items-center">

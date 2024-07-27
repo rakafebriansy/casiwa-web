@@ -10,6 +10,7 @@ import { authenticatedUser } from "../../services/auth.authenticatedUser.jsx";
 import { AnchorListContext } from "../contexts/AnchorList";
 import { getCookie } from "../functions/main";
 import { getDownloadedNotes, getNotes } from "../../services/util.notes.jsx";
+import { LoadingIcon } from '../functions/svgs';
 
 const DownloadedPage = () => {
     const [universities, setUniversities] = useState([]);
@@ -52,7 +53,11 @@ const DownloadedPage = () => {
         });
     },[]);
 
-    if (isLoading) return (<h1>Loading...</h1>);
+    if (isLoading) return (
+        <div className="flex justify-center items-center w-full min-h-screen">
+            <LoadingIcon classname="animate-spin"/>
+        </div>
+    );
 
     return (
         <main className="bg-backgroundPrime pt-20 lg:pt-28 font-montserratRegular flex flex-col items-center">

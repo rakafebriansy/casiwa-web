@@ -13,6 +13,7 @@ GlobalWorkerOptions.workerSrc = '../../modules/pdf.js/build/pdf.worker.mjs';
 import Modal from "../components/Elements/Modal";
 import { getPaymentToken } from "../../services/util.payment.jsx";
 import { ShowAlertContext } from "../contexts/ShowAlert.jsx";
+import { LoadingIcon } from '../functions/svgs';
 
 const NoteDetailsPage = () => {
     const [isLogin, setIsLogin] = useState(false);
@@ -180,7 +181,12 @@ const NoteDetailsPage = () => {
         }
     }, [pdfDoc, pageNum]);
 
-    if (isLoading) return (<h1>Loading...</h1>);
+    if (isLoading) return (
+        <div className="flex justify-center items-center w-full min-h-screen">
+            <LoadingIcon classname="animate-spin"/>
+        </div>
+    );
+
 
     return (
         <>
