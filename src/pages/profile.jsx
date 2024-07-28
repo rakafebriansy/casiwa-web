@@ -36,6 +36,7 @@ const ProfilePage = () => {
         if(userData) {
             authenticatedProfile(userData.token,
                 res => {
+                    console.log(res.data.data)
                 setProfile(res.data.data);
             }, 
             err => {
@@ -77,7 +78,7 @@ const ProfilePage = () => {
                     </div>
                     <div className="flex flex-col lg:flex-row gap-2 lg:gap-8">
                         <DropdownField value={profile.university} colored={true} list={universities} name="university" label="Universitas">Pilih universitas</DropdownField>
-                        <DropdownField value={profile.study_programs} colored={true} list={studyPrograms} name="study_program" label="Program Studi">Pilih Program Studi</DropdownField>
+                        <DropdownField value={profile.study_program} colored={true} list={studyPrograms} name="study_program" label="Program Studi">Pilih Program Studi</DropdownField>
                     </div>
                     <div className="flex flex-col lg:flex-row gap-2 lg:gap-8">
                         <TextBox value={profile.starting_year} colored={true} name="starting_year">Tahun Masuk Perkuliahan</TextBox>

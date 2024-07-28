@@ -41,7 +41,7 @@ const InputFile = (props) => {
     }
     return (
         <div className="">
-            <input type="file" name={name} class="block cursor-pointer w-full border-2 shadow-sm rounded-lg text-sm focus:z-10 focus:border-primary focus:ring-primary disabled:opacity-50 disabled:pointer-events-none 
+            <input type="file" name={name} className="block cursor-pointer w-full border-2 shadow-sm rounded-lg text-sm focus:z-10 focus:border-primary focus:ring-primary disabled:opacity-50 disabled:pointer-events-none 
                 file:bg-[#F9F9F9] file:border-0
                 file:me-4
                 file:py-3 file:px-4"></input>
