@@ -1,7 +1,7 @@
 const InputText = (props) => {
-    const {name, id = '', type="text"} = props;
+    const {name, placeholder='', value, type="text", colored} = props;
     return (
-        <input className="h-9 border border-[#9B9B9B] outline-primary hover:border-primary p-2 rounded-lg" type={type} name={name} id={id} />
+        <input className={`h-9 border ${colored ? "bg-[#F9F9F9] rounded-md" : "rounded-lg border-[#9B9B9B]"} outline-primary hover:border-primary p-2`} type={type} name={name} value={value} placeholder={placeholder} />
     );
 }
 

@@ -32,7 +32,7 @@ const Navbar = (props) => {
                 </ul>
                 {isLogin ? (
                     <>
-                    <ProfilePicture classname="hidden lg:block"/>
+                    <ProfilePicture path="/profile" classname="hidden lg:block"/>
                     {hamburger ? (
                         <HamburgerIcon classname="w-5 lg:hidden z-50" onclick={() => {
                             refHamburger.current.classList.replace('left-full','left-0');
@@ -52,7 +52,7 @@ const Navbar = (props) => {
                     </div>
                 )}
                 <div ref={refHamburger} className="left-full flex transition-all bg-backgroundPrime items-center w-52 absolute justify-center z-30 h-52 top-0 min-h-screen min-w-full">
-                    <div className="w-fit flex flex-col justify-center items-start gap-3">
+                    <div className="w-fit flex flex-col justify-center items-center text-center gap-3">
                         <ul className="flex flex-col gap-3">
                             {anchors.map((value) => {
                                 if(isThisPage == value.name) {
@@ -65,7 +65,7 @@ const Navbar = (props) => {
                                 );
                             })}
                         </ul>
-                        <ProfilePicture classname="block"/>
+                        <ProfilePicture path="/profile" classname="block"/>
                     </div>
                 </div>
             </div>

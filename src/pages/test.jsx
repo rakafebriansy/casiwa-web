@@ -8,10 +8,9 @@ const TestPage = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        // Simulasi loading data
         setTimeout(() => {
           setLoading(false);
-        }, 3000); // Ganti 3000 dengan durasi yang sesuai
+        }, 3000);
       }, []);
     return (
         <>

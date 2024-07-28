@@ -2,11 +2,11 @@ import InputFile from "../Elements/InputFile";
 import Label from "../Elements/Label";
 
 const FileBox = (props) => {
-    const {children, name} = props;
+    const {children, name ,dropzone, message} = props;
     return (
         <div className="font-montserratRegular flex flex-col w-full">
             <Label name={name}>{children}</Label>
-            <InputFile name={name}/>
+            <InputFile message={message} name={name} dropzone={dropzone}/>
         </div>
     );
 }

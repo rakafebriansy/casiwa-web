@@ -18,4 +18,12 @@ export const hasDocumentUser = (token, id, callback, errorHandler = () => {}, fi
     }).then(callback).catch(errorHandler).finally(finallyHandler);
 }
 
+export const authenticatedProfile = (token, callback, errorHandler = () => {}, finallyHandler = () => {}) => {
+  axios.get(import.meta.env.VITE_BASE_URL + 'user/profile',{
+    headers: {
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+  }).then(callback).catch(errorHandler).finally(finallyHandler);
+}
 

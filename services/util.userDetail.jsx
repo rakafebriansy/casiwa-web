@@ -14,3 +14,10 @@ export const getStudyPrograms = (callback) => {
         console.error(err);
     });
 }
+export const getBanks = (callback) => {
+    axios.get(import.meta.env.VITE_BASE_URL + 'banks').then(res => {
+        callback(res.data);
+    }).catch(err => {
+        console.error(err);
+    });
+}

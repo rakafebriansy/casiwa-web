@@ -8,6 +8,7 @@ import NoteDetailsPage from './pages/note-details';
 import TestPage from './pages/test';
 import UploadedPage from './pages/uploaded';
 import DownloadedPage from './pages/downloaded';
+import ProfilePage from './pages/profile';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path='/note-details/:idParams' element={<NoteDetailsPage />}/>
         <Route path='/uploaded' element={<UploadedPage />}/>
         <Route path='/downloaded' element={<DownloadedPage />}/>
+        <Route path='/profile' element={<ProfilePage />}/>
         <Route path='/test' element={<TestPage />}/>
       </Routes>
     </BrowserRouter>

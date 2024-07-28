@@ -107,7 +107,7 @@ const FormUpload = React.forwardRef((props, ref) => {
                 <div className="flex flex-col gap-3">
                     <TextBox name="title">Judul</TextBox>
                     <TextareaBox max={200} name="description" placeholder="Masukkan deskripsi catatan anda...">Deskripsi</TextareaBox>
-                    <FileBox name="file">Dokumen</FileBox>
+                    <FileBox dropzone={true} name="file">Dokumen</FileBox>
                 </div>
                 <LongRoundedButton>Unggah</LongRoundedButton>
             </div>

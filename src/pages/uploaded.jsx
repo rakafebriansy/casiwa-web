@@ -17,11 +17,11 @@ import { LoadingIcon } from '../functions/svgs';
 const UploadedPage = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [isLogin, setIsLogin] = useState(false);
-    const [notes, setNotes] = useState([]);
-    const navigate = useNavigate();
     const {anchorList} = useContext(AnchorListContext);
-    const refUploadDropdown = useRef(null);
+    const navigate = useNavigate();
     const {isShowAlert} = useContext(ShowAlertContext);
+    const [notes, setNotes] = useState([]);
+    const refUploadDropdown = useRef(null);
 
     const handleSearch = async (e) => {
         e.preventDefault();
@@ -71,7 +71,7 @@ const UploadedPage = () => {
                         <SquareButton type="button" onclick={(e) => {
                             e.preventDefault();
                             refUploadDropdown.current.classList.replace('hidden', 'flex');
-                        }} outline={false} colorCode="border-primary hover:bg-primary text-primary">Unggah</SquareButton>
+                        }} colorCode="border-primary hover:bg-primary text-primary">Unggah</SquareButton>
                     </div>
                     <div className="w-full text-xs">
                     {notes.total} hasil
