@@ -19,14 +19,22 @@ const FormLogin = () => {
         const data = {
             email: e.target.email.value,
             password: e.target.password.value,
+        };
+
+        if(e.target.rememberme.value) {
+            data.rememberme =e.target.rememberme.value;
         }
 
         login(data,(data) => {
             if(data.success) {
+                let time = 0.5;
+                if(data.rememberme) {
+                    time = 30;
+                }
                 setCookie('user',{
                     email: data.email,
                     token: data.token
-                },1);
+                },time);
                 navigate('/');
             }
         },(err) =>{
