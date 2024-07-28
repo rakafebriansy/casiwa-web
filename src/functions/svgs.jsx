@@ -108,7 +108,7 @@ export const LeftArrowIcon = (props) => {
 export const HamburgerIcon = (props) => {
     const {classname, color = '#2F63AF', onclick = () => {}} = props;
     return (
-        <svg className={classname} viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
+        <svg onClick={onclick} className={classname} viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
             <title>Menu</title>
             <g id="Page-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
                 <g id="Menu">

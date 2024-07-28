@@ -8,11 +8,14 @@ import { getDocument, GlobalWorkerOptions } from '../../../modules/pdf.js/build/
 import { upload } from "../../../services/auth.upload.jsx";
 import { ShowAlertContext } from "../../contexts/ShowAlert";
 import { getCookie } from "../../functions/main";
+import { useLocation, useNavigate } from "react-router-dom";
 GlobalWorkerOptions.workerSrc = '../../../modules/pdf.js/build/pdf.worker.mjs';
 
 const FormUpload = React.forwardRef((props, ref) => {
 
     const {setIsShowAlert} = useContext(ShowAlertContext);
+    const navigate = useNavigate();
+    const location = useLocation();
 
     const generateThumbnail = async (file) => {
         return new Promise((resolve, reject) => {
@@ -81,6 +84,7 @@ const FormUpload = React.forwardRef((props, ref) => {
                 setIsShowAlert({status: true, message:'Dokumen gagal diunggah'});
             } finally {
                 form.reset();
+                navigate(location.pathname, { replace: true });
             }
         }  else {
             ref.current.classList.replace('flex', 'hidden');

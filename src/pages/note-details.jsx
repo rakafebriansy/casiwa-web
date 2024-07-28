@@ -74,13 +74,12 @@ const NoteDetailsPage = () => {
         }
         setPageNum(pageNum + 1);
     }
-
     const handlePaymentToken = async () => {
         const userData = getCookie('user');
         getPaymentToken((data) => {
             refModal.current.classList.replace('hidden','flex');
             setSnapToken(data.snap_token);
-        }, userData.token, idParams, 2500);
+        }, userData.token, idParams, note.price);
     }
 
     const handlePayment = async (e) => {
