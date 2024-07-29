@@ -73,7 +73,7 @@ const NotesPage = () => {
         <section className="bg-backgroundPrime pt-20 lg:pt-28 font-montserratRegular min-h-screen justify-between flex flex-col items-center">
             {universities.length > 0 && studyPrograms.length > 0 && (
                 <>
-                <Navbar anchors={isLogin ? anchorList : []} isThisPage="Catatan" isLogin={isLogin}/>
+                <Navbar anchors={isLogin ? anchorList[0] : []} isThisPage="Catatan" isLogin={isLogin}/>
                 <div className=" flex flex-col items-center lg:w-[80%]">
                     <form onSubmit={handleSearch} className="w-[80%] lg:w-full mb-5">
                         <SearchButton name="keyword">Cari dokumen</SearchButton>

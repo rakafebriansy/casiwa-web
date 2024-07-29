@@ -63,7 +63,7 @@ const UploadedPage = () => {
     return (
         <section className="bg-backgroundPrime pt-20 min-h-screen lg:pt-28 font-montserratRegular flex flex-col items-center justify-between relative">
             {isShowAlert.status && (<Alert>{isShowAlert.message}</Alert>)}
-            <Navbar anchors={anchorList} isThisPage="Unggahan" isLogin={isLogin}/>
+            <Navbar anchors={anchorList[0]} isThisPage="Unggahan" isLogin={isLogin}/>
             <div className=" flex flex-col items-center lg:w-[80%]">
                 <form onSubmit={handleSearch} className="w-[80%] lg:w-full mb-5">
                     <SearchButton name="keyword">Cari dokumen</SearchButton>

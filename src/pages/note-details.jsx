@@ -182,7 +182,7 @@ const NoteDetailsPage = () => {
         <>
             {note.title && (
             <>
-            <Navbar anchors={anchorList} isLogin={isLogin} /> 
+            <Navbar anchors={anchorList[0]} isLogin={isLogin} /> 
             {isShowAlert.status && (<Alert>{isShowAlert.message}</Alert>)}
             <section className="pt-20 flex lg:pt-28 flex-col items-center justify-center gap-5 lg:gap-10 font-montserratRegular">
                 <div className="w-[80%] gap-3 flex flex-col">

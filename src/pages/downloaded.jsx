@@ -61,7 +61,7 @@ const DownloadedPage = () => {
     
     return (
         <>
-        <Navbar anchors={isLogin ? anchorList : []} isThisPage="Unduhan" isLogin={isLogin}/>
+        <Navbar anchors={isLogin ? anchorList[0] : []} isThisPage="Unduhan" isLogin={isLogin}/>
             {universities.length > 0 && studyPrograms.length > 0 && (
                 <section className="bg-backgroundPrime pt-20 lg:pt-28 font-montserratRegular min-h-screen justify-between flex flex-col items-center">
                     <form onSubmit={handleSearch} className=" flex flex-col items-center lg:w-[80%]">

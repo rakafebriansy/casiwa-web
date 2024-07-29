@@ -3,10 +3,16 @@ import { createContext, useState } from "react";
 export const AnchorListContext = createContext();
 const AnchorListContextProvider = ({children}) => {
     const [anchorList, setAnchorList] = useState([
-        {name: 'Beranda', path: '/'},
-        {name: 'Catatan', path: '/notes'},
-        {name: 'Unggahan', path: '/uploaded'},
-        {name: 'Unduhan', path: '/downloaded'},
+        [
+            {name: 'Beranda', path: '/'},
+            {name: 'Catatan', path: '/notes'},
+            {name: 'Unggahan', path: '/uploaded'},
+            {name: 'Unduhan', path: '/downloaded'},
+        ],
+        [
+            {name: 'Dasbor', path: '/'},
+            {name: 'Catatan', path: '/notes'},
+        ]
     ]);
     return (
         <AnchorListContext.Provider value={{ anchorList, setAnchorList }}>

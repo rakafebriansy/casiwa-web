@@ -9,7 +9,7 @@ import Modal from "../Elements/Modal";
 const AdminCrudForm = (props) => {
 
     const {setIsShowAlert} = useContext(ShowAlertContext);
-    const {list, setList, placeholder, columnName, prefix, editLabel} = props;
+    const {list, setList, placeholder, columnName, prefix, label} = props;
     const refEditModal = useRef(null);
     const refDeleteModal = useRef(null);
 
@@ -114,14 +114,14 @@ const AdminCrudForm = (props) => {
                 </div>
             </div>
             <form onSubmit={handleStore} className="flex flex-col items-end gap-3">
-                <TextBox placeholder={placeholder} colored={true} name={columnName}>Nama Universitas</TextBox>
+                <TextBox placeholder={placeholder} colored={true} name={columnName}>Nama {label}</TextBox>
                 <SquareButton type="submit" colorCode="bg-primary">Tambah</SquareButton>
             </form>
         </main>
         <Modal ref={refEditModal} title="Edit" accept="Ubah" onsubmit={handleEdit}>
             <p className="font-montserratSemiBold mb-4 text-sm" id="editLabel"></p>
             <input type="hidden" name="id" id="editId"/>
-            <TextBox placeholder={placeholder} colored={true} name={columnName}>{editLabel}</TextBox>
+            <TextBox placeholder={placeholder} colored={true} name={columnName}>{`Nama ${label} baru`}</TextBox>
         </Modal>
         <Modal ref={refDeleteModal} title="Hapus" accept="Hapus" onsubmit={handleDelete} danger={true}>
             <p className="font-montserratSemiBold text-sm" id="deleteLabel"></p>

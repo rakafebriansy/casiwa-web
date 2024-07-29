@@ -86,7 +86,7 @@ const ProfilePage = () => {
     return (
         <>
         {isShowAlert.status && (<Alert>{isShowAlert.message}</Alert>)}
-        <Navbar anchors={anchorList} isThisPage="Catatan" isLogin={true}/>
+        <Navbar anchors={anchorList[0]} isThisPage="Catatan" isLogin={true}/>
         <form encType="multipart/form-data" ref={refForm} onSubmit={handleSubmit} className="pt-20 flex flex-col items-center gap-6 mb-10">
             <div className="flex flex-col items-center gap-3">
                 <div className={`${profile.ktp_image ?? 'rounded-full'} bg-white/30 w-24 h-24 relative bg-[#F0F2F9] flex justify-center items-center`}>
