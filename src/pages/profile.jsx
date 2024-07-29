@@ -7,7 +7,7 @@ import { LoadingIcon, PencilIcon, ProfileIcon } from "../functions/svgs";
 import TextBox from "../components/Fragments/TextBox";
 import DropdownField from "../components/Fragments/DropdownField";
 import { ShowAlertContext } from "../contexts/ShowAlert";
-import { getBanks, getStudyPrograms, getUniversities } from "../../services/util.userDetail";
+import { getAllUserDetails } from "../../services/util.userDetail";
 import { deleteCookie, getCookie } from "../functions/main";
 import { authenticatedProfile } from "../../services/auth.authenticatedUser";
 import FileBox from "../components/Fragments/FileBox";
@@ -63,13 +63,13 @@ const ProfilePage = () => {
                 setIsLoading(false);
             });
 
-            getUniversities((data) => {
+            getAllUserDetails('universities',(data) => {
                 setUniversities(data.data);
             });
-            getStudyPrograms((data) => {
+            getAllUserDetails('study-programs',(data) => {
                 setStudyPrograms(data.data);
             });
-            getBanks((data) => {
+            getAllUserDetails('banks',(data) => {
                 setBanks(data.data);
             });
         } else {

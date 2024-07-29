@@ -4,7 +4,7 @@ import SearchButton from "../components/Elements/SearchButton";
 import SearchDropdown from "../components/Elements/SearchDropdown";
 import {BookIcon, UniversityIcon} from "../functions/svgs";
 import Footer from "../components/Layout/Footer";
-import { getStudyPrograms, getUniversities } from "../../services/util.userDetail.jsx";
+import { getAllUserDetails } from "../../services/util.userDetail.jsx";
 import NoteList from "../components/Layout/NoteList";
 import { authenticatedUser } from "../../services/auth.authenticatedUser.jsx";
 import { AnchorListContext } from "../contexts/AnchorList";
@@ -39,10 +39,10 @@ const NotesPage = () => {
     }
 
     useEffect(()=> {
-        getUniversities((data) => {
+        getAllUserDetails('universities',(data) => {
             setUniversities(data.data);
         });
-        getStudyPrograms((data) => {
+        getAllUserDetails('study-programs',(data) => {
             setStudyPrograms(data.data);
         });
         getNotes((data) => {

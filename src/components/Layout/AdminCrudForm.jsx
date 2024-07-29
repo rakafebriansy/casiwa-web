@@ -4,7 +4,7 @@ import TextBox from "../Fragments/TextBox";
 
 const AdminCrudForm = (props) => {
 
-    const {list, placeholder, columnName, ondelete, onstore, onedit} = props;
+    const {list, placeholder, columnName, prefix} = props;
 
     const handleStore = (event, callback) => {
         event.preventDefault();
@@ -17,7 +17,7 @@ const AdminCrudForm = (props) => {
     },[]);
 
     return (
-        <form onSubmit={(e) => {handleStore(e, onstore)}} className="rounded-lg small-shadow p-3 flex flex-col gap-4">
+        <form onSubmit={handleStore} className="rounded-lg small-shadow p-3 flex flex-col gap-4">
             <div class="flex flex-col border-b border-slate-200">
                 <div class="-m-1.5 overflow-x-auto">
                     <div class="p-1.5 min-w-full inline-block align-middle">

@@ -4,7 +4,7 @@ import authBackgroundImage from "../assets/images/auth-background.png"
 import Logo from "../components/Elements/Logo";
 import FormRegister from "../components/Layout/FormRegister";
 import { useContext, useEffect, useState } from "react";
-import { getStudyPrograms, getUniversities } from "../../services/util.userDetail.jsx";
+import { getAllUserDetails } from "../../services/util.userDetail.jsx";
 import Alert from "../components/Elements/Alert";
 import { ShowAlertContext } from "../contexts/ShowAlert";
 
@@ -15,10 +15,10 @@ const RegisterPage = () => {
     const {isShowAlert} = useContext(ShowAlertContext);
 
     useEffect(()=> {
-        getUniversities((data) => {
+        getAllUserDetails('universities',(data) => {
             setUniversities(data.data);
         });
-        getStudyPrograms((data) => {
+        getAllUserDetails('study-programs',(data) => {
             setStudyPrograms(data.data);
         });
     },[]);

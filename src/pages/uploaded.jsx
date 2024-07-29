@@ -11,7 +11,7 @@ import FormUpload from "../components/Layout/FormUpload";
 import { ShowAlertContext } from "../contexts/ShowAlert";
 import Alert from "../components/Elements/Alert";
 import { getCookie } from "../functions/main";
-import { getNotes, getUploadedNotes } from "../../services/util.notes.jsx";
+import { getUploadedNotes } from "../../services/util.notes.jsx";
 import { LoadingIcon } from '../functions/svgs';
 
 const UploadedPage = () => {
