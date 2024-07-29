@@ -8,7 +8,7 @@ import TextBox from "../components/Fragments/TextBox";
 import DropdownField from "../components/Fragments/DropdownField";
 import { ShowAlertContext } from "../contexts/ShowAlert";
 import { getBanks, getStudyPrograms, getUniversities } from "../../services/util.userDetail";
-import { getCookie } from "../functions/main";
+import { deleteCookie, getCookie } from "../functions/main";
 import { authenticatedProfile } from "../../services/auth.authenticatedUser";
 import FileBox from "../components/Fragments/FileBox";
 import SquareButton from "../components/Elements/SquareButton";
@@ -44,7 +44,8 @@ const ProfilePage = () => {
     }
 
     const handleLogout = () =>{
-
+        deleteCookie('user');
+        navigate('/');
     }
 
     useEffect(()=> {
