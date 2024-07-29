@@ -15,7 +15,7 @@ const LoginPage = () => {
             {isShowAlert.status && (<Alert>{isShowAlert.message}</Alert>)}
             {getScreenSize().width >= 640 && (<Navbar />)}
             <div className="flex justify-around mt-[5rem] md:mt-0 lg:items-center min-h-screen">
-                <FormLogin/>
+                <FormLogin admin={false}/>
                 <div className="hidden lg:flex justify-center flex-col items-center">
                     <Logo/>
                     <h1 className="text-4xl text-primary font-montserratBold">Welcome to Casiwa</h1>
