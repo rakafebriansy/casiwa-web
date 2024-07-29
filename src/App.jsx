@@ -10,6 +10,7 @@ import UploadedPage from './pages/uploaded';
 import DownloadedPage from './pages/downloaded';
 import ProfilePage from './pages/profile';
 import AdminLoginPage from './pages/admin-login';
+import AdminDashboardPage from './pages/admin-dashboard';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route path='/downloaded' element={<DownloadedPage />}/>
         <Route path='/profile' element={<ProfilePage />}/>
         <Route path='/admin' element={<AdminLoginPage />}/>
+        <Route path='/admin/dashboard' element={<AdminDashboardPage />}/>
         <Route path='/test' element={<TestPage />}/>
       </Routes>
     </BrowserRouter>

@@ -17,12 +17,12 @@ import Alert from "../components/Elements/Alert";
 
 const ProfilePage = () => {
     const [isLoading, setIsLoading] = useState(true);
+    const {isShowAlert, setIsShowAlert} = useContext(ShowAlertContext);
+    const {anchorList} = useContext(AnchorListContext);
     const [profile, setProfile] = useState({});
     const [universities, setUniversities] = useState([]);
     const [studyPrograms, setStudyPrograms] = useState([]);
     const [banks, setBanks] = useState([]);
-    const {isShowAlert, setIsShowAlert} = useContext(ShowAlertContext);
-    const {anchorList} = useContext(AnchorListContext);
     const navigate = useNavigate();
     const refForm = useRef(null);
 

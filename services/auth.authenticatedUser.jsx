@@ -27,3 +27,12 @@ export const authenticatedProfile = (token, callback, errorHandler = () => {}, f
   }).then(callback).catch(errorHandler).finally(finallyHandler);
 }
 
+export const authenticatedAdmin = (token, callback, errorHandler = () => {}, finallyHandler = () => {}) => {
+  axios.get(import.meta.env.VITE_BASE_URL + 'admin',{
+    headers: {
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+  }).then(callback).catch(errorHandler).finally(finallyHandler);
+}
+

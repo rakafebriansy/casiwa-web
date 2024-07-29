@@ -27,11 +27,11 @@ const FormLogin = (props) => {
                 console.log(data)
                 if(data.success) {
                     let time = 0.5;
-                    setCookie('user',{
+                    setCookie('admin',{
                         username: data.data.username,
                         token: data.data.token
                     },time);
-                    navigate('/admin-dashboard');
+                    navigate('/admin/dashboard');
                 }
             },(err) =>{
                 setIsShowAlert({status: true, message:err.message});

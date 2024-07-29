@@ -39,6 +39,15 @@ const NotesPage = () => {
     }
 
     useEffect(()=> {
+        getUniversities((data) => {
+            setUniversities(data.data);
+        });
+        getStudyPrograms((data) => {
+            setStudyPrograms(data.data);
+        });
+        getNotes((data) => {
+            setNotes(data);
+        },keyword);
         const userData = getCookie('user');
         if(userData) {
             authenticatedUser(userData.token,
@@ -52,15 +61,6 @@ const NotesPage = () => {
                 setIsLoading(false);
             });
         }
-        getUniversities((data) => {
-            setUniversities(data.data);
-        });
-        getStudyPrograms((data) => {
-            setStudyPrograms(data.data);
-        });
-        getNotes((data) => {
-            setNotes(data);
-        },keyword);
     },[]);
 
     if (isLoading) return (
