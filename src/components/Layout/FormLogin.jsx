@@ -24,7 +24,13 @@ const FormLogin = (props) => {
 
         if(admin) {
             adminLogin(data,(data) => {
+                console.log(data)
                 if(data.success) {
+                    let time = 0.5;
+                    setCookie('user',{
+                        username: data.data.username,
+                        token: data.data.token
+                    },time);
                     navigate('/admin-dashboard');
                 }
             },(err) =>{
