@@ -3,7 +3,7 @@ import CloseButton from "./CloseButton";
 import SquareButton from "./SquareButton";
 
 const Modal = React.forwardRef((props, ref) => {
-    const {title, children, accept, onsubmit = () => {}} = props;
+    const {title, children, accept, onsubmit = () => {}, danger} = props;
 
     return (
         <form ref={ref} onSubmit={onsubmit} className="hidden items-center w-full h-screen justify-center top-0 left-0 fixed z-30">
@@ -25,7 +25,7 @@ const Modal = React.forwardRef((props, ref) => {
                         </div>
                     </div>
                     <div className="flex justify-center items-center gap-x-2 py-3 px-4 border-t">
-                        <SquareButton type="submit" colorCode="bg-primary">{accept}</SquareButton>
+                        <SquareButton type="submit" colorCode={danger ? "bg-red-500" : "bg-primary"}>{accept}</SquareButton>
                     </div>
                     </div>
                 </div>

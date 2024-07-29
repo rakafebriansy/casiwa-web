@@ -7,7 +7,7 @@ export const getAllUserDetails = (prefix,callback) => {
         console.error(err);
     });
 }
-export const modifyUserDetails = (token, operation, prefix, data, callback, errorHandler) => {
+export const modifyUserDetails = (token, operation, prefix, data, callback, errorHandler, finallyHandler) => {
     axios.post(import.meta.env.VITE_BASE_URL + 'admin/' + prefix + '/' + operation, data, {
         headers: {
             'Authorization': `Bearer ${token}`,
@@ -21,5 +21,5 @@ export const modifyUserDetails = (token, operation, prefix, data, callback, erro
             status: false,
             message:Object.values(err.response.data.errors)[0][0]
         });
-    });
+    }).finally(finallyHandler);
 }
