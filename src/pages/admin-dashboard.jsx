@@ -13,7 +13,7 @@ import { useNavigate } from "react-router-dom";
 
 const AdminDashboardPage = () => {
     const [isLoading, setIsLoading] = useState(true);
-    const {isShowAlert, setIsShowAlert} = useContext(ShowAlertContext);
+    const {isShowAlert} = useContext(ShowAlertContext);
     const {anchorList} = useContext(AnchorListContext);
     const [universities, setUniversities] = useState([]);
     const [banks, setBanks] = useState([]);
@@ -29,6 +29,7 @@ const AdminDashboardPage = () => {
             setStudyPrograms(data.data);
         });
         getAllUserDetails('banks',(data) => {
+            console.log(data)
             setBanks(data.data);
         });
         const userData = getCookie('admin');
@@ -61,7 +62,7 @@ const AdminDashboardPage = () => {
             <Navbar anchors={anchorList} isThisPage="Catatan" isLogin={true}/>
             <section className="flex justify-center min-h-screen w-full pt-28">
                 <div className="w-[80%]">
-                    <AdminCrudForm prefix="universities" placeholder="Masukkan nama universitas baru" list={universities} columnName="nama"></AdminCrudForm>
+                    <AdminCrudForm prefix="universities" placeholder="Masukkan nama universitas baru" setList={setUniversities} list={universities} columnName="name"></AdminCrudForm>
                 </div>
             </section>
             <Footer />

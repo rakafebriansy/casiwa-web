@@ -7,6 +7,15 @@ export const getAllUserDetails = (prefix,callback) => {
         console.error(err);
     });
 }
-export const updateUserDetails = (data, prefix, callback) => {
-
+export const modifyUserDetails = (token, operation, prefix, data, callback) => {
+    axios.post(import.meta.env.VITE_BASE_URL + 'admin/' + prefix + '/' + operation, data, {
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'multipart/form-data'
+        }
+    }).then(res => {
+        callback(res.data);
+    }).catch(err => {
+        console.error(err);
+    });
 }
