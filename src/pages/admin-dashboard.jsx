@@ -29,7 +29,6 @@ const AdminDashboardPage = () => {
             setStudyPrograms(data.data);
         });
         getAllUserDetails('banks',(data) => {
-            console.log(data)
             setBanks(data.data);
         });
         const userData = getCookie('admin');
@@ -62,7 +61,7 @@ const AdminDashboardPage = () => {
             <Navbar anchors={anchorList} isThisPage="Catatan" isLogin={true}/>
             <section className="flex justify-center min-h-screen w-full pt-28">
                 <div className="w-[80%]">
-                    <AdminCrudForm prefix="universities" placeholder="Masukkan nama universitas baru" setList={setUniversities} list={universities} columnName="name"></AdminCrudForm>
+                    <AdminCrudForm editLabel="Nama Baru" prefix="universities" placeholder="Masukkan nama universitas baru" setList={setUniversities} list={universities} columnName="name"></AdminCrudForm>
                 </div>
             </section>
             <Footer />

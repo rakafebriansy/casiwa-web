@@ -1,21 +1,22 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useRef } from "react";
 import SquareButton from "../Elements/SquareButton";
 import TextBox from "../Fragments/TextBox";
 import { modifyUserDetails } from "../../../services/util.userDetail";
 import { getCookie } from "../../functions/main";
 import { ShowAlertContext } from "../../contexts/ShowAlert";
+import Modal from "../Elements/Modal";
 
 const AdminCrudForm = (props) => {
 
     const {setIsShowAlert} = useContext(ShowAlertContext);
-    const {list, setList, placeholder, columnName, prefix} = props;
+    const {list, setList, placeholder, columnName, prefix, editLabel} = props;
+    const refModal = useRef(null);
 
     const handleStore = (e) => {
         e.preventDefault();
         const formData = new FormData(e.target);
         const adminData = getCookie('admin');
         modifyUserDetails(adminData.token, 'store', prefix, formData, (data) => {
-            console.log(data)
             if(data.success) {
                 setList(data.data);
                 e.target.reset();
@@ -23,15 +24,37 @@ const AdminCrudForm = (props) => {
             } else {
                 setIsShowAlert({status: true, message:data.message});
             }
+        }, err => {
+            setIsShowAlert({status: true, message:err.message});
         });
     }
 
-    useEffect(() => {
-        console.log(list)
-    },[list]);
+    const openEditModal = (id, label) => {
+        refModal.current.querySelector('#editId').value = id;
+        refModal.current.querySelector('#editLabel').innerText = label;
+        refModal.current.classList.replace('hidden','flex')
+    }
+
+    const handleEdit = (e) => {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        const adminData = getCookie('admin');
+        modifyUserDetails(adminData.token, 'edit', prefix, formData, (data) => {
+            if(data.success) {
+                setList(data.data);
+                e.target.reset();
+                setIsShowAlert({status: true, message:data.message});
+            } else {
+                setIsShowAlert({status: true, message:data.message});
+            }
+        }, err => {
+            setIsShowAlert({status: true, message:err.message});
+        });
+    }
 
     return (
-        <main className="rounded-lg small-shadow p-3 flex flex-col gap-4">
+        <>
+        <main className="rounded-lg small-shadow p-3 flex flex-col gap-4 font-montserratRegular">
             <div className="flex flex-col border-b border-slate-200">
                 <div className="-m-1.5 overflow-x-auto">
                     <div className="p-1.5 min-w-full inline-block align-middle">
@@ -49,7 +72,7 @@ const AdminCrudForm = (props) => {
                                         <tr key={item.id}>
                                             <td className="px-3 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-neutral-200">{item.name}</td>
                                             <td className="px-3 py-4 whitespace-nowrap text-end text-sm font-medium flex gap-4 justify-start">
-                                                <button type="button" className="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-blue-600 hover:text-blue-800 focus:outline-none focus:text-blue-800 disabled:opacity-50 disabled:pointer-events-none dark:text-blue-500 dark:hover:text-blue-400 dark:focus:text-blue-400">Edit</button>
+                                                <button type="button" onClick={() => openEditModal(item.id, item.name)} className="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-blue-600 hover:text-blue-800 focus:outline-none focus:text-blue-800 disabled:opacity-50 disabled:pointer-events-none dark:text-blue-500 dark:hover:text-blue-400 dark:focus:text-blue-400">Edit</button>
                                                 <button type="button" className="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-blue-600 hover:text-blue-800 focus:outline-none focus:text-blue-800 disabled:opacity-50 disabled:pointer-events-none dark:text-blue-500 dark:hover:text-blue-400 dark:focus:text-blue-400">Delete</button>
                                             </td>
                                         </tr>
@@ -66,6 +89,12 @@ const AdminCrudForm = (props) => {
                 <SquareButton type="submit" colorCode="bg-primary">Tambah</SquareButton>
             </form>
         </main>
+        <Modal ref={refModal} title="Edit" accept="Ubah" onsubmit={handleEdit}>
+                <p className="font-montserratSemiBold mb-4 text-sm" id="editLabel"></p>
+                <input type="hidden" name="id" id="editId"/>
+                <TextBox placeholder={placeholder} colored={true} name={columnName}>{editLabel}</TextBox>
+        </Modal>
+        </>
     );
 }
 

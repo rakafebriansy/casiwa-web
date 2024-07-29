@@ -22,6 +22,7 @@ const RegisterPage = () => {
             setStudyPrograms(data.data);
         });
     },[]);
+    
     return (
         <main>
             <img src={authBackgroundImage} alt="" className="hidden absolute h-screen w-screen z-[-1] lg:block"/>

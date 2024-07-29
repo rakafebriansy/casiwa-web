@@ -250,7 +250,7 @@ const NoteDetailsPage = () => {
                 </div>
                 <Footer />
             </section>
-            <Modal ref={refModal} title="Pembayaran" decline="Batal" accept="Bayar sekarang" onsubmit={handlePayment}>
+            <Modal ref={refModal} title="Pembayaran" accept="Bayar sekarang" onsubmit={handlePayment}>
                 <table>
                     <tbody className="align-top">
                         <tr>
