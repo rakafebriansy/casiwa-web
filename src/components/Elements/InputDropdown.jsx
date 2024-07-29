@@ -1,11 +1,16 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 
 const InputDropdown = React.forwardRef((props,ref) => {
-    const {name, value, children, onclick, colored} = props;
+    const {name, value = '', children, onclick, colored} = props;
+    const refValue = useRef();
+    useEffect(() => {
+        refValue.current.value = value;
+    },[])
+
     return (
         <div ref={ref} onClick={onclick} className={`h-9 border-b border-t border-x p-2 cursor-pointer flex justify-between items-center ${colored ? "bg-[#F9F9F9] rounded-md" : "rounded-lg border-[#9B9B9B]"}`} type="text">
-            <input type="hidden" name={name}  />
-            <p className="select-none">{value ?? children}</p>
+            <input type="hidden" ref={refValue} name={name}  />
+            <p className="select-none">{children}</p>
             <svg width="14" height="8" viewBox="0 0 14 8" fill="none" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
                 <rect width="13.3333" height="8" fill="url(#pattern0_308_1285)" fillOpacity="0.5"/>
                 <defs>

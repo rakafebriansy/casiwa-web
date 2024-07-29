@@ -32,7 +32,7 @@ const DropdownField = (props) => {
     };
 
     const outsideClicked = (event) => {
-        if (refBtnClicked.current && !refBtnClicked.current.contains(event.target)) {
+        if (refBtnClicked.current && !refDropdownClicked.current.contains(event.target) && !refBtnClicked.current.contains(event.target)) {
           setClicked(false);
         }
     };
@@ -44,11 +44,12 @@ const DropdownField = (props) => {
         };
     },[]);
 
+
     return (
         <div className="font-montserratRegular flex flex-col w-full select-none">
             <Label name={name}>{label}</Label>
             <div className="relative">
-                <InputDropdown colored={colored} name={name} value={value} ref={refBtnClicked} onclick={dropdownToggle}>{children}</InputDropdown>
+                <InputDropdown colored={colored} name={name} value={value.id} ref={refBtnClicked} onclick={dropdownToggle}>{value.name ?? children}</InputDropdown>
                 <ul ref={refDropdownClicked} className={` ${clicked ? 'flex' : 'hidden'} max-h-20 overflow-scroll overflow-x-hidden flex flex-col absolute top-9 w-full bg-white border-b border-x border-[#9B9B9B] cursor-pointer pb-1 rounded-b-lg justify-between items-center`} type="text">
                     {list.map(item => {
                         return (

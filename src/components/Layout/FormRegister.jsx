@@ -3,7 +3,7 @@ import TextBox from "../Fragments/TextBox";
 import LongRoundedButton from "../Elements/LongRoundedButton";
 import AuthAnchor from "../Elements/AuthAnchor";
 import DropdownField from "../Fragments/DropdownField";
-import { useContext } from "react";
+import { useContext, useRef } from "react";
 import { ShowAlertContext } from "../../contexts/ShowAlert";
 import { register } from "../../../services/auth.register.jsx";
 import { useNavigate } from "react-router-dom";
@@ -12,22 +12,14 @@ const FormRegister = (props) => {
     const {universities, studyPrograms} = props;
     const {setIsShowAlert} = useContext(ShowAlertContext);
     const navigate = useNavigate();
+    const refForm = useRef(null);
     
     const handleRegister = (e) => {
         e.preventDefault();
 
-        const data = {
-            first_name: e.target.first_name.value,
-            last_name: e.target.last_name.value,
-            university_id: e.target.university.value,
-            study_program_id: e.target.study_program.value,
-            starting_year: e.target.starting_year.value,
-            email: e.target.email.value,
-            password: e.target.password.value,
-            confirm_password: e.target.confirm_password.value,
-        }
+        const formData = new FormData(refForm.current);
 
-        register(data,(data) => {
+        register(formData,(data) => {
             if(data.success) {
                 setIsShowAlert({status: true, message:data.message});
                 navigate('/login');
@@ -52,8 +44,8 @@ const FormRegister = (props) => {
                         <TextBox name="last_name">Nama Belakang</TextBox>
                     </div>
                     <div className="flex flex-col lg:flex-row gap-2 lg:gap-8">
-                        <DropdownField list={universities} name="university" label="Universitas">Pilih universitas</DropdownField>
-                        <DropdownField list={studyPrograms} name="study_program" label="Program Studi">Pilih Program Studi</DropdownField>
+                        <DropdownField list={universities} name="university_id" label="Universitas">Pilih universitas</DropdownField>
+                        <DropdownField list={studyPrograms} name="study_program_id" label="Program Studi">Pilih Program Studi</DropdownField>
                     </div>
                     <div className="flex flex-col lg:flex-row gap-2 lg:gap-8">
                         <TextBox name="starting_year">Tahun Masuk Perkuliahan</TextBox>
