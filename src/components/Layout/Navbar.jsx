@@ -22,11 +22,11 @@ const Navbar = (props) => {
                     {anchors.map((value) => {
                         if(isThisPage == value.name) {
                             return (
-                                <li className="underline text-primary" key={value.name}><Link to={value.path}>{value.name}</Link></li>
+                                <li className={`${(value.name == 'Profile' || value.name == 'Redeem') ? 'lg:hidden': '' } underline text-primary`} key={value.name}><Link to={value.path}>{value.name}</Link></li>
                             );
                         }
                         return (
-                            <li key={value.name} className="hover:text-primary hover:opacity-80"><Link to={value.path}>{value.name}</Link></li>
+                            <li key={value.name} className={`hover:text-primary hover:opacity-80 ${(value.name == 'Profile' || value.name == 'Redeem') ? 'lg:hidden': '' }`}><Link to={value.path}>{value.name}</Link></li>
                         );
                     })}
                 </ul>
@@ -64,8 +64,8 @@ const Navbar = (props) => {
                                     <li key={value.name} className="hover:text-primary hover:opacity-80"><Link to={value.path}>{value.name}</Link></li>
                                 );
                             })}
+                            {}
                         </ul>
-                        <ProfilePicture path="/profile" classname="block"/>
                     </div>
                 </div>
             </div>

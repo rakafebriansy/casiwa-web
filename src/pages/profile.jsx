@@ -8,7 +8,7 @@ import TextBox from "../components/Fragments/TextBox";
 import DropdownField from "../components/Fragments/DropdownField";
 import { ShowAlertContext } from "../contexts/ShowAlert";
 import { getAllUserDetails } from "../../services/util.userDetail";
-import { getCookie } from "../functions/main";
+import { deleteCookie, getCookie } from "../functions/main";
 import { authenticatedProfile } from "../../services/auth.authenticatedUser";
 import FileBox from "../components/Fragments/FileBox";
 import SquareButton from "../components/Elements/SquareButton";
@@ -41,6 +41,11 @@ const ProfilePage = () => {
                 }
             })
         }
+    }
+
+    const handleLogout = () =>{
+        deleteCookie('user');
+        navigate('/');
     }
 
     useEffect(()=> {
@@ -81,7 +86,7 @@ const ProfilePage = () => {
     return (
         <>
         {isShowAlert.status && (<Alert>{isShowAlert.message}</Alert>)}
-        <Navbar anchors={anchorList[0]} isThisPage="Catatan" isLogin={true}/>
+        <Navbar anchors={anchorList[0]} isThisPage="Profile" isLogin={true}/>
         <form encType="multipart/form-data" ref={refForm} onSubmit={handleSubmit} className="pt-20 flex flex-col items-center gap-6 mb-10">
             <div className="flex flex-col items-center gap-3">
                 <div className={`${profile.ktp_image ? ' bg-white/30' : "rounded-full bg-[#F0F2F9]"} w-24 h-24 relative  flex justify-center items-center`}>
@@ -127,6 +132,7 @@ const ProfilePage = () => {
                 </div>
                 <div className="flex justify-between mt-4">
                     <SquareButton type="submit" colorCode="bg-primary">Ubah</SquareButton>
+                    <SquareButton type="button" onclick={handleLogout} colorCode="bg-red-500">Logout</SquareButton>
                 </div>
             </div>
         </form>

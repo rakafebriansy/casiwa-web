@@ -23,3 +23,10 @@ export const modifyUserDetails = (token, operation, prefix, data, callback, erro
         });
     }).finally(finallyHandler);
 }
+export const getUserBalance = (callback) => {
+    axios.get(import.meta.env.VITE_BASE_URL + 'get-balance').then(res => {
+        callback(res.data);
+    }).catch(err => {
+        console.error(err);
+    });
+}

@@ -8,10 +8,14 @@ const AnchorListContextProvider = ({children}) => {
             {name: 'Catatan', path: '/notes'},
             {name: 'Unggahan', path: '/uploaded'},
             {name: 'Unduhan', path: '/downloaded'},
+            {name: 'Profile', path: '/profile'},
+            {name: 'Redeem', path: '/redeem'},
         ],
         [
-            {name: 'Dasbor', path: '/'},
+            {name: 'Dasbor', path: '/admin/dashboard'},
             {name: 'Catatan', path: '/notes'},
+            {name: 'Profile', path: '/admin/profile'},
+            {name: 'Redeem', path: '/admin/redeem'},
         ]
     ]);
     return (

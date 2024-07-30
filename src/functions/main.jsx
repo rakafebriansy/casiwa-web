@@ -35,4 +35,8 @@ export const parseDate = (inputDate) => {
       throw new Error('Bulan tidak valid');
     }
     return `${day} ${months[month - 1]} ${year}`;
-  }
+}
+
+export const formatCurrency = (amount, region) => {
+    return new Intl.NumberFormat(region).format(amount);
+};
