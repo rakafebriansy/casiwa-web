@@ -32,7 +32,7 @@ const Navbar = (props) => {
                 </ul>
                 {isLogin ? (
                     <>
-                    <ProfilePicture path="/profile" classname="hidden lg:block"/>
+                    <ProfilePicture classname="hidden lg:block"/>
                     {hamburger ? (
                         <HamburgerIcon classname="w-5 lg:hidden z-50" onclick={() => {
                             refHamburger.current.classList.replace('left-full','left-0');

@@ -1,12 +1,43 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import profileDefault from "../../assets/images/profile-default.png"
+import { useRef } from "react";
+import { deleteCookie } from "../../functions/main";
 
 const ProfilePicture = (props) => {
-    const { profilePicture, classname, path } = props;
+    const { profilePicture, classname } = props;
+    const refDropdown = useRef(null);
+    const navigate =  useNavigate();
+
+    const dropdownToggle = () => {
+        if(refDropdown.current.classList.contains('hidden')) {
+            refDropdown.current.classList.replace('hidden','flex');
+        } else if(refDropdown.current.classList.contains('flex')) {
+            refDropdown.current.classList.replace('flex','hidden');
+        }    
+    }
+    
+    const handleLogout = () =>{
+        deleteCookie('user');
+        navigate('/');
+    }
+
     return (
-        <Link to={path} className={`w-8 h-8 lg:w-10 lg:h-10 rounded-full border cursor-pointer ${classname}`}>
-            <img src={ profilePicture ?? profileDefault } alt="profile-picture" />
-        </Link>
+        <div className="relative w-fit">
+            <button type="button" onClick={dropdownToggle} className={`w-8 h-8 lg:w-10 lg:h-10 rounded-full border cursor-pointer ${classname}`}>
+                <img src={ profilePicture ?? profileDefault } alt="profile-picture" />
+            </button>
+            <ul ref={refDropdown} className={`w-fit hidden -left-1/2 p-2 absolute flex-col -bottom-[300%] bg-white small-shadow border-[#9B9B9B] cursor-pointer rounded-lg justify-between items-center`} type="text">
+                <li className="flex z-10 justify-start w-full bg-white hover:bg-[rgba(0,0,0,0.04)] px-2 py-1">
+                    <Link to={'/profile'} className="text-xs w-full h-full lg:text-sm select-none">Profil</Link>
+                </li>
+                <li className="flex z-10 justify-start w-full bg-white hover:bg-[rgba(0,0,0,0.04)] px-2 py-1">
+                    <Link to={'/redeem'} className="text-xs w-full h-full lg:text-sm select-none">Redeem</Link>
+                </li>
+                <li className="flex z-10 justify-start w-full bg-white hover:bg-[rgba(0,0,0,0.04)] px-2 py-1">
+                    <span role="button" onClick={handleLogout} className="text-xs w-full h-full lg:text-sm select-none">Logout</span>
+                </li>
+            </ul>
+        </div>
     );
 };
 
