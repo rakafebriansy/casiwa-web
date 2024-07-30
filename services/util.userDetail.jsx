@@ -23,8 +23,13 @@ export const modifyUserDetails = (token, operation, prefix, data, callback, erro
         });
     }).finally(finallyHandler);
 }
-export const getUserBalance = (callback) => {
-    axios.get(import.meta.env.VITE_BASE_URL + 'get-balance').then(res => {
+export const getUserBalance = (token, callback) => {
+    axios.get(import.meta.env.VITE_BASE_URL + 'user/get-balance',{
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      }).then(res => {
         callback(res.data);
     }).catch(err => {
         console.error(err);

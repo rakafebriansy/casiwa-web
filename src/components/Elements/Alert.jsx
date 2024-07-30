@@ -7,7 +7,7 @@ const Alert = (props) => {
     const {setIsShowAlert} = useContext(ShowAlertContext);
 
     return (
-        <div className={`p-4 flex absolute z-50 top-32 left-1/2 -translate-x-1/2 mb-4 text-sm rounded-lg dark:bg-gray-800 text-${color}-800 bg-${color}-50 dark:text-${color}-400 lg:text-xl`} role="alert">
+        <div className={`p-4 flex fixed z-50 top-32 left-1/2 -translate-x-1/2 mb-4 text-sm rounded-lg dark:bg-gray-800 text-${color}-800 bg-${color}-50 dark:text-${color}-400 lg:text-xl`} role="alert">
             <div className="ms-3 text-sm font-medium">
                 {children}
             </div>

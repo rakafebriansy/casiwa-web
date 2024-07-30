@@ -23,6 +23,7 @@ const ProfilePage = () => {
     const [universities, setUniversities] = useState([]);
     const [studyPrograms, setStudyPrograms] = useState([]);
     const [banks, setBanks] = useState([]);
+    const [isHasKTP, setIsHasKTP] = useState(false);
     const navigate = useNavigate();
     const refForm = useRef(null);
 
@@ -34,8 +35,9 @@ const ProfilePage = () => {
             const formData = new FormData(refForm.current);
             editProfile(formData, userData.token, (data) => {
                 if(data.success) {
+                    if(refForm.current.ktp_image.files.length > 0) setIsHasKTP(true);
+                    console.log()
                     setIsShowAlert({status: true, message:data.message});
-                    navigate('/profile')
                 } else {
                     setIsShowAlert({status: true, message:data.message});
                 }
@@ -54,6 +56,7 @@ const ProfilePage = () => {
             authenticatedProfile(userData.token,
                 res => {
                 setProfile(res.data.data);
+                if(res.data.data.ktp_image) setIsHasKTP(true);
             }, 
             err => {
                 console.log(err);
@@ -128,7 +131,7 @@ const ProfilePage = () => {
                     <TextBox value={profile.account_number} colored={true} name="account_number" type="text">Nomor Rekening</TextBox>
                 </div>
                 <div>
-                    <FileBox message="PNG atau JPG (MAX. 1MB)." disabled={profile.ktp_image} name="ktp_image">Foto KTP</FileBox>
+                    <FileBox message="PNG atau JPG (MAX. 1MB)." disabled={isHasKTP} name="ktp_image">Foto KTP</FileBox>
                 </div>
                 <div className="flex justify-between mt-4">
                     <SquareButton type="submit" colorCode="bg-primary">Ubah</SquareButton>
