@@ -1,11 +1,13 @@
 import { Link } from "react-router-dom";
 import {DownloadCountIcon} from "../../functions/svgs"
+import { useEffect } from "react";
 
 const NoteList = (props) => {
-    const {notes = []} = props;
+    const {notes} = props;
+
     return (
         <>
-        {notes.length > 0 ? (
+        {notes && notes.length > 0 ? (
             <ul className="flex flex-col gap-5">
             {notes.map((item, index) => {
                 return (

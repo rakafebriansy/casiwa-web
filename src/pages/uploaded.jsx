@@ -20,7 +20,7 @@ const UploadedPage = () => {
     const {anchorList} = useContext(AnchorListContext);
     const navigate = useNavigate();
     const {isShowAlert} = useContext(ShowAlertContext);
-    const [notes, setNotes] = useState([]);
+    const [notes, setNotes] = useState({});
     const refUploadDropdown = useRef(null);
 
     const handleSearch = async (e) => {
@@ -48,7 +48,6 @@ const UploadedPage = () => {
         } else {
             navigate('/login');
         }
-
         getUploadedNotes((data) => {
             setNotes(data);
         },userData.token);
@@ -82,7 +81,9 @@ const UploadedPage = () => {
                 <NoteList notes={notes.data}/>
             </div>
             <Footer />
-            <FormUpload ref={refUploadDropdown}/>
+            <FormUpload callback={(data) => {
+                setNotes({data:[data,...notes.data], total:notes.total+1})
+            }} ref={refUploadDropdown}/>
         </section>
     );
 };

@@ -8,14 +8,12 @@ import { getDocument, GlobalWorkerOptions } from '../../../modules/pdf.js/build/
 import { upload } from "../../../services/util.upload.jsx";
 import { ShowAlertContext } from "../../contexts/ShowAlert";
 import { getCookie } from "../../functions/main";
-import { useLocation, useNavigate } from "react-router-dom";
 GlobalWorkerOptions.workerSrc = '../../../modules/pdf.js/build/pdf.worker.mjs';
 
 const FormUpload = React.forwardRef((props, ref) => {
 
+    const {callback} = props;
     const {setIsShowAlert} = useContext(ShowAlertContext);
-    const navigate = useNavigate();
-    const location = useLocation();
 
     const generateThumbnail = async (file) => {
         return new Promise((resolve, reject) => {
@@ -70,7 +68,6 @@ const FormUpload = React.forwardRef((props, ref) => {
                 const blob = await generateThumbnail(file);
                 formData.append('thumbnail',blob,'thumbnail.png');
                 upload(formData, userData.token, (data) => {
-                    console.log(data);
                     ref.current.classList.replace('flex', 'hidden');
                     if(data.success) {
                         setIsShowAlert({status: true, message:data.message});
@@ -79,12 +76,15 @@ const FormUpload = React.forwardRef((props, ref) => {
                     }
                 });
             } catch (error) {
-                console.log(error);
                 ref.current.classList.replace('flex', 'hidden');
                 setIsShowAlert({status: true, message:'Dokumen gagal diunggah'});
             } finally {
+                const obj = {};
+                formData.forEach((value, key) => {
+                  obj[key] = value;
+                });
                 form.reset();
-                navigate(location.pathname, { replace: true });
+                callback(obj);
             }
         }  else {
             ref.current.classList.replace('flex', 'hidden');

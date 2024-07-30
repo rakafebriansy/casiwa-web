@@ -8,6 +8,8 @@ import SquareButton from "../components/Elements/SquareButton";
 import { formatCurrency, getCookie } from "../functions/main";
 import { authenticatedUser } from "../../services/auth.authenticatedUser";
 import { getUserBalance } from "../../services/util.userDetail";
+import { useNavigate } from "react-router-dom";
+import { LoadingIcon } from "../functions/svgs";
 
 const RedeemPage = () => {
     const [isLoading, setIsLoading] = useState(true);
@@ -16,6 +18,7 @@ const RedeemPage = () => {
     const [redeem, setRedeem] = useState(100000);
     const {isShowAlert, setIsShowAlert} = useContext(ShowAlertContext);
     const {anchorList} = useContext(AnchorListContext);
+    const navigate = useNavigate();
 
     const handleDecrease = () =>  {
         if(redeem > 100000) {
@@ -37,7 +40,8 @@ const RedeemPage = () => {
                 setIsLogin(res.data.success);
             }, 
             err => {
-                console.log('Unauthenticated')
+                console.log('Unauthenticated');
+                navigate('/login');
             }, 
             () => {
                 setIsLoading(false);
