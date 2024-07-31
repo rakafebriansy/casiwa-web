@@ -7,6 +7,7 @@ import Footer from "../components/Layout/Footer";
 import SquareButton from "../components/Elements/SquareButton";
 import { formatCurrency, getCookie } from "../functions/main";
 import { authenticatedProfile } from "../../services/auth.authenticatedUser";
+import { redeem } from "../../services/auth.redeem";
 import { getUserBalance } from "../../services/util.userDetail";
 import { useNavigate } from "react-router-dom";
 import { LoadingIcon } from "../functions/svgs";
@@ -15,20 +16,38 @@ const RedeemPage = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [isLogin, setIsLogin] = useState(false);
     const [balance, setBalance] = useState(0);
-    const [redeem, setRedeem] = useState(100000);
-    const {isShowAlert, setIsShowAlert} = useContext(ShowAlertContext);
+    const [total, setTotal] = useState(100000);
+    const {isShowAlert,setIsShowAlert} = useContext(ShowAlertContext);
     const {anchorList} = useContext(AnchorListContext);
     const navigate = useNavigate();
 
     const handleDecrease = () =>  {
-        if(redeem > 100000) {
-            setRedeem(redeem - 100000);
+        if(total > 100000) {
+            setTotal(total - 100000);
         }
     }
 
     const handleIncrease = () =>  {
-        if(redeem < (balance - 100000)) {
-            setRedeem(redeem + 100000);
+        if(total <= (balance - 100000)) {
+            setTotal(total + 100000);
+        }
+    }
+
+    const handleRedeem = (e) => {
+        e.preventDefault();
+
+        const userData = getCookie('user');
+        if(userData) {
+            const formData = new FormData();
+            formData.append('total',total);
+            redeem(formData, userData.token, (data) => {
+                if(data.success) {
+                    setBalance(balance - total);
+                    setIsShowAlert({status: true, message:data.message});
+                } else {
+                    setIsShowAlert({status: true, message:data.message});
+                }
+            })
         }
     }
 
@@ -52,7 +71,7 @@ const RedeemPage = () => {
             });
         }
     },[]);
-
+    
     useEffect(() => {
         const userData = getCookie('user');
         getUserBalance(userData.token,(data) => {
@@ -60,7 +79,7 @@ const RedeemPage = () => {
         });
     },[balance]);
 
-    if (isLoading) return (
+    if (isLoading && !isLogin) return (
         <div className="flex justify-center items-center w-full min-h-screen">
             <LoadingIcon classname="animate-spin"/>
         </div>
@@ -73,35 +92,40 @@ const RedeemPage = () => {
             <main className="w-[80%] flex flex-col gap-12">
                 <div className="flex w-full justify-center text-center items-center">
                     <div className="h-24 w-full font-montserratSemiBold text-2xl border-2 shadow-inner bg-backgroundPrime border-primary rounded-2xl flex justify-center items-center">
-                        <h1>Anda belum dapat me-redeem poin anda</h1>
+                        {balance < 100000 && (
+                            <h1>Anda belum dapat me-redeem poin anda</h1>
+                        )}
+                        {balance >= 100000 && (
+                            <h1>Anda dapat me-redeem poin anda</h1>
+                        )}
                     </div>
                 </div>
                 <div className="w-full grid grid-cols-3">
                     <div className="flex col-span-1 justify-between">
                         <div className="-m-1.5 overflow-x-auto">
                             <div className="p-1.5 min-w-full inline-block align-middle">
-                            <div className="border rounded-lg overflow-hidden">
-                                <table className="min-w-full divide-y divide-gray-200">
-                                <tbody className="divide-y divide-gray-200 text-lg">
-                                    <tr>
-                                        <td className="px-6 py-4 whitespace-nowrap font-montserratMedium text-gray-800">
-                                            Saldo anda: Rp {formatCurrency(balance,'id-ID')}
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td className="px-6 py-4 flex justify-center gap-4 items-center whitespace-nowrap font-montserratMedium text-gray-800">
-                                            <button onClick={handleDecrease} className="font-bold bg-slate-100 hover:bg-slate-300 w-6 h-6 flex justify-center items-center rounded-full">-</button>
-                                            <p>Rp <span>100.000</span></p>
-                                            <button onClick={handleIncrease} className="font-bold bg-slate-100 hover:bg-slate-300 w-6 h-6 flex justify-center items-center rounded-full">+</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td className="px-6 py-4 flex justify-center whitespace-nowrap text-sm font-montserratMedium text-gray-800">
-                                            <SquareButton type="submit" colorCode="bg-primary">Redeem</SquareButton>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                                </table>
-                            </div>
+                                <form onSubmit={handleRedeem} className="border rounded-lg overflow-hidden">
+                                    <table className="min-w-full divide-y divide-gray-200">
+                                    <tbody className="divide-y divide-gray-200 text-lg">
+                                        <tr>
+                                            <td className="px-6 py-4 whitespace-nowrap font-montserratMedium text-gray-800">
+                                                Saldo anda: Rp {formatCurrency(balance,'id-ID')}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td className="px-6 py-4 flex justify-center gap-4 items-center whitespace-nowrap font-montserratMedium text-gray-800">
+                                                <button type="button" onClick={handleDecrease} className={`font-bold select-none bg-slate-100  w-6 h-6 flex justify-center items-center rounded-full ${total <= 100000 ? 'cursor-default' : 'hover:bg-slate-300'}`}>-</button>
+                                                <p>Rp <span>{formatCurrency(total,'id-ID')}</span></p>
+                                                <button type="button" onClick={handleIncrease} className={`font-bold select-none bg-slate-100 w-6 h-6 flex justify-center items-center rounded-full ${total > (balance - 100000) ? 'cursor-default' : 'hover:bg-slate-300'}`}>+</button></td>
+                                        </tr>
+                                        <tr>
+                                            <td className="px-6 py-4 flex justify-center whitespace-nowrap text-sm font-montserratMedium text-gray-800">
+                                                <SquareButton type="submit" colorCode="bg-primary">Redeem</SquareButton>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    </table>
+                                </form>
                             </div>
                         </div>
                     </div>

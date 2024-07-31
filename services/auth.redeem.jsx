@@ -1,7 +1,7 @@
 import axios from "axios";
 
-export const editProfile = (data, token, callback) => {
-    axios.post(import.meta.env.VITE_BASE_URL + 'user/edit-profile', data, {
+export const redeem = (data, token, callback) => {
+    axios.post(import.meta.env.VITE_BASE_URL + 'user/redeem', data, {
         headers: {
             'Authorization': `Bearer ${token}`,
             'Content-Type': 'multipart/form-data'

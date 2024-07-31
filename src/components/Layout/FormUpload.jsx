@@ -79,12 +79,7 @@ const FormUpload = React.forwardRef((props, ref) => {
                 ref.current.classList.replace('flex', 'hidden');
                 setIsShowAlert({status: true, message:'Dokumen gagal diunggah'});
             } finally {
-                const obj = {};
-                formData.forEach((value, key) => {
-                  obj[key] = value;
-                });
                 form.reset();
-                callback(obj);
             }
         }  else {
             ref.current.classList.replace('flex', 'hidden');

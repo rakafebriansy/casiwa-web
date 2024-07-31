@@ -81,9 +81,7 @@ const UploadedPage = () => {
                 <NoteList notes={notes.data}/>
             </div>
             <Footer />
-            <FormUpload callback={(data) => {
-                setNotes({data:[data,...notes.data], total:notes.total+1})
-            }} ref={refUploadDropdown}/>
+            <FormUpload ref={refUploadDropdown}/>
         </section>
     );
 };

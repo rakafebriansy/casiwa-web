@@ -36,7 +36,6 @@ const ProfilePage = () => {
             editProfile(formData, userData.token, (data) => {
                 if(data.success) {
                     if(refForm.current.ktp_image.files.length > 0) setIsHasKTP(true);
-                    console.log()
                     setIsShowAlert({status: true, message:data.message});
                 } else {
                     setIsShowAlert({status: true, message:data.message});

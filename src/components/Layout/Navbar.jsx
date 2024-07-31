@@ -13,7 +13,7 @@ const Navbar = (props) => {
     const {anchors = [], isLogin, isThisPage} = props;
     
     return (
-        <nav className="flex w-full justify-center font-montserratRegular items-center fixed top-0 z-20 bg-white shadow-sm min-h-16">
+        <nav className="flex w-full justify-center select-none font-montserratRegular items-center fixed top-0 z-20 bg-white shadow-sm min-h-16">
             <div className="flex w-[90%] justify-between items-center px-4">
                 <Link className="z-50" to={'/'}>
                     <Signature/>
