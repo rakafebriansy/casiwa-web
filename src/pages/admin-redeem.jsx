@@ -58,6 +58,8 @@ const AdminRedeemPage = () => {
             () => {
                 setIsLoading(false);
             });
+        } else {
+            navigate('/login');
         }
     },[]);
 
@@ -73,56 +75,56 @@ const AdminRedeemPage = () => {
             {isLogin && (
             <>
                 <Navbar isAdmin={true} anchors={anchorList[1]} isThisPage="Redeem" isLogin={true}/>
-                    <main className="grid grid-cols-3 w-[80%] gap-10">
-                        <div className="w-full flex justify-end col-span-1">
-                        <div className="flex justify-end col-span-1 w-full bg-white border rounded-lg">
-                            <div className="overflow-x-auto w-full">
-                                <div className="p-1.5 min-w-full inline-block align-middle w-full h-full">
-                                    <div className="overflow-y-scroll max-h-40 h-full">
-                                        <table className="min-w-full divide-y divide-gray-200 h-full dark:divide-neutral-700">
-                                            <thead>
-                                                <tr>
-                                                    <th scope="col" className="px-3 py-3 text-start text-xs font-montserratMedium text-gray-500 uppercase dark:text-neutral-500">Nama</th>
-                                                    <th scope="col" className="px-3 py-3 text-xs font-montserratMedium text-gray-500 uppercase dark:text-neutral-500 text-start">Total</th>
-                                                    <th scope="col" className="px-3 py-3 text-xs font-montserratMedium text-gray-500 uppercase dark:text-neutral-500 text-start">Aksi</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody className="divide-y divide-gray-200 dark:divide-neutral-700">
-                                                {unpaidRedeem.length > 0 ? (
-                                                    <>
-                                                    {unpaidRedeem.map(item => {
-                                                    return (
-                                                        <tr key={item.id}>
-                                                            <td className="px-3 py-4 whitespace-nowrap text-sm font-montserratMedium text-gray-800 dark:text-neutral-200">{`${item.first_name} ${item.last_name}`}</td>
-                                                            <td className="px-3 py-4 whitespace-nowrap text-sm font-montserratMedium text-gray-800 dark:text-neutral-200">{item.total}</td>
-                                                            <td className="px-3 py-4 whitespace-nowrap text-end text-sm font-montserratMedium flex gap-4 justify-start">
-                                                                <button type="button" onClick={() => {
-                                                                    setClickedItem(item);
-                                                                    refModal.current.classList.replace('hidden','flex');
-                                                                }} className="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium border text-white bg-blue-500">Detail</button>
-                                                                <button onClick={() => handleRedeem(1,item.id)} type="button" className="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium border text-white bg-green-500">Terima</button>
-                                                                <button onClick={() => handleRedeem(0,item.id)} type="button" className="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium border text-white bg-red-500">Tolak</button>
+                    <main className="lg:grid lg:grid-cols-3 flex flex-col items-center w-[80%] gap-6 lg:gap-10">
+                        <div className="flex col-span-1 overflow-x-scroll lg:overflow-auto w-full">
+                            <div className="flex col-span-1 w-full bg-white border rounded-lg">
+                                <div className="overflow-x-auto w-full">
+                                    <div className="p-1.5 min-w-full inline-block align-middle w-full h-full">
+                                        <div className="overflow-y-scroll max-h-40 h-full">
+                                            <table className="min-w-full divide-y divide-gray-200 h-full dark:divide-neutral-700">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col" className="px-3 py-3 text-start text-xs font-montserratMedium text-gray-500 uppercase dark:text-neutral-500">Nama</th>
+                                                        <th scope="col" className="px-3 py-3 text-xs font-montserratMedium text-gray-500 uppercase dark:text-neutral-500 text-start">Total</th>
+                                                        <th scope="col" className="px-3 py-3 text-xs font-montserratMedium text-gray-500 uppercase dark:text-neutral-500 text-start">Aksi</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody className="divide-y divide-gray-200 dark:divide-neutral-700">
+                                                    {unpaidRedeem.length > 0 ? (
+                                                        <>
+                                                        {unpaidRedeem.map(item => {
+                                                        return (
+                                                            <tr key={item.id}>
+                                                                <td className="px-3 py-4 whitespace-nowrap text-sm font-montserratMedium text-gray-800 dark:text-neutral-200">{`${item.first_name} ${item.last_name}`}</td>
+                                                                <td className="px-3 py-4 whitespace-nowrap text-sm font-montserratMedium text-gray-800 dark:text-neutral-200">{item.total}</td>
+                                                                <td className="px-3 py-4 whitespace-nowrap text-end text-sm font-montserratMedium flex gap-4 justify-start">
+                                                                    <button type="button" onClick={() => {
+                                                                        setClickedItem(item);
+                                                                        refModal.current.classList.replace('hidden','flex');
+                                                                    }} className="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium border text-white bg-blue-500">Detail</button>
+                                                                    <button onClick={() => handleRedeem(1,item.id)} type="button" className="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium border text-white bg-green-500">Terima</button>
+                                                                    <button onClick={() => handleRedeem(0,item.id)} type="button" className="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium border text-white bg-red-500">Tolak</button>
+                                                                </td>
+                                                            </tr>
+                                                            )
+                                                        })}
+                                                        </>
+                                                    ) : (
+                                                        <tr>
+                                                            <td colSpan="3" className="text-center text-primary">
+                                                                Tidak ada hasil.
                                                             </td>
                                                         </tr>
-                                                        )
-                                                    })}
-                                                    </>
-                                                ) : (
-                                                    <tr>
-                                                        <td colSpan="3" className="text-center text-primary">
-                                                            Tidak ada hasil.
-                                                        </td>
-                                                    </tr>
-                                                )}
-                                            </tbody>
-                                        </table>
+                                                    )}
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        </div>
-                        <div className="flex justify-end col-span-2">
-                            <div className="flex justify-end col-span-2 bg-white border rounded-lg">
+                        <div className="flex col-span-2 overflow-x-scroll lg:overflow-auto w-full">
+                            <div className="flex col-span-2 bg-white border rounded-lg">
                             <div className="overflow-x-auto w-full h-full">
                                 <div className="p-1.5 min-w-full inline-block align-middle h-full">
                                 <div className="overflow-y-scroll max-h-40 h-full">

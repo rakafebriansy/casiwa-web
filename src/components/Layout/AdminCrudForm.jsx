@@ -85,7 +85,7 @@ const AdminCrudForm = (props) => {
         <>
         <main className="rounded-lg small-shadow p-3 flex flex-col gap-4 font-montserratRegular">
             <div className="flex flex-col border-b border-slate-200">
-                <div className="-m-1.5 overflow-x-auto">
+                <div className="overflow-x-auto">
                     <div className="p-1.5 min-w-full inline-block align-middle">
                         <div className="overflow-y-scroll max-h-40">
                             <table className="min-w-full divide-y divide-gray-200 dark:divide-neutral-700">

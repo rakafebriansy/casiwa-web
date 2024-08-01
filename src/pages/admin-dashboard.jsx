@@ -44,6 +44,8 @@ const AdminDashboardPage = () => {
             () => {
                 setIsLoading(false);
             });
+        } else {
+            navigate('/login');
         }
     },[]);
 

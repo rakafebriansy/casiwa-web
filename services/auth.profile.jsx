@@ -15,3 +15,19 @@ export const editProfile = (data, token, callback) => {
         });
     });
 }
+
+export const editAdminPassword = (data, token, callback) => {
+    axios.post(import.meta.env.VITE_BASE_URL + 'admin/edit-password', data, {
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+        }
+    }).then(res => {
+        callback(res.data);
+    }).catch(res => {
+        callback({
+            status: false,
+            message:Object.values(res.response.data.errors)[0][0]
+        });
+    });
+}
