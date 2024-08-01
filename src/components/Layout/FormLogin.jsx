@@ -24,7 +24,6 @@ const FormLogin = (props) => {
 
         if(admin) {
             adminLogin(data,(data) => {
-                console.log(data)
                 if(data.success) {
                     let time = 0.5;
                     setCookie('admin',{

@@ -28,7 +28,7 @@ const RegisterPage = () => {
             <img src={authBackgroundImage} alt="" className="hidden absolute h-screen w-screen z-[-1] lg:block"/>
             {isShowAlert.status && (<Alert>{isShowAlert.message}</Alert>)}
             {universities.length > 0 && studyPrograms.length > 0 && (
-            <>
+                <>
                 {getScreenSize().width >= 640 && (<Navbar />)}
                 <div className="flex justify-around mt-[5rem] md:mt-0 lg:items-center min-h-screen">
                     <FormRegister universities={universities} studyPrograms={studyPrograms} />

@@ -8,6 +8,7 @@ import CloseButton from "../Elements/CloseButton";
 
 
 const Navbar = (props) => {
+    const {isAdmin} = props;
     const [hamburger, setHamburger] = useState(true);
     const refHamburger = useRef(null);
     const {anchors = [], isLogin, isThisPage} = props;
@@ -32,7 +33,7 @@ const Navbar = (props) => {
                 </ul>
                 {isLogin ? (
                     <>
-                    <ProfilePicture classname="hidden lg:block"/>
+                    <ProfilePicture isAdmin={isAdmin} classname="hidden lg:block"/>
                     {hamburger ? (
                         <HamburgerIcon classname="w-5 lg:hidden z-50" onclick={() => {
                             refHamburger.current.classList.replace('left-full','left-0');

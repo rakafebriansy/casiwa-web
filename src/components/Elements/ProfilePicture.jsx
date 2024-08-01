@@ -3,7 +3,7 @@ import profileDefault from "../../assets/images/profile-default.png"
 import { useRef } from "react";
 
 const ProfilePicture = (props) => {
-    const { profilePicture, classname } = props;
+    const { isAdmin, profilePicture, classname } = props;
     const refDropdown = useRef(null);
     
     const dropdownToggle = () => {
@@ -21,10 +21,10 @@ const ProfilePicture = (props) => {
             </button>
             <ul ref={refDropdown} className={`w-fit hidden -left-1/2 p-2 absolute flex-col -bottom-[250%] bg-white small-shadow border-[#9B9B9B] cursor-pointer rounded-lg justify-between items-center`} type="text">
                 <li className="flex z-10 justify-start w-full bg-white hover:bg-[rgba(0,0,0,0.04)] px-2 py-1">
-                    <Link to={'/profile'} className="text-xs w-full h-full lg:text-sm select-none">Profil</Link>
+                    <Link to={isAdmin ? '/admin/profile' : '/profile'} className="text-xs w-full h-full lg:text-sm select-none">Profil</Link>
                 </li>
                 <li className="flex z-10 justify-start w-full bg-white hover:bg-[rgba(0,0,0,0.04)] px-2 py-1">
-                    <Link to={'/redeem'} className="text-xs w-full h-full lg:text-sm select-none">Redeem</Link>
+                    <Link to={isAdmin ? '/admin/redeem' : '/redeem'} className="text-xs w-full h-full lg:text-sm select-none">Redeem</Link>
                 </li>
             </ul>
         </div>

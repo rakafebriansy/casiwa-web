@@ -9,7 +9,6 @@ export const editProfile = (data, token, callback) => {
     }).then(res => {
         callback(res.data);
     }).catch(res => {
-        console.log(res)
         callback({
             status: false,
             message:Object.values(res.response.data.errors)[0][0]

@@ -94,7 +94,7 @@ const ProfilePage = () => {
                 <div className={`${profile.ktp_image ? ' bg-white/30' : "rounded-full bg-[#F0F2F9]"} w-24 h-24 relative  flex justify-center items-center`}>
                     {profile.ktp_image ? (
                         <>
-                        <img classname="" src={import.meta.env.VITE_BASE_URL + 'ktp/' + profile.ktp_image} alt="" />
+                        <img src={import.meta.env.VITE_BASE_URL + 'ktp/' + profile.ktp_image} alt="" />
                         <div className="absolute top-0 left-0 w-full h-full opacity-90 backdrop-blur-3xl z-10 bg-white"></div>
                         </>
                     ) : (

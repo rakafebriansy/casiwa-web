@@ -25,7 +25,7 @@ const Modal = React.forwardRef((props, ref) => {
                         </div>
                     </div>
                     <div className="flex justify-center items-center gap-x-2 py-3 px-4 border-t">
-                        <SquareButton type="submit" colorCode={danger ? "bg-red-500" : "bg-primary"}>{accept}</SquareButton>
+                        {accept && ( <SquareButton type="submit" colorCode={danger ? "bg-red-500" : "bg-primary"}>{accept}</SquareButton> )}
                     </div>
                     </div>
                 </div>

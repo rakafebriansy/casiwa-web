@@ -12,6 +12,7 @@ import ProfilePage from './pages/profile';
 import AdminLoginPage from './pages/admin-login';
 import AdminDashboardPage from './pages/admin-dashboard';
 import RedeemPage from './pages/redeem';
+import AdminRedeemPage from './pages/admin-redeem';
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
         <Route path='/redeem' element={<RedeemPage />}/>
         <Route path='/admin' element={<AdminLoginPage />}/>
         <Route path='/admin/dashboard' element={<AdminDashboardPage />}/>
+        <Route path='/admin/redeem' element={<AdminRedeemPage />}/>
         <Route path='/test' element={<TestPage />}/>
       </Routes>
     </BrowserRouter>

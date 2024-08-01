@@ -12,12 +12,11 @@ const FormRegister = (props) => {
     const {universities, studyPrograms} = props;
     const {setIsShowAlert} = useContext(ShowAlertContext);
     const navigate = useNavigate();
-    const refForm = useRef(null);
     
     const handleRegister = (e) => {
         e.preventDefault();
 
-        const formData = new FormData(refForm.current);
+        const formData = new FormData(e.target);
 
         register(formData,(data) => {
             if(data.success) {

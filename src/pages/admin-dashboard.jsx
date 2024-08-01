@@ -15,10 +15,10 @@ const AdminDashboardPage = () => {
     const [isLoading, setIsLoading] = useState(true);
     const {isShowAlert} = useContext(ShowAlertContext);
     const {anchorList} = useContext(AnchorListContext);
+    const [isLogin, setIsLogin] = useState(false);
     const [universities, setUniversities] = useState([]);
     const [banks, setBanks] = useState([]);
     const [studyPrograms, setStudyPrograms] = useState([]);
-    const [isLogin, setIsLogin] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -55,24 +55,24 @@ const AdminDashboardPage = () => {
 
     return (
         <>
+        <section className="relative min-h-screen flex flex-col gap-12 justify-between items-center w-full pt-28">
         {isShowAlert.status && (<Alert>{isShowAlert.message}</Alert>)}
         {isLogin && universities.length > 0 && studyPrograms.length > 0 && banks.length > 0 && (
             <>
-            <Navbar anchors={anchorList[1]} isThisPage="Dasbor" isLogin={true}/>
-            <section className="flex justify-center items-start min-h-screen w-full pt-28">
-                <div className="w-[80%] flex flex-col justify-center gap-6 lg:gap-12">
-                    <div className="w-full flex flex-col gap-6 lg:grid lg:grid-cols-2 lg:gap-12">
-                        <AdminCrudForm label="Universitas" prefix="universities" placeholder="Masukkan nama universitas baru" setList={setUniversities} list={universities} columnName="name"></AdminCrudForm>
-                        <AdminCrudForm label="Program Studi" prefix="study-programs" placeholder="Masukkan nama prodi baru" setList={setStudyPrograms} list={studyPrograms} columnName="name"></AdminCrudForm>
+            <Navbar isAdmin={isLogin} anchors={anchorList[1]} isThisPage="Dasbor" isLogin={true}/>
+                    <div className="w-[80%] flex flex-col justify-center gap-6 lg:gap-12">
+                        <div className="w-full flex flex-col gap-6 lg:grid lg:grid-cols-2 lg:gap-12">
+                            <AdminCrudForm label="Universitas" prefix="universities" placeholder="Masukkan nama universitas baru" setList={setUniversities} list={universities} columnName="name"></AdminCrudForm>
+                            <AdminCrudForm label="Program Studi" prefix="study-programs" placeholder="Masukkan nama prodi baru" setList={setStudyPrograms} list={studyPrograms} columnName="name"></AdminCrudForm>
+                        </div>
+                        <div className="w-full flex flex-col gap-6 lg:grid lg:grid-cols-2 lg:gap-12">
+                            <AdminCrudForm label="Bank" prefix="banks" placeholder="Masukkan nama bank baru" setList={setBanks} list={banks} columnName="name"></AdminCrudForm>
+                        </div>
                     </div>
-                    <div className="w-full flex flex-col gap-6 lg:grid lg:grid-cols-2 lg:gap-12">
-                        <AdminCrudForm label="Bank" prefix="banks" placeholder="Masukkan nama bank baru" setList={setBanks} list={banks} columnName="name"></AdminCrudForm>
-                    </div>
-                </div>
-            </section>
             <Footer />
             </>
         )}
+        </section>
         </>
     )
 }
