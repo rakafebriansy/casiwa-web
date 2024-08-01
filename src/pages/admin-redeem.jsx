@@ -111,7 +111,7 @@ const AdminRedeemPage = () => {
                                                         </>
                                                     ) : (
                                                         <tr>
-                                                            <td colSpan="3" className="text-center text-primary">
+                                                            <td colSpan="3" className="text-center">
                                                                 Tidak ada hasil.
                                                             </td>
                                                         </tr>
@@ -153,7 +153,7 @@ const AdminRedeemPage = () => {
                                                 </>
                                             ) : (
                                                 <tr>
-                                                    <td colSpan="5" className="text-center text-primary">
+                                                    <td colSpan="5" className="text-center">
                                                         Tidak ada hasil.
                                                     </td>
                                                 </tr>

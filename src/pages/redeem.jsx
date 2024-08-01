@@ -7,7 +7,7 @@ import Footer from "../components/Layout/Footer";
 import SquareButton from "../components/Elements/SquareButton";
 import { formatCurrency, getCookie } from "../functions/main";
 import { authenticatedProfile } from "../../services/auth.authenticatedUser";
-import { redeem } from "../../services/auth.redeem";
+import { getRedeemHistories, redeem } from "../../services/auth.redeem";
 import { getUserBalance } from "../../services/util.userDetail";
 import { useNavigate } from "react-router-dom";
 import { LoadingIcon } from "../functions/svgs";
@@ -17,6 +17,7 @@ const RedeemPage = () => {
     const [isLogin, setIsLogin] = useState(false);
     const [balance, setBalance] = useState(0);
     const [total, setTotal] = useState(100000);
+    const [redeemHistories, setRedeemHistories] = useState([]);
     const {isShowAlert,setIsShowAlert} = useContext(ShowAlertContext);
     const {anchorList} = useContext(AnchorListContext);
     const navigate = useNavigate();
@@ -54,6 +55,9 @@ const RedeemPage = () => {
     useEffect(() => {
         const userData = getCookie('user');
         if(userData) {
+            getRedeemHistories(userData.token,(data) => {
+                setRedeemHistories(data.data);
+            });
             authenticatedProfile(userData.token,
                 res => {
                     if(res.data.data.account_number && res.data.data.ktp_image && res.data.data.bank.id) {
@@ -139,36 +143,28 @@ const RedeemPage = () => {
                                         <th scope="col" className="px-6 py-3 text-start text-xs font-montserratMedium text-gray-500 uppercase">No. Pembayaran</th>
                                         <th scope="col" className="px-6 py-3 text-start text-xs font-montserratMedium text-gray-500 uppercase">Tanggal</th>
                                         <th scope="col" className="px-6 py-3 text-start text-xs font-montserratMedium text-gray-500 uppercase">Nominal</th>
-                                        <th scope="col" className="px-6 py-3 text-end text-xs font-montserratMedium text-gray-500 uppercase">Admin</th>
                                     </tr>
                                 </thead>
                                     <tbody className="divide-y divide-gray-200">
-                                        <tr>
-                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-montserratMedium text-gray-800">John Brown</td>
-                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">45</td>
-                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">New York No. 1 Lake Park</td>
-                                            <td className="px-6 py-4 whitespace-nowrap text-end text-sm font-montserratMedium">
-                                                <button type="button" className="inline-flex items-center gap-x-2 text-sm font-montserratSemiBold rounded-lg border border-transparent text-blue-600 hover:text-blue-800 focus:outline-none focus:text-blue-800 disabled:opacity-50 disabled:pointer-events-none">Delete</button>
-                                            </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-montserratMedium text-gray-800">Jim Green</td>
-                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">27</td>
-                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">London No. 1 Lake Park</td>
-                                            <td className="px-6 py-4 whitespace-nowrap text-end text-sm font-montserratMedium">
-                                                <button type="button" className="inline-flex items-center gap-x-2 text-sm font-montserratSemiBold rounded-lg border border-transparent text-blue-600 hover:text-blue-800 focus:outline-none focus:text-blue-800 disabled:opacity-50 disabled:pointer-events-none">Delete</button>
-                                            </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-montserratMedium text-gray-800">Joe Black</td>
-                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">31</td>
-                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">Sidney No. 1 Lake Park</td>
-                                            <td className="px-6 py-4 whitespace-nowrap text-end text-sm font-montserratMedium">
-                                                <button type="button" className="inline-flex items-center gap-x-2 text-sm font-montserratSemiBold rounded-lg border border-transparent text-blue-600 hover:text-blue-800 focus:outline-none focus:text-blue-800 disabled:opacity-50 disabled:pointer-events-none">Delete</button>
-                                            </td>
-                                        </tr>
+                                        {redeemHistories.length > 0 ? (
+                                            <>
+                                                {redeemHistories.map(item => {
+                                                    return (
+                                                        <tr>
+                                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-montserratMedium text-gray-800">{item.id}</td>
+                                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">{item.datetime}</td>
+                                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">{item.total}</td>
+                                                        </tr>
+                                                    )
+                                                })}
+                                            </>
+                                        ) : (
+                                            <tr>
+                                                <td colSpan="3" className="text-center">
+                                                    Tidak ada hasil.
+                                                </td>
+                                            </tr>
+                                        )}
                                     </tbody>
                                 </table>
                             </div>

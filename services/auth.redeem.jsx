@@ -67,7 +67,7 @@ export const getAdminRedeemHistories = (token, callback) => {
 }
 
 export const getRedeemHistories = (token, callback) => {
-    axios.get(import.meta.env.VITE_BASE_URL + 'redeem/history', {
+    axios.get(import.meta.env.VITE_BASE_URL + 'user/redeem', {
         headers: {
             'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json'
