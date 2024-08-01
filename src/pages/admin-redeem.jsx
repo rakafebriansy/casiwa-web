@@ -7,7 +7,7 @@ import { getCookie } from "../functions/main";
 import { authenticatedAdmin } from "../../services/auth.authenticatedUser";
 import { LoadingIcon } from "../functions/svgs";
 import { useNavigate } from "react-router-dom";
-import { getUnpaidRedeem, redeemUser } from "../../services/auth.redeem";
+import { getAdminRedeemHistories, getUnpaidRedeem, redeemUser } from "../../services/auth.redeem";
 import Modal from "../components/Elements/Modal";
 import Alert from "../components/Elements/Alert";
 
@@ -18,6 +18,7 @@ const AdminRedeemPage = () => {
     const navigate = useNavigate();
     const [unpaidRedeem, setUnpaidRedeem] = useState([]);
     const [clickedItem, setClickedItem] = useState({});
+    const [redeemHistories, setRedeemHistories] = useState([]);
     const refModal = useRef(null);
     const {isShowAlert, setIsShowAlert} = useContext(ShowAlertContext);
 
@@ -42,6 +43,9 @@ const AdminRedeemPage = () => {
         if(userData) {
             getUnpaidRedeem(userData.token,(data) => {
                 setUnpaidRedeem(data.data);
+            });
+            getAdminRedeemHistories(userData.token,(data) => {
+                setRedeemHistories(data.data);
             });
             authenticatedAdmin(userData.token,
                 res => {
@@ -69,7 +73,7 @@ const AdminRedeemPage = () => {
             {isLogin && (
             <>
                 <Navbar isAdmin={true} anchors={anchorList[1]} isThisPage="Redeem" isLogin={true}/>
-                    <main className="grid grid-cols-3 w-[80%]">
+                    <main className="grid grid-cols-3 w-[80%] gap-10">
                         <div className="w-full flex justify-end col-span-1">
                         <div className="flex justify-end col-span-1 w-full bg-white border rounded-lg">
                             <div className="overflow-x-auto w-full">
@@ -119,45 +123,39 @@ const AdminRedeemPage = () => {
                         </div>
                         <div className="flex justify-end col-span-2">
                             <div className="flex justify-end col-span-2 bg-white border rounded-lg">
-                            <div className="overflow-x-auto w-full">
-                                <div className="p-1.5 min-w-full inline-block align-middle">
-                                <div className="overflow-y-scroll max-h-40">
-                                    <table className="min-w-full divide-y divide-gray-200">
+                            <div className="overflow-x-auto w-full h-full">
+                                <div className="p-1.5 min-w-full inline-block align-middle h-full">
+                                <div className="overflow-y-scroll max-h-40 h-full">
+                                    <table className="min-w-full divide-y divide-gray-200 h-full">
                                     <thead>
                                         <tr>
                                             <th scope="col" className="px-6 py-3 text-start text-xs font-montserratMedium text-gray-500 uppercase">No. Pembayaran</th>
                                             <th scope="col" className="px-6 py-3 text-start text-xs font-montserratMedium text-gray-500 uppercase">Tanggal</th>
                                             <th scope="col" className="px-6 py-3 text-start text-xs font-montserratMedium text-gray-500 uppercase">Nominal</th>
-                                            <th scope="col" className="px-6 py-3 text-end text-xs font-montserratMedium text-gray-500 uppercase">Admin</th>
+                                            <th scope="col" className="px-6 py-3 text-start text-xs font-montserratMedium text-gray-500 uppercase">Nama</th>
                                         </tr>
                                     </thead>
                                         <tbody className="divide-y divide-gray-200">
-                                            <tr>
-                                                <td className="px-6 py-4 whitespace-nowrap text-sm font-montserratMedium text-gray-800">John Brown</td>
-                                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">45</td>
-                                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">New York No. 1 Lake Park</td>
-                                                <td className="px-6 py-4 whitespace-nowrap text-end text-sm font-montserratMedium">
-                                                    <button type="button" className="inline-flex items-center gap-x-2 text-sm font-montserratSemiBold rounded-lg border border-transparent text-blue-600 hover:text-blue-800 focus:outline-none focus:text-blue-800 disabled:opacity-50 disabled:pointer-events-none">Delete</button>
-                                                </td>
-                                            </tr>
-
-                                            <tr>
-                                                <td className="px-6 py-4 whitespace-nowrap text-sm font-montserratMedium text-gray-800">Jim Green</td>
-                                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">27</td>
-                                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">London No. 1 Lake Park</td>
-                                                <td className="px-6 py-4 whitespace-nowrap text-end text-sm font-montserratMedium">
-                                                    <button type="button" className="inline-flex items-center gap-x-2 text-sm font-montserratSemiBold rounded-lg border border-transparent text-blue-600 hover:text-blue-800 focus:outline-none focus:text-blue-800 disabled:opacity-50 disabled:pointer-events-none">Delete</button>
-                                                </td>
-                                            </tr>
-
-                                            <tr>
-                                                <td className="px-6 py-4 whitespace-nowrap text-sm font-montserratMedium text-gray-800">Joe Black</td>
-                                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">31</td>
-                                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">Sidney No. 1 Lake Park</td>
-                                                <td className="px-6 py-4 whitespace-nowrap text-end text-sm font-montserratMedium">
-                                                    <button type="button" className="inline-flex items-center gap-x-2 text-sm font-montserratSemiBold rounded-lg border border-transparent text-blue-600 hover:text-blue-800 focus:outline-none focus:text-blue-800 disabled:opacity-50 disabled:pointer-events-none">Delete</button>
-                                                </td>
-                                            </tr>
+                                            {redeemHistories.length > 0 ? (
+                                                <>
+                                                {redeemHistories.map(item => {
+                                                    return (
+                                                        <tr className={`${item.status == 'accepted' ? 'bg-blue-100' : 'bg-red-500 text-white'}`}>
+                                                            <td className="px-6 py-4 whitespace-nowrap text-sm">{item.id}</td>
+                                                            <td className="px-6 py-4 whitespace-nowrap text-sm">{item.datetime}</td>
+                                                            <td className="px-6 py-4 whitespace-nowrap text-sm">{item.total}</td>
+                                                            <td className="px-6 py-4 whitespace-nowrap text-sm">{item.name}</td>
+                                                        </tr>
+                                                    );
+                                                })}
+                                                </>
+                                            ) : (
+                                                <tr>
+                                                    <td colSpan="5" className="text-center text-primary">
+                                                        Tidak ada hasil.
+                                                    </td>
+                                                </tr>
+                                            )}
                                         </tbody>
                                     </table>
                                 </div>
