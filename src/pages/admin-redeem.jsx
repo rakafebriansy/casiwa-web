@@ -64,17 +64,18 @@ const AdminRedeemPage = () => {
     );
 
     return (
-        <section className="bg-backgroundPrime pt-20 lg:pt-28 font-montserratRegular min-h-screen justify-between flex flex-col items-center">
+        <section className="pt-20 lg:pt-28 font-montserratRegular min-h-screen justify-between flex flex-col items-center">
             {isShowAlert.status && (<Alert>{isShowAlert.message}</Alert>)}
             {isLogin && (
             <>
                 <Navbar isAdmin={true} anchors={anchorList[1]} isThisPage="Redeem" isLogin={true}/>
-                    <main>
-                        <div className="flex flex-col border-b border-slate-200 bg-white rounded-xl">
-                            <div className="-m-1.5 overflow-x-auto">
-                                <div className="p-1.5 min-w-full inline-block align-middle">
-                                    <div className="overflow-y-scroll max-h-40">
-                                        <table className="min-w-full divide-y divide-gray-200 dark:divide-neutral-700">
+                    <main className="grid grid-cols-3 w-[80%]">
+                        <div className="w-full flex justify-end col-span-1">
+                        <div className="flex justify-end col-span-1 w-full bg-white border rounded-lg">
+                            <div className="overflow-x-auto w-full">
+                                <div className="p-1.5 min-w-full inline-block align-middle w-full h-full">
+                                    <div className="overflow-y-scroll max-h-40 h-full">
+                                        <table className="min-w-full divide-y divide-gray-200 h-full dark:divide-neutral-700">
                                             <thead>
                                                 <tr>
                                                     <th scope="col" className="px-3 py-3 text-start text-xs font-montserratMedium text-gray-500 uppercase dark:text-neutral-500">Nama</th>
@@ -114,6 +115,55 @@ const AdminRedeemPage = () => {
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                        </div>
+                        <div className="flex justify-end col-span-2">
+                            <div className="flex justify-end col-span-2 bg-white border rounded-lg">
+                            <div className="overflow-x-auto w-full">
+                                <div className="p-1.5 min-w-full inline-block align-middle">
+                                <div className="overflow-y-scroll max-h-40">
+                                    <table className="min-w-full divide-y divide-gray-200">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" className="px-6 py-3 text-start text-xs font-montserratMedium text-gray-500 uppercase">No. Pembayaran</th>
+                                            <th scope="col" className="px-6 py-3 text-start text-xs font-montserratMedium text-gray-500 uppercase">Tanggal</th>
+                                            <th scope="col" className="px-6 py-3 text-start text-xs font-montserratMedium text-gray-500 uppercase">Nominal</th>
+                                            <th scope="col" className="px-6 py-3 text-end text-xs font-montserratMedium text-gray-500 uppercase">Admin</th>
+                                        </tr>
+                                    </thead>
+                                        <tbody className="divide-y divide-gray-200">
+                                            <tr>
+                                                <td className="px-6 py-4 whitespace-nowrap text-sm font-montserratMedium text-gray-800">John Brown</td>
+                                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">45</td>
+                                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">New York No. 1 Lake Park</td>
+                                                <td className="px-6 py-4 whitespace-nowrap text-end text-sm font-montserratMedium">
+                                                    <button type="button" className="inline-flex items-center gap-x-2 text-sm font-montserratSemiBold rounded-lg border border-transparent text-blue-600 hover:text-blue-800 focus:outline-none focus:text-blue-800 disabled:opacity-50 disabled:pointer-events-none">Delete</button>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td className="px-6 py-4 whitespace-nowrap text-sm font-montserratMedium text-gray-800">Jim Green</td>
+                                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">27</td>
+                                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">London No. 1 Lake Park</td>
+                                                <td className="px-6 py-4 whitespace-nowrap text-end text-sm font-montserratMedium">
+                                                    <button type="button" className="inline-flex items-center gap-x-2 text-sm font-montserratSemiBold rounded-lg border border-transparent text-blue-600 hover:text-blue-800 focus:outline-none focus:text-blue-800 disabled:opacity-50 disabled:pointer-events-none">Delete</button>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td className="px-6 py-4 whitespace-nowrap text-sm font-montserratMedium text-gray-800">Joe Black</td>
+                                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">31</td>
+                                                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">Sidney No. 1 Lake Park</td>
+                                                <td className="px-6 py-4 whitespace-nowrap text-end text-sm font-montserratMedium">
+                                                    <button type="button" className="inline-flex items-center gap-x-2 text-sm font-montserratSemiBold rounded-lg border border-transparent text-blue-600 hover:text-blue-800 focus:outline-none focus:text-blue-800 disabled:opacity-50 disabled:pointer-events-none">Delete</button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
                         </div>
                     </main>
                 <Footer/>
