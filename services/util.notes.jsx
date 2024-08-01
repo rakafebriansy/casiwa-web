@@ -65,7 +65,7 @@ export const getSingleNote = (id, token, callback) => {
 
 export const downloadNote = async (name, token) => {
     try {
-        const response = await axios.get('http://127.0.0.1:8000/api/' + 'user/download/' + name, {
+        const response = await axios.get(import.meta.env.VITE_BASE_URL + 'user/download/' + name, {
             headers: {
               'Authorization': `Bearer ${token}`,
               'Content-Type': 'application/json',

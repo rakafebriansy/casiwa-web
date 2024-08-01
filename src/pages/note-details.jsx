@@ -197,7 +197,7 @@ const NoteDetailsPage = () => {
                             <p className="font-montserratSemiBold">{parseDate(note.date)}</p>
                         </div>
                     </div>
-                    <a href="http://127.0.0.1:8000/api/user/download/29783718166a32746a83fa4.14872703.pdf" className="font-bold">download</a>
+                    <a href="https://www.serverside.casiwa.my.id/api/user/download/29783718166a32746a83fa4.14872703.pdf" className="font-bold">download</a>
                     <div className="flex flex-col items-start mt-5">
                         <div className="flex flex-col items-end gap-4 lg:gap-6  lg:w-[80%]">
                             {!isLogin && (
