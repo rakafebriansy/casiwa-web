@@ -10,13 +10,13 @@ const DropdownField = (props) => {
 
     const [clicked, setClicked] = useState(false);
 
-
     useEffect(() => {
-        refBtnClicked.current.querySelector('svg').classList.toggle('rotate-180');
         if (clicked) {
+            refBtnClicked.current.querySelector('svg').classList.add('rotate-180');
             refBtnClicked.current.classList.remove('rounded-lg');
             refBtnClicked.current.classList.add('rounded-t-lg');
         } else {
+            refBtnClicked.current.querySelector('svg').classList.remove('rotate-180');
             refBtnClicked.current.classList.remove('rounded-t-lg');
             refBtnClicked.current.classList.add('rounded-lg');
         }
