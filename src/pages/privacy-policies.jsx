@@ -139,7 +139,7 @@ const PrivacyPoliciesPage = () => {
                         </li>
                         <li>
                             <p className="ms-3 lg:ms-4">8. Hubungi Kami</p>
-                            <p className="ms-9 lg:ms-12">Jika Anda memiliki pertanyaan atau kekhawatiran tentang Kebijakan Privasi ini atau praktik privasi kami, silahkan hubungi kami di bagian “Layanan Pelanggan” pada footer website.</p>
+                            <p className="ms-6 lg:ms-8">Jika Anda memiliki pertanyaan atau kekhawatiran tentang Kebijakan Privasi ini atau praktik privasi kami, silahkan hubungi kami di bagian “Layanan Pelanggan” pada footer website.</p>
                         </li>
                     </ul>
                     <p className="mt-3 lg:mt-4">Dengan menggunakan CASIWA, Anda menyetujui Kebijakan Privasi ini dan setuju dengan ketentuan-ketentuannya.</p>

@@ -15,6 +15,7 @@ import AdminRedeemPage from './pages/admin-redeem';
 import AdminProfilePage from './pages/admin-profile';
 import FaqPage from './pages/faq';
 import PrivacyPoliciesPage from './pages/privacy-policies';
+import TermsAndConditionsPage from './pages/terms-and-conditions';
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
         <Route path='/redeem' element={<RedeemPage />}/>
         <Route path='/faqs' element={<FaqPage />}/>
         <Route path='/privacy-policies' element={<PrivacyPoliciesPage />}/>
+        <Route path='/terms-and-conditions' element={<TermsAndConditionsPage />}/>
         <Route path='/admin' element={<AdminLoginPage />}/>
         <Route path='/admin/dashboard' element={<AdminDashboardPage />}/>
         <Route path='/admin/redeem' element={<AdminRedeemPage />}/>
