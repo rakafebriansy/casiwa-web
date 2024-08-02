@@ -3,7 +3,7 @@ import { UploadFileIcon } from "../../functions/svgs";
 import { useRef } from "react";
 
 const InputFile = (props) => {
-    const {name, message, disabled, dropzone = false} = props;
+    const {name, message, dropzone = false} = props;
     const [files, setFiles] = useState(null);
     const inputRef = useRef(null);
 
@@ -41,17 +41,10 @@ const InputFile = (props) => {
     }
     return (
         <div className="">
-            {disabled ? (
-                <input disabled type="file" name={name} className="block select-none cursor-pointer w-full border-2 shadow-sm rounded-lg text-sm focus:z-10 focus:border-primary focus:ring-primary disabled:opacity-50 disabled:pointer-events-none 
-                file:bg-[#F9F9F9] file:border-0
-                file:me-4
-                file:py-3 file:px-4"></input>
-            ) : (
-                <input type="file" name={name} className="block select-none cursor-pointer w-full border-2 shadow-sm rounded-lg text-sm focus:z-10 focus:border-primary focus:ring-primary disabled:opacity-50 disabled:pointer-events-none 
-                file:bg-[#F9F9F9] file:border-0
-                file:me-4
-                file:py-3 file:px-4"></input>
-            )}
+            <input type="file" name={name} className="block select-none cursor-pointer w-full border-2 shadow-sm rounded-lg text-sm focus:z-10 focus:border-primary focus:ring-primary disabled:opacity-50 disabled:pointer-events-none 
+            file:bg-[#F9F9F9] file:border-0
+            file:me-4
+            file:py-3 file:px-4"></input>
             <p className="mt-1 text-xs text-gray-500 dark:text-gray-300" id="file_input_help">{message}</p>
         </div>
     )

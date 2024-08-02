@@ -3,7 +3,7 @@ import Footer from "../components/Layout/Footer";
 import Navbar from "../components/Layout/Navbar";
 import { AnchorListContext } from "../contexts/AnchorList";
 import { useContext, useEffect, useRef, useState } from "react";
-import { LoadingIcon, PencilIcon, ProfileIcon } from "../functions/svgs";
+import { IdCardIcon, LoadingIcon, PencilIcon, ProfileIcon } from "../functions/svgs";
 import TextBox from "../components/Fragments/TextBox";
 import DropdownField from "../components/Fragments/DropdownField";
 import { ShowAlertContext } from "../contexts/ShowAlert";
@@ -14,6 +14,7 @@ import FileBox from "../components/Fragments/FileBox";
 import SquareButton from "../components/Elements/SquareButton";
 import { editProfile } from "../../services/auth.profile";
 import Alert from "../components/Elements/Alert";
+import Modal from "../components/Elements/Modal";
 
 const ProfilePage = () => {
     const [isLoading, setIsLoading] = useState(true);
@@ -23,9 +24,9 @@ const ProfilePage = () => {
     const [universities, setUniversities] = useState([]);
     const [studyPrograms, setStudyPrograms] = useState([]);
     const [banks, setBanks] = useState([]);
-    const [isHasKTP, setIsHasKTP] = useState(false);
     const navigate = useNavigate();
     const refForm = useRef(null);
+    const refModal = useRef(null);
 
     const handleSubmit = (e) =>{
         e.preventDefault();
@@ -35,7 +36,6 @@ const ProfilePage = () => {
             const formData = new FormData(refForm.current);
             editProfile(formData, userData.token, (data) => {
                 if(data.success) {
-                    if(refForm.current.ktp_image.files.length > 0) setIsHasKTP(true);
                     setIsShowAlert({status: true, message:data.message});
                 } else {
                     setIsShowAlert({status: true, message:data.message});
@@ -48,14 +48,12 @@ const ProfilePage = () => {
         deleteCookie('user');
         navigate('/');
     }
-
     useEffect(()=> {
         const userData = getCookie('user')
         if(userData) {
             authenticatedProfile(userData.token,
                 res => {
                 setProfile(res.data.data);
-                if(res.data.data.ktp_image) setIsHasKTP(true);
             }, 
             err => {
                 console.log(err);
@@ -91,15 +89,8 @@ const ProfilePage = () => {
         <Navbar anchors={anchorList[0]} isThisPage="Profile" isLogin={true}/>
         <form encType="multipart/form-data" ref={refForm} onSubmit={handleSubmit} className="pt-20 flex flex-col items-center gap-6 mb-10">
             <div className="flex flex-col items-center gap-3">
-                <div className={`${profile.ktp_image ? ' bg-white/30' : "rounded-full bg-[#F0F2F9]"} w-24 h-24 relative  flex justify-center items-center`}>
-                    {profile.ktp_image ? (
-                        <>
-                        <img src={import.meta.env.VITE_BASE_URL + 'ktp/' + profile.ktp_image} alt="" />
-                        <div className="absolute top-0 left-0 w-full h-full opacity-90 backdrop-blur-3xl z-10 bg-white"></div>
-                        </>
-                    ) : (
-                        <ProfileIcon classname="w-[40%]"/>
-                    )}
+                <div className="rounded-full bg-[#F0F2F9] w-24 h-24 relative  flex justify-center items-center">
+                    <ProfileIcon classname="w-[40%]"/>
                     {/* <div className="w-8 h-8 bg-secondary flex justify-center items-center rounded-full absolute right-0 bottom-0 translate-x-[5%] translate-y-[5%]">
                         <PencilIcon classname="w-[40%]"/>
                     </div> */}
@@ -129,8 +120,13 @@ const ProfilePage = () => {
                     <DropdownField value={profile.bank ?? undefined} colored={true} list={banks} name="bank_id" label="Bank">Pilih Bank</DropdownField>
                     <TextBox value={profile.account_number} colored={true} name="account_number" type="text">Nomor Rekening</TextBox>
                 </div>
-                <div>
-                    <FileBox message="PNG atau JPG (MAX. 1MB)." disabled={isHasKTP} name="ktp_image">Foto KTP</FileBox>
+                <div className="flex justify-between items-center gap-3">
+                    <FileBox message="PNG atau JPG (MAX. 1MB)." name="ktp_image">Foto KTP</FileBox>
+                    {profile.ktp_image && (
+                        <div className="p-1 flex justify-end cursor-pointer" onClick={() => {refModal.current.classList.replace('hidden','flex')}}>
+                            <IdCardIcon classname="w-10 border rounded-lg small-shadow"/>
+                        </div>
+                    )}
                 </div>
                 <div className="flex justify-between mt-4">
                     <SquareButton type="submit" colorCode="bg-primary">Ubah</SquareButton>
@@ -139,6 +135,11 @@ const ProfilePage = () => {
             </div>
         </form>
         <Footer />
+        {profile.ktp_image && (
+            <Modal ref={refModal} title={'Foto KTP ' + profile.first_name + ' ' + profile.last_name}>
+                <img src={import.meta.env.VITE_BASE_URL + 'ktp/' + profile.ktp_image} alt="" />
+            </Modal>
+        )}
         </>
     );
 }
