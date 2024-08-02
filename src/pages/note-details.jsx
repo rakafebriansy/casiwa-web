@@ -88,6 +88,7 @@ const NoteDetailsPage = () => {
         if (window.snap) {
             window.snap.pay(snapToken, {
                 onSuccess: async function (result) {
+                    setIsBought(true);
                     console.log(result)
                 },
                 onPending: function (result) {
