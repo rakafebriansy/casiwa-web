@@ -126,7 +126,7 @@ const ProfilePage = () => {
                     <TextBox placeholder="isi untuk mengubah" colored={true} name="confirm_password" type="password">Konfirmasi Kata Sandi</TextBox>
                 </div>
                 <div className="flex flex-col lg:flex-row gap-2 lg:gap-8">
-                    <DropdownField value={profile.bank} colored={true} list={banks} name="bank_id" label="Bank">Pilih Bank</DropdownField>
+                    <DropdownField value={profile.bank ?? undefined} colored={true} list={banks} name="bank_id" label="Bank">Pilih Bank</DropdownField>
                     <TextBox value={profile.account_number} colored={true} name="account_number" type="text">Nomor Rekening</TextBox>
                 </div>
                 <div>
