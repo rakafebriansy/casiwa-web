@@ -63,6 +63,7 @@ const NotesPage = () => {
         }
     },[]);
 
+
     if (isLoading) return (
         <div className="flex justify-center items-center w-full min-h-screen">
             <LoadingIcon classname="animate-spin"/>
@@ -74,7 +75,7 @@ const NotesPage = () => {
             {universities.length > 0 && studyPrograms.length > 0 && (
                 <>
                 <Navbar anchors={isLogin ? anchorList[0] : []} isThisPage="Catatan" isLogin={isLogin}/>
-                <div className=" flex flex-col items-center lg:w-[80%]">
+                <div className=" flex flex-col items-center w-[90%] lg:w-[80%]">
                     <form onSubmit={handleSearch} className="w-[80%] lg:w-full mb-5">
                         <SearchButton name="keyword">Cari dokumen</SearchButton>
                         <div className="mt-5 mb-2 grid grid-cols-2 gap-2 lg:flex ">
