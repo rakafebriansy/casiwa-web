@@ -95,7 +95,7 @@ const RedeemPage = () => {
             <Navbar anchors={anchorList[0]} isThisPage="Redeem" isLogin={true}/>
             <main className="w-[80%] flex flex-col gap-12">
                 <div className="flex w-full justify-center text-center items-center">
-                    <div className="h-24 w-full font-montserratSemiBold text-2xl border-2 shadow-inner bg-backgroundPrime border-primary rounded-2xl flex justify-center items-center">
+                    <div className={`${balance < 100000 ? 'bg-red-100 border-red-600 text-red-600' : 'bg-backgroundPrime border-primary text-primary' } h-24 w-full font-montserratSemiBold text-2xl border-2 shadow-inner  rounded-2xl flex justify-center items-center`}>
                         {balance < 100000 && (
                             <h1>Anda belum dapat me-redeem poin anda</h1>
                         )}
@@ -104,8 +104,8 @@ const RedeemPage = () => {
                         )}
                     </div>
                 </div>
-                <div className="w-full grid grid-cols-3">
-                    <div className="flex col-span-1 justify-between">
+                <div className="w-full flex flex-col gap-5 items-start lg:grid lg:grid-cols-3">
+                    <div className="flex w-full lg:col-span-1 justify-between">
                         <div className="-m-1.5 overflow-x-auto">
                             <div className="p-1.5 min-w-full inline-block align-middle">
                                 <form onSubmit={handleRedeem} className="border rounded-lg overflow-hidden">
@@ -124,7 +124,7 @@ const RedeemPage = () => {
                                         </tr>
                                         <tr>
                                             <td className="px-6 py-4 flex justify-center whitespace-nowrap text-sm font-montserratMedium text-gray-800">
-                                                <SquareButton type="submit" colorCode="bg-primary">Redeem</SquareButton>
+                                                <SquareButton disabled={balance < 100000} type="submit" colorCode="bg-primary">Redeem</SquareButton>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -133,16 +133,16 @@ const RedeemPage = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="flex justify-end col-span-2">
+                    <div className="flex w-full justify-end lg:col-span-2">
                         <div className="overflow-x-auto w-full">
-                            <div className="p-1.5 min-w-full inline-block align-middle">
+                            <div className="min-w-full inline-block align-middle">
                             <div className="border rounded-lg overflow-hidden">
                                 <table className="min-w-full divide-y divide-gray-200">
                                 <thead>
                                     <tr>
-                                        <th scope="col" className="px-6 py-3 text-start text-xs font-montserratMedium text-gray-500 uppercase">No. Pembayaran</th>
-                                        <th scope="col" className="px-6 py-3 text-start text-xs font-montserratMedium text-gray-500 uppercase">Tanggal</th>
-                                        <th scope="col" className="px-6 py-3 text-start text-xs font-montserratMedium text-gray-500 uppercase">Nominal</th>
+                                        <th scope="col" className="px-3 py-3 text-start text-xs font-montserratMedium text-gray-500 uppercase">No. Pembayaran</th>
+                                        <th scope="col" className="px-3 py-3 text-start text-xs font-montserratMedium text-gray-500 uppercase">Tanggal</th>
+                                        <th scope="col" className="px-3 py-3 text-start text-xs font-montserratMedium text-gray-500 uppercase">Nominal</th>
                                     </tr>
                                 </thead>
                                     <tbody className="divide-y divide-gray-200">
@@ -151,9 +151,9 @@ const RedeemPage = () => {
                                                 {redeemHistories.map(item => {
                                                     return (
                                                         <tr>
-                                                            <td className="px-6 py-4 whitespace-nowrap text-sm font-montserratMedium text-gray-800">{item.id}</td>
-                                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">{item.datetime}</td>
-                                                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">{item.total}</td>
+                                                            <td className="px-3 py-4 whitespace-nowrap text-sm font-montserratMedium text-gray-800">{item.id}</td>
+                                                            <td className="px-3 py-4 whitespace-nowrap text-sm text-gray-800">{item.datetime}</td>
+                                                            <td className="px-3 py-4 whitespace-nowrap text-sm text-gray-800">{item.total}</td>
                                                         </tr>
                                                     )
                                                 })}
