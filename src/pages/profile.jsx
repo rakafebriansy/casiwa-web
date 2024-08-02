@@ -35,10 +35,9 @@ const ProfilePage = () => {
         if(userData) {
             const formData = new FormData(refForm.current);
             editProfile(formData, userData.token, (data) => {
-                if(data.success) {
-                    setIsShowAlert({status: true, message:data.message});
-                } else {
-                    setIsShowAlert({status: true, message:data.message});
+                if(data.data) {
+                    setProfile(data.data);
+                    setIsShowAlert({status: true, message:'Profil Berhasil diperbarui'});
                 }
             })
         }
