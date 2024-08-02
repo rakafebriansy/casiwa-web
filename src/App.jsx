@@ -5,7 +5,6 @@ import LoginPage from './pages/login';
 import RegisterPage from './pages/register';
 import NotesPage from './pages/notes';
 import NoteDetailsPage from './pages/note-details';
-import TestPage from './pages/test';
 import UploadedPage from './pages/uploaded';
 import DownloadedPage from './pages/downloaded';
 import ProfilePage from './pages/profile';
@@ -14,6 +13,8 @@ import AdminDashboardPage from './pages/admin-dashboard';
 import RedeemPage from './pages/redeem';
 import AdminRedeemPage from './pages/admin-redeem';
 import AdminProfilePage from './pages/admin-profile';
+import FaqPage from './pages/faq';
+import PrivacyPoliciesPage from './pages/privacy-policy';
 
 function App() {
   return (
@@ -28,11 +29,12 @@ function App() {
         <Route path='/downloaded' element={<DownloadedPage />}/>
         <Route path='/profile' element={<ProfilePage />}/>
         <Route path='/redeem' element={<RedeemPage />}/>
+        <Route path='/faqs' element={<FaqPage />}/>
+        <Route path='/privacy-policies' element={<PrivacyPoliciesPage />}/>
         <Route path='/admin' element={<AdminLoginPage />}/>
         <Route path='/admin/dashboard' element={<AdminDashboardPage />}/>
         <Route path='/admin/redeem' element={<AdminRedeemPage />}/>
         <Route path='/admin/profile' element={<AdminProfilePage />}/>
-        <Route path='/test' element={<TestPage />}/>
       </Routes>
     </BrowserRouter>
   );

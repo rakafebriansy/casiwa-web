@@ -14,17 +14,17 @@ const Footer = () => {
                     <div className="">
                         <h3 className="font-montserratBold text-base lg:text-lg mb-3">Pintasan</h3>
                         <ul className="gap-2">
-                            <li><Link to="#" className="hover:underline">Cari Catatan</Link></li>
-                            <li><Link to="#" className="hover:underline">Unggah Catatan</Link></li>
-                            <li><Link to="#" className="hover:underline">Profil Saya</Link></li>
+                            <li><Link to="/notes" className="hover:underline">Cari Catatan</Link></li>
+                            <li><Link to="/uploaded" className="hover:underline">Unggah Catatan</Link></li>
+                            <li><Link to="/profile" className="hover:underline">Profil Saya</Link></li>
                         </ul>
                     </div>
                     <div className="">
                         <h3 className="font-montserratBold text-base lg:text-lg mb-3">Tentang Kami</h3>
                         <ul className="gap-2">
-                            <li><Link to="#" className="hover:underline">Email</Link></li>
-                            <li><Link to="#" className="hover:underline">Instagram</Link></li>
-                            <li><Link to="#" className="hover:underline">Facebook</Link></li>
+                            <li><a target="_blank" href="https://mail.google.com/mail/?view=cm&fs=1&to=innovatesolutions.mail@gmail.com" className="hover:underline">Email</a></li>
+                            <li><a target="_blank" href="https://www.instagram.com/casiwa.id" className="hover:underline">Instagram</a></li>
+                            <li><a target="_blank" href="#" className="hover:underline">Facebook</a></li>
                         </ul>
                     </div>
                 </div>
@@ -36,7 +36,7 @@ const Footer = () => {
                             <li><Link to="#" className="hover:underline">Layanan Pelanggan</Link></li>
                             <li><Link to="#" className="hover:underline">Kebijakan Privasi</Link></li>
                             <li><Link to="#" className="hover:underline">Kontak Darurat</Link></li>
-                            <li><Link to="#" className="hover:underline">FAQ</Link></li>
+                            <li><Link to="/faqs" className="hover:underline">FAQ</Link></li>
                         </ul>
                     </div>
                 </div>
