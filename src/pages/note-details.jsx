@@ -11,7 +11,7 @@ import { useParams } from 'react-router-dom';
 import { downloadNote, getSingleNote, getSingleNotePreview } from "../../services/util.notes.jsx";
 GlobalWorkerOptions.workerSrc = '../../modules/pdf.js/build/pdf.worker.mjs';
 import Modal from "../components/Elements/Modal";
-import { getPaymentToken } from "../../services/util.payment.jsx";
+import { getPaymentToken, updateFreeDownload } from "../../services/util.payment.jsx";
 import { ShowAlertContext } from "../contexts/ShowAlert.jsx";
 import { LeftArrowIcon, LoadingIcon, RightArrowIcon } from '../functions/svgs';
 
@@ -19,6 +19,7 @@ const NoteDetailsPage = () => {
     const [isLogin, setIsLogin] = useState(false);
     const [isBought, setIsBought] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
+    const [free_download, setFreeDownload] = useState(0);
     const [note, setNote] = useState({});
     const [snapToken, setSnapToken] = useState('');
     const [pdfDoc, setPdfDoc] = useState(null);
@@ -107,6 +108,22 @@ const NoteDetailsPage = () => {
         downloadNote(note.file_name, userData.token);
     }
 
+    const handleFreeDownload = async (e) => {
+        e.preventDefault();
+        const userData = getCookie('user');
+        updateFreeDownload(userData.token, {id: idParams},(data) => {
+            if(data.success) {
+                getSingleNote(idParams, userData.token, data => {
+                    setNote(data);
+                    setIsBought(true);
+                });
+            }
+        },
+        err => {
+            console.log(err);
+        });
+    }
+
     useEffect(()=> {
         const userData = getCookie('user');
         if(userData) {
@@ -115,6 +132,7 @@ const NoteDetailsPage = () => {
                 if(res.data.success) {
                     setIsLogin(res.data.data.login);
                     setIsBought(res.data.data.bought);
+                    setFreeDownload(res.data.data.free_download);
                     if(res.data.data.bought) {
                         const userData = getCookie('user');
                         getSingleNote(idParams, userData.token, data => {
@@ -204,7 +222,10 @@ const NoteDetailsPage = () => {
                             {!isLogin && (
                                 <SquareButton type="link" colorCode="bg-primary" path='/login' >Beli</SquareButton>
                             )}
-                            {isLogin && !isBought && (
+                            {isLogin && !isBought && free_download > 0 && (
+                                <SquareButton type="button" colorCode="bg-yellow-600" onclick={handleFreeDownload} >Beli Gratis</SquareButton>
+                            )}
+                            {isLogin && !isBought && free_download == 0 && (
                                 <SquareButton type="button" colorCode="bg-primary" onclick={handlePaymentToken} >Beli</SquareButton>
                             )}
                             {isLogin && isBought && (

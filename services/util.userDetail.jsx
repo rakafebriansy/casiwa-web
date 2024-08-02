@@ -16,7 +16,6 @@ export const modifyUserDetails = (token, operation, prefix, data, callback, erro
     }).then(res => {
         callback(res.data);
     }).catch(err => {
-        console.log(err)
         errorHandler({
             status: false,
             message:Object.values(err.response.data.errors)[0][0]
