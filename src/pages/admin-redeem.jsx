@@ -29,14 +29,18 @@ const AdminRedeemPage = () => {
         formData.append('decision',decision);
         if(userData) {
             redeemUser(formData, userData.token, (data) => {
-                if(data.success) {
-                    setIsShowAlert({status: true, message:data.message});
-                } else {
-                    setIsShowAlert({status: true, message:data.message});
-                }
+                setRedeemHistories([...redeemHistories, data.data]);
+                setIsShowAlert({status: true, message:data.message});
+            }, err => {
+                setIsShowAlert({status: true, message:err.message});
             })
         }
     }
+
+    const removeItem = (indexToRemove) => {
+        const newItems = unpaidRedeem.filter((_, index) => index !== indexToRemove);
+        setUnpaidRedeem(newItems);
+      };
 
     useEffect(() => {
         const userData = getCookie('admin');
@@ -76,7 +80,7 @@ const AdminRedeemPage = () => {
             <>
                 <Navbar isAdmin={true} anchors={anchorList[1]} isThisPage="Redeem" isLogin={true}/>
                     <main className="lg:grid lg:grid-cols-3 flex flex-col items-center w-[80%] gap-6 lg:gap-10">
-                        <div className="flex col-span-1 overflow-x-scroll lg:overflow-auto w-full">
+                        <div className="flex col-span-1 overflow-x-scroll lg:overflow-auto w-full h-full justify-start">
                             <div className="flex col-span-1 w-full bg-white border rounded-lg">
                                 <div className="overflow-x-auto w-full">
                                     <div className="p-1.5 min-w-full inline-block align-middle w-full h-full">
@@ -92,9 +96,9 @@ const AdminRedeemPage = () => {
                                                 <tbody className="divide-y divide-gray-200 dark:divide-neutral-700">
                                                     {unpaidRedeem.length > 0 ? (
                                                         <>
-                                                        {unpaidRedeem.map(item => {
+                                                        {unpaidRedeem.map((item, index) => {
                                                         return (
-                                                            <tr key={item.id}>
+                                                            <tr>
                                                                 <td className="px-3 py-4 whitespace-nowrap text-sm font-montserratMedium text-gray-800 dark:text-neutral-200">{`${item.first_name} ${item.last_name}`}</td>
                                                                 <td className="px-3 py-4 whitespace-nowrap text-sm font-montserratMedium text-gray-800 dark:text-neutral-200">{item.total}</td>
                                                                 <td className="px-3 py-4 whitespace-nowrap text-end text-sm font-montserratMedium flex gap-4 justify-start">
@@ -102,8 +106,14 @@ const AdminRedeemPage = () => {
                                                                         setClickedItem(item);
                                                                         refModal.current.classList.replace('hidden','flex');
                                                                     }} className="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium border text-white bg-blue-500">Detail</button>
-                                                                    <button onClick={() => handleRedeem(1,item.id)} type="button" className="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium border text-white bg-green-500">Terima</button>
-                                                                    <button onClick={() => handleRedeem(0,item.id)} type="button" className="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium border text-white bg-red-500">Tolak</button>
+                                                                    <button onClick={() => {
+                                                                        removeItem(index);
+                                                                        handleRedeem(1,item.id);
+                                                                    }} type="button" className="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium border text-white bg-green-500">Terima</button>
+                                                                    <button onClick={() => {
+                                                                        handleRedeem(0,item.id)
+                                                                        removeItem(index);
+                                                                    }} type="button" className="inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium border text-white bg-red-500">Tolak</button>
                                                                 </td>
                                                             </tr>
                                                             )
@@ -123,7 +133,7 @@ const AdminRedeemPage = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className="flex col-span-2 overflow-x-scroll lg:overflow-auto w-full">
+                        <div className="flex col-span-2 overflow-x-scroll lg:overflow-auto w-full h-full lg:justify-end">
                             <div className="flex col-span-2 bg-white border rounded-lg">
                             <div className="overflow-x-auto w-full h-full">
                                 <div className="p-1.5 min-w-full inline-block align-middle h-full">
