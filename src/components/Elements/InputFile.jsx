@@ -24,13 +24,13 @@ const InputFile = (props) => {
                         <UploadFileIcon strokeColor={files && files.length > 0 ? 'stroke-primary' : 'stroke-[#9B9B9B]'} />
                         {(!files || files.length == 0) && (
                             <>
-                            <p className="mb-2 text-sm "><span className="font-semibold">Klik untuk mengunggah</span> atau seret dan lepas</p>
+                            <p className="mb-2 text-sm text-center"><span className="font-semibold">Klik untuk mengunggah</span> atau seret dan lepas</p>
                             <p className="text-xs ">PDF (MAX. 20MB)</p>
                             </>
                         )}
                         {files && files.length > 0 && (
                             <>
-                            <p className="mb-2 text-sm text-primary">{files[0].name}</p>
+                            <p className="mb-2 text-sm text-center text-primary">{files[0].name}</p>
                             </>
                         )}
                     </div>

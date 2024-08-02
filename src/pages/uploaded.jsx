@@ -89,7 +89,6 @@ const UploadedPage = () => {
             formData.append('description', form.description.value);
 
             formData.append('file', file);
-            try {
                 const userData = getCookie('user');
                 const blob = await generateThumbnail(file);
                 formData.append('thumbnail',blob,'thumbnail.png');
@@ -101,16 +100,13 @@ const UploadedPage = () => {
                             total: notes.total + 1
                         });
                         setIsShowAlert({status: true, message:data.message});
-                    } else {
-                        setIsShowAlert({status: true, message:data.message});
                     }
+                    form.reset();
+                }, err => {
+                    setIsShowAlert({status: true, message:err.message});
+                    refUploadDropdown.current.classList.replace('flex', 'hidden');
+                    form.reset();
                 });
-            } catch (error) {
-                refUploadDropdown.current.classList.replace('flex', 'hidden');
-                setIsShowAlert({status: true, message:'Dokumen gagal diunggah'});
-            } finally {
-                form.reset();
-            }
         }  else {
             refUploadDropdown.current.classList.replace('flex', 'hidden');
             setIsShowAlert({status: true, message:'File harus memiliki ekstensi pdf'});

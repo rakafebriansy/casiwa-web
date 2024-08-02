@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const upload = (data, token, callback) => {
+export const upload = (data, token, callback, errorHandler) => {
     axios.post(import.meta.env.VITE_BASE_URL + 'user/upload', data, {
         headers: {
             'Authorization': `Bearer ${token}`,
@@ -9,10 +9,9 @@ export const upload = (data, token, callback) => {
     }).then(res => {
         callback(res.data);
     }).catch(res => {
-        console.log(res)
-        callback({
+        errorHandler({
             status: false,
-            message:res.response.data.message
+            message:Object.values(res.response.data.errors)[0][0]
         });
     });
 }
