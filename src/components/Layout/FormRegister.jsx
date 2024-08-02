@@ -18,13 +18,12 @@ const FormRegister = (props) => {
 
         const formData = new FormData(e.target);
 
-        register(formData,(data) => {
-            if(data.success) {
+        register(formData,
+            data => {
                 setIsShowAlert({status: true, message:data.message});
                 navigate('/login');
-            } else {
-                setIsShowAlert({status: true, message:data.message});
-            }
+            }, err => {
+            setIsShowAlert({status: true, message:err.message});
         });
     };
 
