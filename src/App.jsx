@@ -14,7 +14,7 @@ import RedeemPage from './pages/redeem';
 import AdminRedeemPage from './pages/admin-redeem';
 import AdminProfilePage from './pages/admin-profile';
 import FaqPage from './pages/faq';
-import PrivacyPoliciesPage from './pages/privacy-policy';
+import PrivacyPoliciesPage from './pages/privacy-policies';
 
 function App() {
   return (
