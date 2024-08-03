@@ -85,22 +85,22 @@ const AdminRedeemPage = () => {
                                 <div className="overflow-x-auto w-full">
                                     <div className="p-1.5 min-w-full inline-block align-middle w-full h-full">
                                         <div className="overflow-y-scroll max-h-40 h-full">
-                                            <table className="min-w-full divide-y divide-gray-200 h-full dark:divide-neutral-700">
+                                            <table className="min-w-full divide-y divide-gray-200 h-full">
                                                 <thead>
                                                     <tr>
-                                                        <th scope="col" className="px-3 py-3 text-start text-xs font-montserratMedium text-gray-500 uppercase dark:text-neutral-500">Nama</th>
-                                                        <th scope="col" className="px-3 py-3 text-xs font-montserratMedium text-gray-500 uppercase dark:text-neutral-500 text-start">Total</th>
-                                                        <th scope="col" className="px-3 py-3 text-xs font-montserratMedium text-gray-500 uppercase dark:text-neutral-500 text-start">Aksi</th>
+                                                        <th scope="col" className="px-3 py-3 text-xs font-montserratMedium text-gray-500 uppercase text-start">Nama</th>
+                                                        <th scope="col" className="px-3 py-3 text-xs font-montserratMedium text-gray-500 uppercase text-start">Total</th>
+                                                        <th scope="col" className="px-3 py-3 text-xs font-montserratMedium text-gray-500 uppercase text-start">Aksi</th>
                                                     </tr>
                                                 </thead>
-                                                <tbody className="divide-y divide-gray-200 dark:divide-neutral-700">
+                                                <tbody className="divide-y divide-gray-200">
                                                     {unpaidRedeem.length > 0 ? (
                                                         <>
                                                         {unpaidRedeem.map((item, index) => {
                                                         return (
                                                             <tr>
-                                                                <td className="px-3 py-4 whitespace-nowrap text-sm font-montserratMedium text-gray-800 dark:text-neutral-200">{`${item.first_name} ${item.last_name}`}</td>
-                                                                <td className="px-3 py-4 whitespace-nowrap text-sm font-montserratMedium text-gray-800 dark:text-neutral-200">{item.total}</td>
+                                                                <td className="px-3 py-4 whitespace-nowrap text-sm font-montserratMedium text-gray-800">{`${item.first_name} ${item.last_name}`}</td>
+                                                                <td className="px-3 py-4 whitespace-nowrap text-sm font-montserratMedium text-gray-800">{item.total}</td>
                                                                 <td className="px-3 py-4 whitespace-nowrap text-end text-sm font-montserratMedium flex gap-4 justify-start">
                                                                     <button type="button" onClick={() => {
                                                                         setClickedItem(item);

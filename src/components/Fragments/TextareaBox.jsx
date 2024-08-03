@@ -9,7 +9,7 @@ const TextareaBox = (props) => {
         <div className="font-montserratRegular flex flex-col w-full">
             <div className="flex items-center justify-between">
                 <Label name={name}>{children}</Label>
-                <span className="block text-sm text-gray-500 dark:text-neutral-500">{characterCount} karakter</span>
+                <span className="block text-sm text-gray-500">{characterCount} karakter</span>
             </div>
             <InputTextarea max={max} setCount={setCharacterCount} name={name}>{placeholder}</InputTextarea>
         </div>

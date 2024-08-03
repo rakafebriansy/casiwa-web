@@ -20,7 +20,7 @@ const Modal = React.forwardRef((props, ref) => {
                         }}/>
                     </div>
                     <div className="p-4 overflow-y-auto">
-                        <div className="mt-1 text-gray-800 dark:text-neutral-400">
+                        <div className="mt-1 text-gray-800">
                         {children}
                         </div>
                     </div>

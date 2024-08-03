@@ -45,7 +45,7 @@ const InputFile = (props) => {
             file:bg-[#F9F9F9] file:border-0
             file:me-4
             file:py-3 file:px-4"></input>
-            <p className="mt-1 text-xs text-gray-500 dark:text-gray-300" id="file_input_help">{message}</p>
+            <p className="mt-1 text-xs text-gray-500" id="file_input_help">{message}</p>
         </div>
     )
 };
