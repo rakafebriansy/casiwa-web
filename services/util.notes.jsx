@@ -86,3 +86,16 @@ export const downloadNote = async (name, token) => {
         console.error('Error downloading file:', error);
     }
 }
+
+export const getEditedNote = (token, id, callback) => {
+    axios.get(import.meta.env.VITE_BASE_URL + 'user/edit-note?id=' + id, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      }).then(res => {
+        callback(res.data.data);
+    }).catch(err => {
+        console.log(err)
+    });
+}

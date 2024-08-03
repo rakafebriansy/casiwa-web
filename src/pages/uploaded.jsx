@@ -10,13 +10,11 @@ import SquareButton from "../components/Elements/SquareButton";
 import { ShowAlertContext } from "../contexts/ShowAlert";
 import Alert from "../components/Elements/Alert";
 import { getCookie } from "../functions/main";
-import { getUploadedNotes } from "../../services/util.notes.jsx";
+import { getEditedNote, getUploadedNotes } from "../../services/util.notes.jsx";
 import { LoadingIcon } from '../functions/svgs';
 import FileBox from "../components/Fragments/FileBox";
 import TextareaBox from "../components/Fragments/TextareaBox";
 import TextBox from "../components/Fragments/TextBox";
-import LongRoundedButton from "../components/Elements/LongRoundedButton"
-import CloseButton from "../components/Elements/CloseButton";
 import { getDocument, GlobalWorkerOptions } from '../../modules/pdf.js/build/pdf.mjs';
 import { upload } from "../../services/util.upload.jsx";
 import FormModal from "../components/Layout/FormModal.jsx";
@@ -30,9 +28,11 @@ const UploadedPage = () => {
     const navigate = useNavigate();
     const {isShowAlert} = useContext(ShowAlertContext);
     const [notes, setNotes] = useState({});
+    const [editedNote, setEditedNote] = useState({});
     const refUploadModal = useRef(null);
     const refEditModal = useRef(null);
     const refDeleteModal = useRef(null);
+    const {setIsShowAlert} = useContext(ShowAlertContext);
 
     const handleSearch = async (e) => {
         e.preventDefault();
@@ -41,8 +41,6 @@ const UploadedPage = () => {
             setNotes(data);
         },userData.token,e.target.keyword.value);
     }
-
-    const {setIsShowAlert} = useContext(ShowAlertContext);
 
     const generateThumbnail = async (file) => {
         return new Promise((resolve, reject) => {
@@ -116,6 +114,19 @@ const UploadedPage = () => {
         } 
     }
 
+    const openEditModal = (e, id) => {
+        e.preventDefault();
+        const userData = getCookie('user');
+        getEditedNote(userData.token, id, (data) =>{
+            setEditedNote(data);
+        });
+        refEditModal.current.classList.replace('hidden', 'flex');
+    }
+
+    const handleEdit = async (e) => {
+
+    }
+
     useEffect(()=> {
         const userData = getCookie('user')
         if(userData) {
@@ -163,29 +174,38 @@ const UploadedPage = () => {
                 </form>
             </div>
             <div className="lg:w-[80%] mb-5">
-                <NoteList isUpload={true} onEdit={(e) => {
-                            e.preventDefault();
-                            refEditModal.current.classList.replace('hidden', 'flex');
-                        }} onDelete={(e) => {
-                            e.preventDefault();
-                            refDeleteModal.current.classList.replace('hidden', 'flex');
-                        }} notes={notes.data}/>
+                {notes.data && notes.data.length > 0 ? (
+                    <ul className="flex flex-col gap-5">
+                    {notes.data.map((item, index) => {
+                        return (
+                            <NoteList isUpload={true} onEdit={(e) => {openEditModal(e, item.id)}} onDelete={(e) => {
+                                e.preventDefault();
+                                refDeleteModal.current.classList.replace('hidden', 'flex');
+                            }} item={item} index={index}/>
+                        );
+                    })}
+                    </ul>
+                ) : (
+                    <div className="flex justify-center items-center text-primary text-xl">
+                        <h3>Tidak ada hasil</h3>
+                    </div>
+                )}
             </div>
             <Footer />
-            <FormModal handler={handleUpload} ref={refUploadModal} btnText="Unggah">
-                <div className="flex justify-between items-center py-3 border-b">
-                    <h3 className="font-montserratBold text-lg">
-                    Unggah Catatan 
-                    </h3>
-                    <CloseButton onclick={() => {
-                        ref.current.classList.replace('flex','hidden');
-                    }}/>
-                </div>
-                <div className="flex flex-col gap-3">
-                    <TextBox name="title">Judul</TextBox>
-                    <TextareaBox max={200} name="description" placeholder="Masukkan deskripsi catatan anda...">Deskripsi</TextareaBox>
+            <FormModal handler={handleUpload} ref={refUploadModal} btnText="Unggah" title="Unggah Catatan">
+                <TextBox name="title">Judul</TextBox>
+                <TextareaBox max={200} name="description" placeholder="Masukkan deskripsi catatan anda...">Deskripsi</TextareaBox>
+                <FileBox dropzone={true} name="file">Dokumen</FileBox>
+            </FormModal>
+            <FormModal handler={handleEdit} ref={refEditModal} btnText="Ubah" title="Ubah Catatan">
+                {editedNote.id && (
+                    <>
+                    <input type="hidden" name="id" value={editedNote.id} />
+                    <TextBox value={editedNote.title} name="title">Judul</TextBox>
+                    <TextareaBox value={editedNote.description} max={200} name="description" placeholder="Masukkan deskripsi catatan anda...">Deskripsi</TextareaBox>
                     <FileBox dropzone={true} name="file">Dokumen</FileBox>
-                </div>
+                    </>
+                )}
             </FormModal>
         </section>
     );
