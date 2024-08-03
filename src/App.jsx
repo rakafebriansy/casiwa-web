@@ -16,6 +16,7 @@ import AdminProfilePage from './pages/admin-profile';
 import FaqPage from './pages/faq';
 import PrivacyPoliciesPage from './pages/privacy-policies';
 import TermsAndConditionsPage from './pages/terms-and-conditions';
+import NotFoundPage from './pages/not-found';
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
         <Route path='/admin/dashboard' element={<AdminDashboardPage />}/>
         <Route path='/admin/redeem' element={<AdminRedeemPage />}/>
         <Route path='/admin/profile' element={<AdminProfilePage />}/>
+        <Route path="*" element={<NotFoundPage/>} />
       </Routes>
     </BrowserRouter>
   );
