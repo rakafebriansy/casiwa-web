@@ -134,7 +134,7 @@ const UploadedPage = () => {
         
         if(form.file.files[0]) {
             const file = form.file.files[0];
-            if(file[0].type === 'application/pdf') {
+            if(file.type === 'application/pdf') {
                 formData.append('file', file);
                 const blob = await generateThumbnail(file);
                 formData.append('thumbnail',blob,'thumbnail.png');
@@ -224,7 +224,7 @@ const UploadedPage = () => {
             <FormModal handler={handleUpload} ref={refUploadModal} btnText="Unggah" title="Unggah Catatan">
                 <TextBox name="title">Judul</TextBox>
                 <TextareaBox max={200} name="description" placeholder="Masukkan deskripsi catatan anda...">Deskripsi</TextareaBox>
-                <FileBox dropzone={true} name="file">Dokumen</FileBox>
+                <FileBox dropzone={true} id="upload-doc" name="file">Dokumen</FileBox>
             </FormModal>
             <FormModal handler={handleEdit} ref={refEditModal} btnText="Ubah" title="Ubah Catatan">
                 {editedNote.id && (
@@ -232,7 +232,7 @@ const UploadedPage = () => {
                     <input type="hidden" name="id" value={editedNote.id} />
                     <TextBox value={editedNote.title} name="title">Judul</TextBox>
                     <TextareaBox value={editedNote.description} max={200} name="description" placeholder="Masukkan deskripsi catatan anda...">Deskripsi</TextareaBox>
-                    <FileBox dropzone={true} name="file">Dokumen</FileBox>
+                    <FileBox dropzone={true} id="edit-doc" name="file">Dokumen</FileBox>
                     </>
                 )}
             </FormModal>
