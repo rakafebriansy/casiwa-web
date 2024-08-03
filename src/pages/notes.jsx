@@ -63,7 +63,6 @@ const NotesPage = () => {
         }
     },[]);
 
-console.log(notes)
     if (isLoading) return (
         <div className="flex justify-center items-center w-full min-h-screen">
             <LoadingIcon classname="animate-spin"/>

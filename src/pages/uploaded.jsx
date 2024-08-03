@@ -10,14 +10,15 @@ import SquareButton from "../components/Elements/SquareButton";
 import { ShowAlertContext } from "../contexts/ShowAlert";
 import Alert from "../components/Elements/Alert";
 import { getCookie } from "../functions/main";
-import { getEditedNote, getUploadedNotes } from "../../services/util.notes.jsx";
+import { deleteNote, getSelectedNote, getUploadedNotes } from "../../services/util.notes.jsx";
 import { LoadingIcon } from '../functions/svgs';
 import FileBox from "../components/Fragments/FileBox";
 import TextareaBox from "../components/Fragments/TextareaBox";
 import TextBox from "../components/Fragments/TextBox";
 import { getDocument, GlobalWorkerOptions } from '../../modules/pdf.js/build/pdf.mjs';
-import { editNote, upload } from "../../services/util.upload.jsx";
+import { editNote, upload } from "../../services/util.notes.jsx";
 import FormModal from "../components/Layout/FormModal.jsx";
+import Modal from "../components/Elements/Modal.jsx";
 
 GlobalWorkerOptions.workerSrc = '../../modules/pdf.js/build/pdf.worker.mjs';
 
@@ -28,7 +29,7 @@ const UploadedPage = () => {
     const navigate = useNavigate();
     const {isShowAlert} = useContext(ShowAlertContext);
     const [notes, setNotes] = useState({});
-    const [editedNote, setEditedNote] = useState({});
+    const [selectedNote, setSelectedNote] = useState({});
     const refUploadModal = useRef(null);
     const refEditModal = useRef(null);
     const refDeleteModal = useRef(null);
@@ -113,12 +114,11 @@ const UploadedPage = () => {
             setIsShowAlert({status: true, message:'File harus memiliki ekstensi pdf'});
         } 
     }
-
     const openEditModal = (e, id) => {
         e.preventDefault();
         const userData = getCookie('user');
-        getEditedNote(userData.token, id, (data) =>{
-            setEditedNote(data);
+        getSelectedNote(userData.token, id, (data) =>{
+            setSelectedNote(data);
         });
         refEditModal.current.classList.replace('hidden', 'flex');
     }
@@ -153,6 +153,29 @@ const UploadedPage = () => {
             setIsShowAlert({status: true, message:err.message});
             form.reset();
             refEditModal.current.classList.replace('flex', 'hidden');
+        });
+    }
+
+    const openDeleteModal = (e, id, index) => {
+        e.preventDefault();
+        refDeleteModal.current.querySelector('input[name="id"]').value = id;
+        refDeleteModal.current.classList.replace('hidden', 'flex');
+        setSelectedNote({index})
+    }
+
+    const handleDelete = (e) => {
+        e.preventDefault();
+
+        const userData = getCookie('user');
+        const formData = new FormData(e.target);
+        deleteNote(formData, userData.token, (data) => {
+            let new_notes = notes.data.filter((_, index) => index !== selectedNote.index);
+            setNotes({data:new_notes, total:notes.total-1});
+            refDeleteModal.current.classList.replace('flex', 'hidden');
+            setIsShowAlert({status: true, message:data.message});
+        }, err => {
+            setIsShowAlert({status: true, message:err.message});
+            refDeleteModal.current.classList.replace('flex', 'hidden');
         });
     }
 
@@ -207,10 +230,7 @@ const UploadedPage = () => {
                     <ul className="flex flex-col gap-5">
                     {notes.data.map((item, index) => {
                         return (
-                            <NoteList isUpload={true} onEdit={(e) => {openEditModal(e, item.id)}} onDelete={(e) => {
-                                e.preventDefault();
-                                refDeleteModal.current.classList.replace('hidden', 'flex');
-                            }} item={item} index={index}/>
+                            <NoteList isUpload={true} onEdit={(e) => {openEditModal(e, item.id)}} onDelete={(e) => {openDeleteModal(e, item.id, index)}} item={item} index={index}/>
                         );
                     })}
                     </ul>
@@ -227,15 +247,19 @@ const UploadedPage = () => {
                 <FileBox dropzone={true} id="upload-doc" name="file">Dokumen</FileBox>
             </FormModal>
             <FormModal handler={handleEdit} ref={refEditModal} btnText="Ubah" title="Ubah Catatan">
-                {editedNote.id && (
+                {selectedNote.id && (
                     <>
-                    <input type="hidden" name="id" value={editedNote.id} />
-                    <TextBox value={editedNote.title} name="title">Judul</TextBox>
-                    <TextareaBox value={editedNote.description} max={200} name="description" placeholder="Masukkan deskripsi catatan anda...">Deskripsi</TextareaBox>
+                    <input type="hidden" name="id" value={selectedNote.id} />
+                    <TextBox value={selectedNote.title} name="title">Judul</TextBox>
+                    <TextareaBox value={selectedNote.description} max={200} name="description" placeholder="Masukkan deskripsi catatan anda...">Deskripsi</TextareaBox>
                     <FileBox dropzone={true} id="edit-doc" name="file">Dokumen</FileBox>
                     </>
                 )}
             </FormModal>
+            <Modal onsubmit={handleDelete} ref={refDeleteModal} title="Hapus Catatan" danger={true} accept="Hapus">
+                <input type="hidden" name="id"/>
+                <p className="font-montserratRegular">Apakah anda yakin menghapus catatan ini?</p>
+            </Modal>
         </section>
     );
 };
