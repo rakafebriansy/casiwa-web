@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import {BinIcon, DownloadCountIcon, PencilIcon} from "../../functions/svgs"
 
 const NoteList = (props) => {
-    const {item, index, isUpload = false, onEdit, onDelete} = props;
+    const {item, index, isUpload = false, onEdit, onDelete, isAdmin = false} = props;
     return (
         <li key={index} className="flex flex-col gap-4 bg-white rounded-lg small-shadow items-center p-4">
             <div className="flex relative w-full justify-start items-start gap-4">
@@ -10,7 +10,7 @@ const NoteList = (props) => {
                     <img src={import.meta.env.VITE_BASE_URL + 'preview/' + item.thumbnail_name} className="h-full" alt="" />
                 </div>
                 <div className="flex flex-col gap-1 justify-center">
-                    <Link to={`/note-details/${item.id}`} className="text-sm font-montserratSemiBold hover:text-blue-500">{item.title}</Link>
+                    <Link to={(isAdmin ? '/admin' : '') + `/note-details/${item.id}`} className="text-sm font-montserratSemiBold hover:text-blue-500">{item.title}</Link>
                     <p className="text-xs">{item.study_program + ' • ' + item.university + ' • ' + item.date}</p>
                 </div>
                 {isUpload && (

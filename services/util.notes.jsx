@@ -50,13 +50,8 @@ export const getSingleNotePreview = (id, callback) => {
     });
 }
 
-export const getSingleNote = (id, token, callback) => {
-    axios.get(import.meta.env.VITE_BASE_URL + 'note-details?id=' + id, {
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json',
-        },
-      }).then(res => {
+export const getSingleNote = (id, callback) => {
+    axios.get(import.meta.env.VITE_BASE_URL + 'note-details?id=' + id).then(res => {
         callback(res.data.data);
     }).catch(err => {
         console.log(err)
@@ -141,7 +136,22 @@ export const deleteNote = (data, token, callback, errorHandler) => {
     }).then(res => {
         callback(res.data);
     }).catch(res => {
-        console.log(res)
+        errorHandler({
+            status: false,
+            message:Object.values(res.response.data.errors)[0][0]
+        });
+    });
+}
+
+export const adminDeleteNote = (data, token, callback, errorHandler) => {
+    axios.post(import.meta.env.VITE_BASE_URL + 'admin/delete-note', data, {
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+        }
+    }).then(res => {
+        callback(res.data);
+    }).catch(res => {
         errorHandler({
             status: false,
             message:Object.values(res.response.data.errors)[0][0]

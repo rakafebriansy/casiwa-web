@@ -172,7 +172,7 @@ export const HiddenIcon = (props) => {
     const {classname, color='#000000', onclick} = props;
     return (
         <svg fill={color} xmlns="http://www.w3.org/2000/svg" onClick={onclick}
-	        className={classname} viewBox="0 0 52 52" enableBackground="new 0 0 52 52" xml:space="preserve">
+	        className={classname} viewBox="0 0 52 52" enableBackground="new 0 0 52 52" xmlSpace="preserve">
             <g>
                 <path d="M51.8,25.1c-1.6-3.2-3.7-6.1-6.3-8.4L37,25.1c0,0.3,0,0.6,0,0.9c0,6.1-4.9,11-11,11c-0.3,0-0.6,0-0.9,0
                     l-5.4,5.4c2,0.4,4.1,0.7,6.2,0.7c11.3,0,21.1-6.6,25.8-16.1C52.1,26.3,52.1,25.7,51.8,25.1z"/>

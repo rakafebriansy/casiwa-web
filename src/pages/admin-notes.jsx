@@ -6,7 +6,7 @@ import {BookIcon, UniversityIcon} from "../functions/svgs";
 import Footer from "../components/Layout/Footer";
 import { getAllUserDetails } from "../../services/util.userDetail.jsx";
 import NoteList from "../components/Layout/NoteList";
-import { authenticatedUser } from "../../services/auth.authenticatedUser.jsx";
+import { authenticatedAdmin } from "../../services/auth.authenticatedUser.jsx";
 import { AnchorListContext } from "../contexts/AnchorList";
 import { getCookie } from "../functions/main";
 import { getNotes, getNotesByFilter } from "../../services/util.notes.jsx";
@@ -48,14 +48,15 @@ const AdminNotesPage = () => {
         getNotes((data) => {
             setNotes(data);
         },keyword);
-        const userData = getCookie('user');
-        if(userData) {
-            authenticatedUser(userData.token,
+        const adminData = getCookie('admin');
+        if(adminData) {
+            authenticatedAdmin(adminData.token,
                 res => {
-                setIsLogin(res.data.success);
-            }, 
-            err => {
-                console.log('Unauthenticated');
+                    setIsLogin(res.data.success);
+                }, 
+                err => {
+                    console.log('Unauthenticated');
+                    navigate('/login');
             }, 
             () => {
                 setIsLoading(false);
@@ -74,7 +75,7 @@ const AdminNotesPage = () => {
         <section className="bg-backgroundPrime pt-20 lg:pt-28 font-montserratRegular min-h-screen justify-between flex flex-col items-center">
             {universities.length > 0 && studyPrograms.length > 0 && (
                 <>
-                <Navbar anchors={isLogin ? anchorList[0] : []} isThisPage="Catatan" isLogin={isLogin}/>
+                <Navbar isAdmin={isLogin} anchors={isLogin ? anchorList[1] : []} isThisPage="Catatan" isLogin={isLogin}/>
                 <div className=" flex flex-col items-center w-[90%] lg:w-[80%]">
                     <form onSubmit={handleSearch} className="w-[80%] lg:w-full mb-5">
                         <SearchButton name="keyword">Cari dokumen</SearchButton>
@@ -88,7 +89,19 @@ const AdminNotesPage = () => {
                     </form>
                 </div>
                 <div className="lg:w-[80%] mb-5">
-                    <NoteList notes={notes.data}/>
+                    {notes.data && notes.data.length > 0 ? (
+                        <ul className="flex flex-col gap-5">
+                        {notes.data.map((item, index) => {
+                            return (
+                                <NoteList isAdmin={isLogin} item={item} index={index}/>
+                            );
+                        })}
+                        </ul>
+                    ) : (
+                        <div className="flex justify-center items-center text-primary text-xl">
+                            <h3>Tidak ada hasil</h3>
+                        </div>
+                    )}
                 </div>
                 <Footer />
                 </>

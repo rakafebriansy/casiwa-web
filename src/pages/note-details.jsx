@@ -134,8 +134,7 @@ const NoteDetailsPage = () => {
                     setIsBought(res.data.data.bought);
                     setFreeDownload(res.data.data.free_download);
                     if(res.data.data.bought) {
-                        const userData = getCookie('user');
-                        getSingleNote(idParams, userData.token, data => {
+                        getSingleNote(idParams, data => {
                             setNote(data);
                         });
                     } else {
@@ -206,7 +205,7 @@ const NoteDetailsPage = () => {
             <section className="pt-20 flex lg:pt-28 flex-col items-center justify-center gap-5 lg:gap-10 font-montserratRegular">
                 <div className="w-[80%] gap-3 flex flex-col">
                     <div className="flex w-full items-start">
-                        <button onClick={() => {navigate(-1)}} className="text-blue-500 text-xs lg:text-sm ">&lt;&lt; <span className="hover:underline">Kembali ke Daftar</span></button>
+                        <button onClick={() => {navigate(-1)}} className="text-blue-500 text-xs lg:text-sm ">&lt;&lt; <span className="hover:underline">Kembali ke Catatan</span></button>
                     </div>
                     <div className="flex flex-col items-start text-sm gap-3 lg:gap-4">
                         <h1 className="text-xl font-montserratBold lg:text-3xl">{note.title}</h1>
