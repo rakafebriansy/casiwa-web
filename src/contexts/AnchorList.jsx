@@ -13,7 +13,7 @@ const AnchorListContextProvider = ({children}) => {
         ],
         [
             {name: 'Dasbor', path: '/admin/dashboard'},
-            {name: 'Catatan', path: '/notes'},
+            {name: 'Catatan', path: '/admin/notes'},
             {name: 'Profile', path: '/admin/profile'},
             {name: 'Redeem', path: '/admin/redeem'},
         ]

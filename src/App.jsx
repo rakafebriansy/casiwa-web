@@ -17,6 +17,7 @@ import FaqPage from './pages/faq';
 import PrivacyPoliciesPage from './pages/privacy-policies';
 import TermsAndConditionsPage from './pages/terms-and-conditions';
 import NotFoundPage from './pages/not-found';
+import AdminNotesPage from './pages/admin-notes';
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
         <Route path='/terms-and-conditions' element={<TermsAndConditionsPage />}/>
         <Route path='/admin' element={<AdminLoginPage />}/>
         <Route path='/admin/dashboard' element={<AdminDashboardPage />}/>
+        <Route path='/admin/notes' element={<AdminNotesPage />}/>
         <Route path='/admin/redeem' element={<AdminRedeemPage />}/>
         <Route path='/admin/profile' element={<AdminProfilePage />}/>
         <Route path="*" element={<NotFoundPage/>} />

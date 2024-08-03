@@ -19,6 +19,7 @@ import LongRoundedButton from "../components/Elements/LongRoundedButton"
 import CloseButton from "../components/Elements/CloseButton";
 import { getDocument, GlobalWorkerOptions } from '../../modules/pdf.js/build/pdf.mjs';
 import { upload } from "../../services/util.upload.jsx";
+import FormModal from "../components/Layout/FormModal.jsx";
 
 GlobalWorkerOptions.workerSrc = '../../modules/pdf.js/build/pdf.worker.mjs';
 
@@ -29,7 +30,9 @@ const UploadedPage = () => {
     const navigate = useNavigate();
     const {isShowAlert} = useContext(ShowAlertContext);
     const [notes, setNotes] = useState({});
-    const refUploadDropdown = useRef(null);
+    const refUploadModal = useRef(null);
+    const refEditModal = useRef(null);
+    const refDeleteModal = useRef(null);
 
     const handleSearch = async (e) => {
         e.preventDefault();
@@ -93,7 +96,7 @@ const UploadedPage = () => {
                 const blob = await generateThumbnail(file);
                 formData.append('thumbnail',blob,'thumbnail.png');
                 upload(formData, userData.token, (data) => {
-                    refUploadDropdown.current.classList.replace('flex', 'hidden');
+                    refUploadModal.current.classList.replace('flex', 'hidden');
                     if(data.success) {
                         setNotes({
                             data: [data.data,...notes.data],
@@ -104,11 +107,11 @@ const UploadedPage = () => {
                     form.reset();
                 }, err => {
                     setIsShowAlert({status: true, message:err.message});
-                    refUploadDropdown.current.classList.replace('flex', 'hidden');
+                    refUploadModal.current.classList.replace('flex', 'hidden');
                     form.reset();
                 });
         }  else {
-            refUploadDropdown.current.classList.replace('flex', 'hidden');
+            refUploadModal.current.classList.replace('flex', 'hidden');
             setIsShowAlert({status: true, message:'File harus memiliki ekstensi pdf'});
         } 
     }
@@ -151,8 +154,8 @@ const UploadedPage = () => {
                     <div className="mt-5 mb-2 grid grid-cols-2 gap-2 lg:flex w-full">
                         <SquareButton type="button" onclick={(e) => {
                             e.preventDefault();
-                            refUploadDropdown.current.classList.replace('hidden', 'flex');
-                        }} colorCode="border-primary hover:bg-primary text-primary">Unggah</SquareButton>
+                            refUploadModal.current.classList.replace('hidden', 'flex');
+                        }} colorCode="bg-primary">Unggah</SquareButton>
                     </div>
                     <div className="w-full text-xs">
                     {notes.total} hasil
@@ -160,18 +163,22 @@ const UploadedPage = () => {
                 </form>
             </div>
             <div className="lg:w-[80%] mb-5">
-                <NoteList notes={notes.data}/>
+                <NoteList isUpload={true} onEdit={(e) => {
+                            e.preventDefault();
+                            refEditModal.current.classList.replace('hidden', 'flex');
+                        }} onDelete={(e) => {
+                            e.preventDefault();
+                            refDeleteModal.current.classList.replace('hidden', 'flex');
+                        }} notes={notes.data}/>
             </div>
             <Footer />
-            <form ref={refUploadDropdown} encType="multipart/form-data" onSubmit={handleUpload} className="hidden items-center w-full h-screen justify-center top-0 left-0 fixed z-30">
-            <div className="w-full h-full bg-black opacity-10 absolute top-0 left-0"></div>
-            <div className="p-7 rounded-2xl w-[90%] lg:w-[40%] bg-white flex flex-col gap-5 z-10">
+            <FormModal handler={handleUpload} ref={refUploadModal} btnText="Unggah">
                 <div className="flex justify-between items-center py-3 border-b">
                     <h3 className="font-montserratBold text-lg">
                     Unggah Catatan 
                     </h3>
                     <CloseButton onclick={() => {
-                        refUploadDropdown.current.classList.replace('flex','hidden');
+                        ref.current.classList.replace('flex','hidden');
                     }}/>
                 </div>
                 <div className="flex flex-col gap-3">
@@ -179,9 +186,7 @@ const UploadedPage = () => {
                     <TextareaBox max={200} name="description" placeholder="Masukkan deskripsi catatan anda...">Deskripsi</TextareaBox>
                     <FileBox dropzone={true} name="file">Dokumen</FileBox>
                 </div>
-                <LongRoundedButton>Unggah</LongRoundedButton>
-            </div>
-        </form>
+            </FormModal>
         </section>
     );
 };

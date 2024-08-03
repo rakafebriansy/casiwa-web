@@ -136,10 +136,10 @@ export const ProfileIcon = (props) => {
 }
 
 export const PencilIcon = (props) => {
-    const {classname, color = '#FFFFFF'} = props;
+    const {classname, color = '#000000', onclick} = props;
     return (
-        <svg className={classname} viewBox="0 0 12 11" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path fillRule="evenodd" clipRule="evenodd" d="M7.94009 0.922647C8.50308 0.330025 9.41587 0.330024 9.97886 0.922646L10.2835 1.24333C10.8465 1.83595 10.8465 2.79678 10.2835 3.3894L4.10903 9.88884C3.83867 10.1734 3.47199 10.3333 3.08965 10.3333L1.34337 10.3333L1.34337 8.49512C1.34337 8.09266 1.49526 7.70668 1.76562 7.42209L7.94009 0.922647Z" stroke={color} strokeWidth="0.740026"/>
+        <svg className={classname} onClick={onclick} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path fillRule="evenodd" clipRule="evenodd" d="M15.8787 3.70705C17.0503 2.53547 18.9498 2.53548 20.1213 3.70705L20.2929 3.87862C21.4645 5.05019 21.4645 6.94969 20.2929 8.12126L18.5556 9.85857L8.70713 19.7071C8.57897 19.8352 8.41839 19.9261 8.24256 19.9701L4.24256 20.9701C3.90178 21.0553 3.54129 20.9554 3.29291 20.7071C3.04453 20.4587 2.94468 20.0982 3.02988 19.7574L4.02988 15.7574C4.07384 15.5816 4.16476 15.421 4.29291 15.2928L14.1989 5.38685L15.8787 3.70705ZM18.7071 5.12126C18.3166 4.73074 17.6834 4.73074 17.2929 5.12126L16.3068 6.10738L17.8622 7.72357L18.8787 6.70705C19.2692 6.31653 19.2692 5.68336 18.8787 5.29283L18.7071 5.12126ZM16.4477 9.13804L14.8923 7.52185L5.90299 16.5112L5.37439 18.6256L7.48877 18.097L16.4477 9.13804Z" fill={color}/>
         </svg>
     );
 }
@@ -181,6 +181,16 @@ export const HiddenIcon = (props) => {
                     C49,7.3,49.1,6.2,48.5,5.6z M15,26c0-6.1,4.9-11,11-11c2,0,3.8,0.5,5.4,1.4l-3,3C27.6,19.2,26.8,19,26,19c-3.9,0-7,3.1-7,7
                     c0,0.8,0.2,1.6,0.4,2.4l-3,3C15.5,29.8,15,28,15,26z"/>
             </g>
+        </svg>
+    )
+}
+
+export const BinIcon = (props) => {
+    const {classname, color='#000000', onclick} = props;
+    return (
+        <svg className={classname} onClick={onclick} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M5.73708 6.54391V18.9857C5.73708 19.7449 6.35257 20.3604 7.11182 20.3604H16.8893C17.6485 20.3604 18.264 19.7449 18.264 18.9857V6.54391M2.90906 6.54391H21.0909" stroke={color} strokeWidth="1.7" strokeLinecap="round"/>
+        <path d="M8 6V4.41421C8 3.63317 8.63317 3 9.41421 3H14.5858C15.3668 3 16 3.63317 16 4.41421V6" stroke="#1C1C1C" strokeWidth="1.7" strokeLinecap="round"/>
         </svg>
     )
 }
