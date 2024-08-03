@@ -16,7 +16,7 @@ import FileBox from "../components/Fragments/FileBox";
 import TextareaBox from "../components/Fragments/TextareaBox";
 import TextBox from "../components/Fragments/TextBox";
 import { getDocument, GlobalWorkerOptions } from '../../modules/pdf.js/build/pdf.mjs';
-import { upload } from "../../services/util.upload.jsx";
+import { editNote, upload } from "../../services/util.upload.jsx";
 import FormModal from "../components/Layout/FormModal.jsx";
 
 GlobalWorkerOptions.workerSrc = '../../modules/pdf.js/build/pdf.worker.mjs';
@@ -124,7 +124,36 @@ const UploadedPage = () => {
     }
 
     const handleEdit = async (e) => {
+        e.preventDefault();
 
+        const form = e.target;
+        const formData = new FormData();
+        formData.append('id', form.id.value);
+        formData.append('title', form.title.value);
+        formData.append('description', form.description.value);
+        
+        if(form.file.files[0]) {
+            const file = form.file.files[0];
+            if(file[0].type === 'application/pdf') {
+                formData.append('file', file);
+                const blob = await generateThumbnail(file);
+                formData.append('thumbnail',blob,'thumbnail.png');
+            } else {
+                refUploadModal.current.classList.replace('flex', 'hidden');
+                setIsShowAlert({status: true, message:'File harus memiliki ekstensi pdf'});
+            }
+        } 
+        const userData = getCookie('user');
+        editNote(formData, userData.token, (data) => {
+            setNotes(data);
+            form.reset();
+            refEditModal.current.classList.replace('flex', 'hidden');
+            setIsShowAlert({status: true, message:'Catatan berhasil diubah'});
+        }, err => {
+            setIsShowAlert({status: true, message:err.message});
+            form.reset();
+            refEditModal.current.classList.replace('flex', 'hidden');
+        });
     }
 
     useEffect(()=> {
