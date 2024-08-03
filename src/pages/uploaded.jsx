@@ -198,7 +198,7 @@ const UploadedPage = () => {
                         }} colorCode="bg-primary">Unggah</SquareButton>
                     </div>
                     <div className="w-full text-xs">
-                    {notes.total} hasil
+                    {notes.total ?? 0} hasil
                     </div>
                 </form>
             </div>

@@ -72,13 +72,25 @@ const DownloadedPage = () => {
                                 <SearchDropdown list={studyPrograms} icon={<BookIcon classname="w-3"/>}>Program Studi</SearchDropdown>
                             </div>
                             <div className="w-full text-xs">
-                                {notes.total} hasil
+                                {notes.total ?? 0} hasil
                             </div>
                         </div>
                     </form>
                     <div className="lg:w-[80%] mb-5">
-                        <NoteList notes={notes.data}/>
-                    </div>
+                    {notes.data && notes.data.length > 0 ? (
+                        <ul className="flex flex-col gap-5">
+                        {notes.data.map((item, index) => {
+                            return (
+                                <NoteList item={item} index={index}/>
+                            );
+                        })}
+                        </ul>
+                    ) : (
+                        <div className="flex justify-center items-center text-primary text-xl">
+                            <h3>Tidak ada hasil</h3>
+                        </div>
+                    )}
+                </div>
                     <Footer />
                 </section>
             )}

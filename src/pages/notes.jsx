@@ -63,7 +63,7 @@ const NotesPage = () => {
         }
     },[]);
 
-
+console.log(notes)
     if (isLoading) return (
         <div className="flex justify-center items-center w-full min-h-screen">
             <LoadingIcon classname="animate-spin"/>
@@ -83,12 +83,24 @@ const NotesPage = () => {
                             <SearchDropdown name={'study_program_id'} list={studyPrograms} icon={<BookIcon classname="w-3"/>}>Pilih Program Studi</SearchDropdown>
                         </div>
                         <div className="w-full text-xs">
-                            {notes.total} hasil
+                            {notes.total ?? 0} hasil
                         </div>
                     </form>
                 </div>
                 <div className="lg:w-[80%] mb-5">
-                    <NoteList notes={notes.data}/>
+                    {notes.data && notes.data.length > 0 ? (
+                        <ul className="flex flex-col gap-5">
+                        {notes.data.map((item, index) => {
+                            return (
+                                <NoteList item={item} index={index}/>
+                            );
+                        })}
+                        </ul>
+                    ) : (
+                        <div className="flex justify-center items-center text-primary text-xl">
+                            <h3>Tidak ada hasil</h3>
+                        </div>
+                    )}
                 </div>
                 <Footer />
                 </>
