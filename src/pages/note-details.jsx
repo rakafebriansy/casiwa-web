@@ -113,7 +113,7 @@ const NoteDetailsPage = () => {
         const userData = getCookie('user');
         updateFreeDownload(userData.token, {id: idParams},(data) => {
             if(data.success) {
-                getSingleNote(idParams, userData.token, data => {
+                getSingleNote(idParams, data => {
                     setNote(data);
                     setIsBought(true);
                 });

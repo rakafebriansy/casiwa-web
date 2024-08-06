@@ -12,6 +12,7 @@ import { getCookie } from "../functions/main";
 import { getNotes, getNotesByFilter } from "../../services/util.notes.jsx";
 import { useLocation } from "react-router-dom";
 import { LoadingIcon } from '../functions/svgs';
+import Alert from "../components/Elements/Alert";
 
 const AdminNotesPage = () => {
     const [universities, setUniversities] = useState([]);

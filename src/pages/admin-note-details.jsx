@@ -13,6 +13,7 @@ GlobalWorkerOptions.workerSrc = '../../modules/pdf.js/build/pdf.worker.mjs';
 import Modal from "../components/Elements/Modal";
 import { ShowAlertContext } from "../contexts/ShowAlert.jsx";
 import { LeftArrowIcon, LoadingIcon, RightArrowIcon } from '../functions/svgs';
+import Alert from "../components/Elements/Alert";
 
 const AdminNoteDetailsPage = () => {
     const [isLogin, setIsLogin] = useState(false);
