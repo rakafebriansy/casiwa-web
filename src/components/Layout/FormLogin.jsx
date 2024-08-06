@@ -3,7 +3,7 @@ import TextBox from "../Fragments/TextBox";
 import InputCheckBox from "../Elements/InputCheckBox";
 import LongRoundedButton from "../Elements/LongRoundedButton";
 import AuthAnchor from "../Elements/AuthAnchor";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { adminLogin, login } from "../../../services/auth.login.jsx";
 import { useContext } from "react";
 import { ShowAlertContext } from "../../contexts/ShowAlert";
@@ -58,7 +58,6 @@ const FormLogin = (props) => {
     };
 
     return (
-        <>
         <form onSubmit={handleLogin} className="w-[70%] h-[70%] flex flex-col items-center justify-between md:w-[28rem] md:border md:py-8 md:px-12 md:items-start md:rounded-xl md:shadow-lg bg-white">
             <div className="flex flex-col items-center justify-between gap-2 md:items-start">
                 <Signature isAuth={true} classname="lg:hidden"/>
@@ -69,9 +68,12 @@ const FormLogin = (props) => {
                 <TextBox name="email">{admin ? 'Username' : 'Email'}</TextBox>
                 <TextBox name="password" type="password">Kata Sandi</TextBox>
                 {!admin && (
-                    <div className="flex gap-4 items-center">
-                        <InputCheckBox name="rememberme" id="checkbox-rememberme"/>
-                        <label htmlFor="checkbox-rememberme" className="cursor-pointer select-none">Ingat Saya</label>
+                    <div className="flex justify-between items-center w-full">
+                       <div className="flex gap-2">
+                            <InputCheckBox name="rememberme" id="checkbox-rememberme"/>
+                            <label htmlFor="checkbox-rememberme" className="cursor-pointer select-none">Ingat Saya</label>
+                       </div>
+                       <Link className="text-blue-500 font-montserratSemiBold hover:underline" to="/forgot-password">Lupa sandi?</Link>
                     </div>
                 )}
                 <LongRoundedButton colorCode="bg-primary mt-2">MASUK</LongRoundedButton>
@@ -82,7 +84,6 @@ const FormLogin = (props) => {
                 </div>
             )}
         </form>
-        </>
     );
 }
 

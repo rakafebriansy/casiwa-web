@@ -36,3 +36,16 @@ export const authenticatedAdmin = (token, callback, errorHandler = () => {}, fin
   }).then(callback).catch(errorHandler).finally(finallyHandler);
 }
 
+export const authenticatedResetToken = (token, callback, errorHandler,finallyHandler) => {
+  axios.get(import.meta.env.VITE_BASE_URL + 'reset?token=' + token)
+  .then(res => {
+    callback(res.data);
+  })
+  .catch(res => {
+    errorHandler({
+      status: false,
+      message:Object.values(res.response.status)
+    })
+  })
+  .finally(finallyHandler);
+}

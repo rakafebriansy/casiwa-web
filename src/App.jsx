@@ -19,6 +19,8 @@ import TermsAndConditionsPage from './pages/terms-and-conditions';
 import NotFoundPage from './pages/not-found';
 import AdminNotesPage from './pages/admin-notes';
 import AdminNoteDetailsPage from './pages/admin-note-details';
+import ForgotPasswordPage from './pages/forgot-password';
+import ResetPasswordPage from './pages/reset-password';
 
 function App() {
   return (
@@ -34,6 +36,8 @@ function App() {
         <Route path='/profile' element={<ProfilePage />}/>
         <Route path='/redeem' element={<RedeemPage />}/>
         <Route path='/faqs' element={<FaqPage />}/>
+        <Route path='/forgot-password' element={<ForgotPasswordPage />}/>
+        <Route path='/reset' element={<ResetPasswordPage />}/>
         <Route path='/privacy-policies' element={<PrivacyPoliciesPage />}/>
         <Route path='/terms-and-conditions' element={<TermsAndConditionsPage />}/>
         <Route path='/admin' element={<AdminLoginPage />}/>
