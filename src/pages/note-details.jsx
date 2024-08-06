@@ -1,5 +1,5 @@
 import Navbar from "../components/Layout/Navbar";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import SquareButton from "../components/Elements/SquareButton";
 import Footer from "../components/Layout/Footer";
 import { hasDocumentUser } from "../../services/auth.authenticatedUser.jsx";
@@ -14,6 +14,8 @@ import Modal from "../components/Elements/Modal";
 import { getPaymentToken, updateFreeDownload } from "../../services/util.payment.jsx";
 import { ShowAlertContext } from "../contexts/ShowAlert.jsx";
 import { LeftArrowIcon, LoadingIcon, RightArrowIcon } from '../functions/svgs';
+import Alert from "../components/Elements/Alert";
+
 
 const NoteDetailsPage = () => {
     const [isLogin, setIsLogin] = useState(false);
