@@ -11,6 +11,7 @@ import { AnchorListContext } from "../contexts/AnchorList";
 import { getCookie } from "../functions/main";
 import { getDownloadedNotes, getNotes } from "../../services/util.notes.jsx";
 import { LoadingIcon } from '../functions/svgs';
+import { useNavigate } from "react-router-dom";
 
 const DownloadedPage = () => {
     const [universities, setUniversities] = useState([]);
@@ -19,13 +20,15 @@ const DownloadedPage = () => {
     const [isLogin, setIsLogin] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
     const {anchorList} = useContext(AnchorListContext);
+    const navigate = useNavigate();
 
     const handleSearch = async (e) => {
         e.preventDefault();
+        const form = e.target;
         const userData = getCookie('user');
         getDownloadedNotes((data) => {
             setNotes(data);
-        },userData.token);
+        },userData.token, form.university_id.value, form.study_program_id.value, form.keyword.value);
     }
 
     useEffect(()=> {
@@ -37,6 +40,7 @@ const DownloadedPage = () => {
             }, 
             err => {
                 console.log('Unauthenticated');
+                navigate('/login');
             }, 
             () => {
                 setIsLoading(false);
@@ -68,8 +72,8 @@ const DownloadedPage = () => {
                         <div className="w-[80%] lg:w-full mb-5">
                             <SearchButton name="keyword">Cari dokumen</SearchButton>
                             <div className="mt-5 mb-2 grid grid-cols-2 gap-2 lg:flex ">
-                                <SearchDropdown list={universities} icon={<UniversityIcon classname="w-3"/>}>Universitas</SearchDropdown>
-                                <SearchDropdown list={studyPrograms} icon={<BookIcon classname="w-3"/>}>Program Studi</SearchDropdown>
+                                <SearchDropdown name={'university_id'} list={universities} icon={<UniversityIcon classname="w-3"/>}>Universitas</SearchDropdown>
+                                <SearchDropdown name={'study_program_id'} list={studyPrograms} icon={<BookIcon classname="w-3"/>}>Program Studi</SearchDropdown>
                             </div>
                             <div className="w-full text-xs">
                                 {notes.total ?? 0} hasil

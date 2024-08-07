@@ -29,13 +29,17 @@ export const getUploadedNotes = (callback, token, keyword = '') => {
         console.error(err);
     });
 }
-export const getDownloadedNotes = (callback, token, keyword = '') => {
-    axios.get(import.meta.env.VITE_BASE_URL + 'user/downloaded-notes?keyword=' + keyword, {
+
+export const getDownloadedNotes = (callback, token, universityId, studyProgramId, keyword = '') => {
+    const universityParams = universityId ? "&university_id=" + universityId : '';
+    const studyProgramParams = studyProgramId ? "&study_program_id=" + studyProgramId : '';
+    axios.get(import.meta.env.VITE_BASE_URL + 'notes?keyword=' + keyword + universityParams + studyProgramParams, {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json',
         },
-      }).then(res => {
+      })
+    .then(res => {
         callback(res.data);
     }).catch(err => {
         console.error(err);

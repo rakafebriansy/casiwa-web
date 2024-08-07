@@ -12,7 +12,6 @@ const SearchDropdown = (props) => {
     };
 
     const dropdownClicked = (id, text) => {
-        console.log(refText)
         refText.current.innerText = text;
         refValue.current.value = id;
         dropdownToggle();
