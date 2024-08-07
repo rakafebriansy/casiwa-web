@@ -50,12 +50,12 @@ const SearchDropdown = (props) => {
             </button>
             <div className="w-full relative">
                 <ul className={`${clicked? 'flex': 'hidden'} w-full text-start max-h-20 border-x border-b overflow-scroll overflow-x-hidden flex-col absolute top-0 bg-white cursor-pointer pb-1 rounded-b-lg justify-between items-center`}>
-                    <li key="0" onClick={() => { dropdownClicked(null, children) }} className="flex z-10 justify-start w-full bg-white hover:bg-[rgba(0,0,0,0.04)] px-2 py-1 dropdown-li">
+                    <li key="0" onClick={() => { dropdownClicked(null, children) }} className="flex z-10 justify-start w-full bg-white hover:bg-slate-100 px-2 py-1 dropdown-li">
                         <p className="select-none font-montserratSemiBold dropdown-li">{children}</p>
                     </li>
                     {list.map((item, index) => {
                         return (
-                            <li key={index} onClick={() => {dropdownClicked(item.id, item.name) }} className="flex z-10 justify-start w-full bg-white hover:bg-[rgba(0,0,0,0.04)] px-2 py-1 dropdown-li">
+                            <li key={index} onClick={() => {dropdownClicked(item.id, item.name) }} className="flex z-10 justify-start w-full bg-white hover:bg-slate-100 px-2 py-1 dropdown-li">
                                 <p className="select-none dropdown-li">{item.name}</p>
                             </li>
                         );
