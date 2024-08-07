@@ -22,9 +22,9 @@ const Footer = () => {
                     <div className="">
                         <h3 className="font-montserratBold text-base lg:text-lg mb-3">Tentang Kami</h3>
                         <ul className="gap-2">
-                            <li><a target="_blank" href="https://mail.google.com/mail/?view=cm&fs=1&to=innovatesolutions.mail@gmail.com" className="hover:underline">Email</a></li>
+                            <li><a target="_blank" href="https://mail.google.com/mail/?view=cm&fs=1&to=inncasiwa@gmail.com" className="hover:underline">Email</a></li>
                             <li><a target="_blank" href="https://www.instagram.com/casiwa.id" className="hover:underline">Instagram</a></li>
-                            <li><a target="_blank" href="#" className="hover:underline">Facebook</a></li>
+                            <li><a target="_blank" href="https://www.facebook.com/profile.php?id=61563559215448" className="hover:underline">Facebook</a></li>
                         </ul>
                     </div>
                 </div>
