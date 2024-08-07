@@ -45,7 +45,7 @@ const DropdownField = (props) => {
         };
     },[]);
     return (
-        <div className="font-montserratRegular flex flex-col w-full select-none">
+        <div className="font-montserratRegular flex flex-col gap-1 w-full select-none">
             <Label name={name}>{label}</Label>
             <div className="relative">
                 <InputDropdown colored={colored} name={name} value={value.id ? value.id : undefined} ref={refBtnClicked} onclick={dropdownToggle}>{value.name ?? children}</InputDropdown>
