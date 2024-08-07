@@ -51,7 +51,7 @@ const HomePage = () => {
     return (
         <main>
         <Navbar anchors={isLogin ? anchorList[0] : []} isThisPage="Beranda" isLogin={isLogin}/>
-        <section className="bg-gradient-to-tr from-[#dfe9f3] via-60% via-white to-white w-full flex justify-center items-center min-h-screen">
+        <section className="bg-gradient-to-tr pt-20 from-[#dfe9f3] via-60% via-white to-white w-full flex justify-center items-center min-h-screen">
             <img src={landingBackgroundImage} alt="" className="hidden absolute h-screen w-screen lg:block"/>
             <form onSubmit={handleSearch} className="w-[80%] gap-[5rem] flex flex-col justify-between z-[10]">
                 <div className="font-montserratBold w-full flex flex-col md:flex-row justify-around items-center gap-10">

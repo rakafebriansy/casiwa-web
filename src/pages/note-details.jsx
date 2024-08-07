@@ -91,14 +91,14 @@ const NoteDetailsPage = () => {
         if (window.snap) {
             window.snap.pay(snapToken, {
                 onSuccess: async function (result) {
-                    setIsBought(true);
-                    console.log(result)
+                    getSingleNote(idParams, data => {
+                        setNote(data);
+                        setIsBought(true);
+                    });
                 },
                 onPending: function (result) {
-                    console.log(result)
                 },
                 onError: function (result) {
-                    console.log(result)
                 }
         });
         }
@@ -153,7 +153,7 @@ const NoteDetailsPage = () => {
             }, 
             () => {
                 const script = document.createElement('script');
-                script.src = 'https://app.sandbox.midtrans.com/snap/snap.js';
+                script.src = 'https://app.midtrans.com/snap/snap.js';
                 script.dataset.clientKey = import.meta.env.MIDTRANS_CLIENT_KEY;
                 script.async = true;
                 document.body.appendChild(script);
@@ -250,8 +250,8 @@ const NoteDetailsPage = () => {
                                         )}
                                         {!pageIsRendering ? (
                                             <div className="flex justify-between">
-                                                <LeftArrowIcon classname="w-5 lg:w-7" onclick={showPrevPage}/>
-                                                <RightArrowIcon classname="w-5 lg:w-7" onclick={showNextPage}/>
+                                                <LeftArrowIcon classname="w-5 lg:w-7 cursor-pointer" onclick={showPrevPage}/>
+                                                <RightArrowIcon classname="w-5 lg:w-7 cursor-pointer" onclick={showNextPage}/>
                                             </div>
                                         ) : (
                                             <div className="flex justify-between text-primary">

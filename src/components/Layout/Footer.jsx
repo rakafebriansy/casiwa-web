@@ -32,10 +32,9 @@ const Footer = () => {
                     <div  className="">
                         <h3 className="font-montserratBold text-base lg:text-lg mb-3">Lainnya</h3>
                         <ul className="gap-2">
-                            <li><Link to="#" className="hover:underline">Syarat dan Ketentuan</Link></li>
-                            <li><Link to="#" className="hover:underline">Layanan Pelanggan</Link></li>
-                            <li><Link to="#" className="hover:underline">Kebijakan Privasi</Link></li>
-                            <li><Link to="#" className="hover:underline">Kontak Darurat</Link></li>
+                            <li><Link to="/terms-and-conditions" className="hover:underline">Syarat dan Ketentuan</Link></li>
+                            <li><Link to="/privacy-policies" className="hover:underline">Kebijakan Privasi</Link></li>
+                            <li><a href="https://api.whatsapp.com/send?phone=6285745605717" className="hover:underline">Kontak Darurat</a></li>
                             <li><Link to="/faqs" className="hover:underline">FAQ</Link></li>
                         </ul>
                     </div>
