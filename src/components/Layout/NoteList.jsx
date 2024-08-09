@@ -5,16 +5,18 @@ const NoteList = (props) => {
     const {item, index, isUpload = false, onEdit, onDelete, isAdmin = false} = props;
     return (
         <li key={index} className="flex flex-col gap-4 bg-white rounded-lg small-shadow items-center p-4">
-            <div className="flex relative w-full justify-start items-start gap-4">
-                <div className="h-24 w-24 flex justify-center items-center border">
-                    <img src={import.meta.env.VITE_BASE_URL + 'preview/' + item.thumbnail_name} className="h-full" alt="" />
-                </div>
-                <div className="flex flex-col gap-1 justify-center">
-                    <Link to={(isAdmin ? '/admin' : '') + `/note-details/${item.id}`} className="text-sm font-montserratSemiBold hover:text-blue-500">{item.title}</Link>
-                    <p className="text-xs">{item.study_program + ' • ' + item.university + ' • ' + item.date}</p>
+            <div className="flex relative w-full  justify-between gap-2">
+                <div className="flex gap-4 justify-start items-start">
+                    <div className="h-24 w-24 flex justify-center items-center border">
+                        <img src={import.meta.env.VITE_BASE_URL + 'preview/' + item.thumbnail_name} className="h-full" alt="" />
+                    </div>
+                    <div className="flex flex-col gap-1 justify-center">
+                        <Link to={(isAdmin ? '/admin' : '') + `/note-details/${item.id}`} className="text-sm font-montserratSemiBold hover:text-blue-500">{item.title}</Link>
+                        <p className="text-xs">{item.study_program + ' • ' + item.university + ' • ' + item.date}</p>
+                    </div>
                 </div>
                 {isUpload && (
-                    <div className="absolute right-0 top-1/2 -translate-y-1/2 flex gap-3">
+                    <div className="flex flex-col justify-center gap-3">
                         <PencilIcon onclick={onEdit} classname="w-8 cursor-pointer p-1 rounded-full hover:bg-slate-100"/>
                         <BinIcon onclick={onDelete} classname="w-8 cursor-pointer p-1 rounded-full hover:bg-slate-100"/>
                     </div>
