@@ -1,4 +1,5 @@
 import axios from "axios";
+import { getErrorMessage } from "./errorHelper";
 
 export const register = (data, callback,errorHandler) => {
     axios.post(import.meta.env.VITE_BASE_URL + 'register', data).then(res => {
@@ -6,7 +7,7 @@ export const register = (data, callback,errorHandler) => {
     }).catch(res => {
         errorHandler({
             status: false,
-            message:Object.values(res.response.data.errors)[0][0]
+            message: getErrorMessage(res)
         });
     });
 }

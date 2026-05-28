@@ -1,4 +1,5 @@
 import axios from "axios";
+import { getErrorMessage } from "./errorHelper";
 
 export const getAllUserDetails = (prefix,callback) => {
     axios.get(import.meta.env.VITE_BASE_URL + prefix).then(res => {
@@ -18,7 +19,7 @@ export const modifyUserDetails = (token, operation, prefix, data, callback, erro
     }).catch(err => {
         errorHandler({
             status: false,
-            message:Object.values(err.response.data.errors)[0][0]
+            message: getErrorMessage(err)
         });
     }).finally(finallyHandler);
 }

@@ -1,4 +1,5 @@
 import axios from "axios";
+import { getErrorMessage } from "./errorHelper";
 
 export const redeem = (data, token, callback) => {
     axios.post(import.meta.env.VITE_BASE_URL + 'user/redeem', data, {
@@ -12,7 +13,7 @@ export const redeem = (data, token, callback) => {
         console.log(res)
         callback({
             status: false,
-            message:Object.values(res.response.data.errors)[0][0]
+            message: getErrorMessage(res)
         });
     });
 }
@@ -28,7 +29,7 @@ export const getUnpaidRedeem = (token, callback) => {
     }).catch(res => {
         callback({
             status: false,
-            message:Object.values(res.response.data.errors)[0][0]
+            message: getErrorMessage(res)
         });
     });
 }
@@ -45,7 +46,7 @@ export const redeemUser = (data, token, callback) => {
         console.log(res)
         callback({
             status: false,
-            message:Object.values(res.response.data.errors)[0][0]
+            message: getErrorMessage(res)
         });
     });
 }
@@ -61,7 +62,7 @@ export const getAdminRedeemHistories = (token, callback) => {
     }).catch(res => {
         callback({
             status: false,
-            message:Object.values(res.response.data.errors)[0][0]
+            message: getErrorMessage(res)
         });
     });
 }
@@ -77,7 +78,7 @@ export const getRedeemHistories = (token, callback) => {
     }).catch(res => {
         callback({
             status: false,
-            message:Object.values(res.response.data.errors)[0][0]
+            message: getErrorMessage(res)
         });
     });
 }

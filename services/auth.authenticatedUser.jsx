@@ -1,4 +1,5 @@
 import axios from "axios";
+import { getErrorMessage } from "./errorHelper";
 
 export const authenticatedUser = (token, callback, errorHandler = () => {}, finallyHandler = () => {}) => {
   axios.get(import.meta.env.VITE_BASE_URL + 'user',{
@@ -44,7 +45,7 @@ export const authenticatedResetToken = (token, callback, errorHandler,finallyHan
   .catch(res => {
     errorHandler({
       status: false,
-      message:Object.values(res.response.status)
+      message: getErrorMessage(res)
     })
   })
   .finally(finallyHandler);

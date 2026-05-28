@@ -15,12 +15,13 @@ import { LoadingIcon } from '../functions/svgs';
 import FileBox from "../components/Fragments/FileBox";
 import TextareaBox from "../components/Fragments/TextareaBox";
 import TextBox from "../components/Fragments/TextBox";
-import { getDocument, GlobalWorkerOptions } from '../../modules/pdf.js/build/pdf.mjs';
+import { getDocument, GlobalWorkerOptions } from 'pdfjs-dist';
+import pdfWorker from 'pdfjs-dist/build/pdf.worker.mjs?url';
 import { editNote, upload } from "../../services/util.notes.jsx";
 import FormModal from "../components/Layout/FormModal.jsx";
 import Modal from "../components/Elements/Modal.jsx";
 
-GlobalWorkerOptions.workerSrc = '../../modules/pdf.js/build/pdf.worker.mjs';
+GlobalWorkerOptions.workerSrc = pdfWorker;
 
 const UploadedPage = () => {
     const [isLoading, setIsLoading] = useState(true);

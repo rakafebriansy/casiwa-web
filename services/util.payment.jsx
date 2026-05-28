@@ -1,4 +1,5 @@
 import axios from "axios";
+import { getErrorMessage } from "./errorHelper";
 
 export const getPaymentToken = (callback, token, id, price) => {
     const params = price ? 'user/payment-token?id=' + id + '&price=' + price : 'user/payment-token';
@@ -25,7 +26,7 @@ export const doPayment = async (token, data) => {
     } catch (err) {
         throw {
             status: false,
-            message: Object.values(err.response.data.errors)[0][0]
+            message: getErrorMessage(err)
         };
     }
 }
@@ -51,7 +52,7 @@ export const updateFreeDownload = (token, data, callback, errorHandler) => {
     }).catch(err => {
         errorHandler({
             status: false,
-            message:Object.values(err.response.data.errors)[0][0]
+            message: getErrorMessage(err)
         });
     });
 }

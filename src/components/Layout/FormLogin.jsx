@@ -23,33 +23,37 @@ const FormLogin = (props) => {
         };
 
         if(admin) {
-            adminLogin(data,(data) => {
-                if(data.success) {
+            adminLogin(data,(resData) => {
+                if(resData.success) {
                     let time = 0.5;
                     setCookie('admin',{
-                        username: data.data.username,
-                        token: data.data.token
+                        username: resData.data.username,
+                        token: resData.data.token
                     },time);
                     navigate('/admin/dashboard');
+                } else {
+                    setIsShowAlert({status: true, message: resData.message});
                 }
             },(err) =>{
                 setIsShowAlert({status: true, message:err.message});
             });
         } else {
             if(e.target.rememberme.value) {
-                data.rememberme =e.target.rememberme.value;
+                data.rememberme = e.target.rememberme.value;
             }
-            login(data,(data) => {
-                if(data.success) {
+            login(data,(resData) => {
+                if(resData.success) {
                     let time = 0.5;
                     if(data.rememberme) {
                         time = 30;
                     }
                     setCookie('user',{
-                        email: data.email,
-                        token: data.token
+                        email: resData.email,
+                        token: resData.token
                     },time);
                     navigate('/');
+                } else {
+                    setIsShowAlert({status: true, message: resData.message});
                 }
             },(err) =>{
                 setIsShowAlert({status: true, message:err.message});

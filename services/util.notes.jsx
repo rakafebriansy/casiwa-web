@@ -1,4 +1,5 @@
 import axios from "axios";
+import { getErrorMessage } from "./errorHelper";
 
 export const getNotes = (callback, keyword) => {
     keyword = keyword ?? '';
@@ -110,7 +111,7 @@ export const upload = (data, token, callback, errorHandler) => {
     }).catch(res => {
         errorHandler({
             status: false,
-            message:Object.values(res.response.data.errors)[0][0]
+            message: getErrorMessage(res)
         });
     });
 }
@@ -126,7 +127,7 @@ export const editNote = (data, token, callback, errorHandler) => {
     }).catch(res => {
         errorHandler({
             status: false,
-            message:Object.values(res.response.data.errors)[0][0]
+            message: getErrorMessage(res)
         });
     });
 }
@@ -142,7 +143,7 @@ export const deleteNote = (data, token, callback, errorHandler) => {
     }).catch(res => {
         errorHandler({
             status: false,
-            message:Object.values(res.response.data.errors)[0][0]
+            message: getErrorMessage(res)
         });
     });
 }
@@ -158,7 +159,7 @@ export const adminDeleteNote = (data, token, callback, errorHandler) => {
     }).catch(res => {
         errorHandler({
             status: false,
-            message:Object.values(res.response.data.errors)[0][0]
+            message: getErrorMessage(res)
         });
     });
 }

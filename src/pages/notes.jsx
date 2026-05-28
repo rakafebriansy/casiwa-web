@@ -91,7 +91,7 @@ const NotesPage = () => {
                         <ul className="flex flex-col gap-5">
                         {notes.data.map((item, index) => {
                             return (
-                                <NoteList item={item} index={index}/>
+                                <NoteList key={item.id || index} item={item} index={index}/>
                             );
                         })}
                         </ul>

@@ -1,4 +1,5 @@
 import axios from "axios";
+import { getErrorMessage } from "./errorHelper";
 
 export const login = (data, callback, errorHandler) => {
     axios.post(import.meta.env.VITE_BASE_URL + 'login', data).then(res => {
@@ -6,7 +7,7 @@ export const login = (data, callback, errorHandler) => {
     }).catch(res => {
         errorHandler({
             status: false,
-            message:Object.values(res.response.data.errors)[0][0]
+            message: getErrorMessage(res)
         });
     });
 }
@@ -17,7 +18,7 @@ export const adminLogin = (data, callback, errorHandler) => {
     }).catch(res => {
         errorHandler({
             status: false,
-            message:Object.values(res.response.data.errors)[0][0]
+            message: getErrorMessage(res)
         });
     });
 }
@@ -28,7 +29,7 @@ export const forgotPassword = (data, callback, errorHandler) => {
     }).catch(res => {
         errorHandler({
             status: false,
-            message:Object.values(res.response.data.errors)[0][0]
+            message: getErrorMessage(res)
         });
     });
 }
@@ -39,7 +40,7 @@ export const resetPassword = (data, callback, errorHandler) => {
     }).catch(res => {
         errorHandler({
             status: false,
-            message:Object.values(res.response.data.errors)[0][0]
+            message: getErrorMessage(res)
         });
     });
 }

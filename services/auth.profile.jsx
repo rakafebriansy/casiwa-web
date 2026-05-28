@@ -1,4 +1,5 @@
 import axios from "axios";
+import { getErrorMessage } from "./errorHelper";
 
 export const editProfile = (data, token, callback) => {
     axios.post(import.meta.env.VITE_BASE_URL + 'user/edit-profile', data, {
@@ -11,7 +12,7 @@ export const editProfile = (data, token, callback) => {
     }).catch(res => {
         callback({
             status: false,
-            message:Object.values(res.response.data.errors)[0][0]
+            message: getErrorMessage(res)
         });
     });
 }
@@ -27,7 +28,7 @@ export const editAdminPassword = (data, token, callback) => {
     }).catch(res => {
         callback({
             status: false,
-            message:Object.values(res.response.data.errors)[0][0]
+            message: getErrorMessage(res)
         });
     });
 }
